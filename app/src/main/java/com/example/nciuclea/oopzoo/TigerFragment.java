@@ -19,8 +19,11 @@ import android.widget.TextView;
 public class TigerFragment extends Fragment {
 
     Tiger tiger;
+    Runnable runnable;
+    Handler refreshHandler;
     RatingBar hungerRatingBar, cageRatingBar;
     Button feedButton, cageButton;
+    boolean isPaused = false;
 
     public TigerFragment() {
         // Required empty public constructor
@@ -48,8 +51,8 @@ public class TigerFragment extends Fragment {
         tiger = new Tiger(1, 4);
         hungerRatingBar.setRating(tiger.getHungerLevel());
 
-        final Handler refreshHandler = new Handler();
-        Runnable runnable = new Runnable() {
+        refreshHandler = new Handler();
+        runnable = new Runnable() {
             @Override
             public void run() {
                 //updating Tiger model and RatingBars on UI
@@ -58,7 +61,7 @@ public class TigerFragment extends Fragment {
                 cageRatingBar.setRating(tiger.getCageCleanLevel());
 
                 //scheduling next update
-                refreshHandler.postDelayed(this, 100);
+                if (!isPaused) refreshHandler.postDelayed(this, 100);
             }
         };
         refreshHandler.postDelayed(runnable, 100);
@@ -94,6 +97,19 @@ public class TigerFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        isPaused = true;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        isPaused = false;
+        refreshHandler.postDelayed(runnable, 1000);
     }
 
 }
