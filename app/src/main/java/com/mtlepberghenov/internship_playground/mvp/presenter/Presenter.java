@@ -1,8 +1,9 @@
 package com.mtlepberghenov.internship_playground.mvp.presenter;
 
 import com.mtlepberghenov.internship_playground.base.BaseMvpPresenter;
-import com.mtlepberghenov.internship_playground.mvp.view.View;
+import com.mtlepberghenov.internship_playground.mvp.view.MainView;
 
-public interface Presenter  extends BaseMvpPresenter<View> {
+public interface Presenter  extends BaseMvpPresenter<MainView> {
 
+    void onShowStoreBtnClicked();
 }
