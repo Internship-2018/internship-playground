@@ -1,20 +1,45 @@
 package com.example.nciuclea.oopzoo;
 
 abstract class Animal {
+
+    final static public float maxLevel = 10;
     String name;
     int imageId;
-    protected float hungerLevel, hungerMaxLevel, cageCleanLevel, cageCleanMaxLevel;
-    protected boolean isFed, isCageCleaned;
+
+
+    public float getHungerLevel() {
+        return hungerLevel;
+    }
+
+    protected float hungerLevel;
+
+    public float getCageCleanLevel() {
+        return cageCleanLevel;
+    }
+
+    protected float cageCleanLevel;
+
+    public void setFed(boolean fed) {
+        isFed = fed;
+    }
+
+    protected boolean isFed;
+
+    public void setCageCleaned(boolean cageCleaned) {
+        isCageCleaned = cageCleaned;
+    }
+
+    protected boolean isCageCleaned;
+    abstract void updateStats();
 }
 
 interface Feedable {
     void updateHunger();
-    float getHungerLevel();
+    /* float getHungerLevel();
     void startFeeding();
-    void stopFeeding();
+    void stopFeeding(); */
 }
 
 interface CageCleanable {
-    void cleanCage();
-    void decrementCleanCage();
+    void updateCage();
 }

@@ -3,12 +3,10 @@ package com.example.nciuclea.oopzoo;
 class Tiger extends Animal implements Feedable, CageCleanable {
 
     Tiger(){
-        hungerMaxLevel = 10;
-        cageCleanMaxLevel = 10;
         isFed = false;
         isCageCleaned = false;
-        hungerLevel = hungerMaxLevel;
-        cageCleanLevel = cageCleanMaxLevel;
+        hungerLevel = maxLevel;
+        cageCleanLevel = maxLevel;
     }
 
     Tiger(float hungerLevel, float cageCleanLevel){
@@ -19,7 +17,7 @@ class Tiger extends Animal implements Feedable, CageCleanable {
 
     @Override
     public void updateHunger() {
-        if (isFed && (hungerLevel < hungerMaxLevel)) {
+        if (isFed && (hungerLevel < maxLevel)) {
             hungerLevel += 0.1;
         }
         else if (!isFed && (hungerLevel > 0)) {
@@ -28,31 +26,20 @@ class Tiger extends Animal implements Feedable, CageCleanable {
     }
 
     @Override
-    public float getHungerLevel() {
-        return hungerLevel;
-    }
-
-    @Override
-    public void startFeeding() {
-        isFed = true;
-    }
-
-    @Override
-    public void stopFeeding() {
-        isFed = false;
-    }
-
-    @Override
-    public void cleanCage() {
-        if (cageCleanLevel < cageCleanMaxLevel){
+    public void updateCage() {
+        if (isCageCleaned && (cageCleanLevel < maxLevel)) {
             cageCleanLevel += 0.1;
         }
-    }
-
-    @Override
-    public void decrementCleanCage() {
-        if (cageCleanLevel > 0 && !isCageCleaned) {
+        else if (!isCageCleaned && (cageCleanLevel > 0)) {
             cageCleanLevel -= 0.01;
         }
+    }
+
+
+
+    @Override
+    void updateStats() {
+        updateHunger();
+        updateCage();
     }
 }
