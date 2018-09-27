@@ -11,10 +11,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         if(findViewById(R.id.tiger_container) != null) {
-            TigerFragment firstTigerFragment = new TigerFragment();
+            AnimalFragment tigerAnimalFragment = new AnimalFragment();
+            tigerAnimalFragment.setAnimal(new Tiger(5, 4, 6));
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.tiger_container, firstTigerFragment)
+                    .add(R.id.tiger_container, tigerAnimalFragment)
+                    .commit();
+        }
+        if(findViewById(R.id.owl_container) != null) {
+            AnimalFragment owlAnimalFragment = new AnimalFragment();
+            owlAnimalFragment.setAnimal(new Owl(10, 10));
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.owl_container, owlAnimalFragment)
                     .commit();
         }
     }
