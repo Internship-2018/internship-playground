@@ -10,18 +10,18 @@ import android.view.ViewGroup;
 
 import com.mtlepberghenov.internship_playground.R;
 import com.mtlepberghenov.internship_playground.mvp.presenter.MainPresenterIml;
-import com.mtlepberghenov.internship_playground.mvp.presenter.Presenter;
+import com.mtlepberghenov.internship_playground.mvp.presenter.MainPresenter;
 import com.mtlepberghenov.internship_playground.mvp.view.MainView;
 
 public class WelcomeFragment extends Fragment implements MainView {
 
-    private Presenter presenter;
+    private MainPresenter mainPresenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        presenter = new MainPresenterIml();
+        mainPresenter = new MainPresenterIml();
     }
 
     @Nullable
@@ -40,7 +40,7 @@ public class WelcomeFragment extends Fragment implements MainView {
 
     private void initUI(View view) {
         view.findViewById(R.id.show_store_btn).setOnClickListener(v -> {
-            presenter.onShowStoreBtnClicked();
+            mainPresenter.onShowStoreBtnClicked();
         });
     }
 

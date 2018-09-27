@@ -4,11 +4,11 @@ import com.mtlepberghenov.internship_playground.mvp.model.entity.Car;
 
 import java.util.ArrayList;
 
-public class CarModelImpl implements Model{
+public class CarMainModelImpl implements MainModel {
 
     private ArrayList<Car> carList;
 
-    public CarModelImpl() {
+    public CarMainModelImpl() {
         this.carList = CarList.init().getList();
     }
 
