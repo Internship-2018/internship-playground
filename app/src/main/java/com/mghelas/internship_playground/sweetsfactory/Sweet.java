@@ -10,6 +10,16 @@ public abstract class Sweet {
     private Boolean pricePerKg;
     private List<String> ingredients;
 
+    public Sweet() {
+    }
+
+    public Sweet(String title, Double price, Double weight, Boolean pricePerKg) {
+        this.title = title;
+        this.price = price;
+        this.weight = weight;
+        this.pricePerKg = pricePerKg;
+    }
+
     public Boolean getPricePerKg() {
         return pricePerKg;
     }

@@ -8,6 +8,14 @@ public class Chocolate extends Sweet {
 
     private Integer percentage;
 
+    public Chocolate() {
+    }
+
+    public Chocolate(String title, Double price, Double weight, Boolean pricePerKg, Integer percentage) {
+        super(title, price, weight, pricePerKg);
+        this.percentage = percentage;
+    }
+
     public Integer getPercentage() {
         return percentage;
     }

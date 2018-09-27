@@ -2,54 +2,59 @@ package com.mghelas.internship_playground;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.view.Gravity;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
+import com.mghelas.internship_playground.adapters.SweetsAdapter;
 import com.mghelas.internship_playground.sweetsfactory.Chocolate;
+import com.mghelas.internship_playground.sweetsfactory.Lollipop;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AllProductsActivity extends Activity {
+
+    private List<Object> sweetsList = new ArrayList<>();
+    private SweetsAdapter sweetsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_products);
 
-        LinearLayout productsLl = findViewById(R.id.productsLl);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(30, 20, 30, 0);
+        RecyclerView recyclerView = findViewById(R.id.allProducts);
 
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        Chocolate chocolate = new Chocolate();
-        chocolate.setTitle("Meteorit");
-        chocolate.setPrice(50.0);
-        chocolate.setPricePerKg(true);
-        chocolate.setWeight(10.0);
-        chocolate.setPercentage(50);
-        for (int i = 0; i < 20; i++) {
-            LinearLayout product = new LinearLayout(this);
-            product.setOrientation(LinearLayout.HORIZONTAL);
+        prepareChocolateData();
+        prepareLollipopData();
+        sweetsAdapter = new SweetsAdapter(sweetsList);
+        sweetsAdapter.notifyDataSetChanged();
+        recyclerView.setAdapter(sweetsAdapter);
 
+    }
 
-            TextView title = new TextView(this);
-            title.setText("Title: \n" + chocolate.getTitle());
-            product.addView(title, layoutParams);
+    private void prepareChocolateData() {
+        Chocolate chocolate = new Chocolate("Meteorit", 50.0, 10.0, true, 50);
+        sweetsList.add(chocolate);
+        chocolate = new Chocolate("chocolate 1", 30.0, 15.0, true, 75);
+        sweetsList.add(chocolate);
+        chocolate = new Chocolate("chocolate 2", 20.0, 12.0, true, 25);
+        sweetsList.add(chocolate);
 
-            TextView price = new TextView(this);
-            price.setText(chocolate.getPricePerKg() ? "Price/kg: \n" + chocolate.getPrice() : "Price: \n" + chocolate.getPrice());
-            product.addView(price, layoutParams);
+    }
 
-            TextView weight = new TextView(this);
-            weight.setText("Wieght: \n" + chocolate.getWeight());
-            product.addView(weight, layoutParams);
+    private void prepareLollipopData() {
+        Lollipop lollipop = new Lollipop("Lollipop 1", 5.0, 10.0, false, "Apple");
+        sweetsList.add(lollipop);
+        lollipop = new Lollipop("Lollipop 2", 7.0, 5.0, false, "Banana");
+        sweetsList.add(lollipop);
+        lollipop = new Lollipop("Lollipop 3", 8.0, 11.0, false, "Strawberry");
+        sweetsList.add(lollipop);
 
-            TextView chocolatePercentage = new TextView(this);
-            chocolatePercentage.setText("Chocolate %: \n" + chocolate.getPercentage());
-            product.addView(chocolatePercentage, layoutParams);
-
-
-            productsLl.addView(product);
-        }
     }
 
 }
