@@ -10,11 +10,11 @@ public class CarKitting {
         this.airConditioner = airConditioner;
     }
 
-    public boolean isGps() {
-        return gps;
+    public String getGps() {
+        return String.valueOf(gps);
     }
 
-    public boolean isAirConditioner() {
-        return airConditioner;
+    public String getAirConditioner() {
+        return String.valueOf(airConditioner);
     }
 }

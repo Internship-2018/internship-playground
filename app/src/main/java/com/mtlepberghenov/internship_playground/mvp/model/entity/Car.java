@@ -15,5 +15,25 @@ public abstract class Car {
         this.year = year;
         this.carKitting = carKitting;
     }
+
+    public String getCarMake() {
+        return carMake;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public String getYear() {
+        return String.valueOf(year);
+    }
+
+    public CarKitting getCarKitting() {
+        return carKitting;
+    }
 }
 

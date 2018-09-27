@@ -17,6 +17,7 @@ import com.mtlepberghenov.internship_playground.mvp.model.entity.Car;
 import com.mtlepberghenov.internship_playground.mvp.presenter.CarListPresenter;
 import com.mtlepberghenov.internship_playground.mvp.presenter.CarListPresenterImpl;
 import com.mtlepberghenov.internship_playground.mvp.view.CarListView;
+import com.mtlepberghenov.internship_playground.ui.adapter.CarListAdapter;
 
 import java.util.ArrayList;
 
@@ -44,8 +45,8 @@ public class CarListFragment extends Fragment implements CarListView {
         return view;
     }
 
-    private void initUI(View view) {
-        recyclerView = new RecyclerView(getContext());
+    private void initUI(View v) {
+        recyclerView = v.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
@@ -60,6 +61,7 @@ public class CarListFragment extends Fragment implements CarListView {
 
     @Override
     public void onSetRecyclerViewAdapter(ArrayList<Car> carList) {
-
+        CarListAdapter adapter = new CarListAdapter(carList);
+        recyclerView.setAdapter(adapter);
     }
 }
