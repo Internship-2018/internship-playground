@@ -1,4 +1,4 @@
-package com.mtlepberghenov.internship_playground.mvp.model.car;
+package com.mtlepberghenov.internship_playground.mvp.model.entity;
 
 public interface CarAction {
 
