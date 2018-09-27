@@ -1,4 +1,4 @@
-package com.mtlepberghenov.internship_playground.mvp.model;
+package com.mtlepberghenov.internship_playground.mvp.model.data;
 
 import com.mtlepberghenov.internship_playground.mvp.model.entity.Bmw;
 import com.mtlepberghenov.internship_playground.mvp.model.entity.Car;
@@ -7,24 +7,23 @@ import com.mtlepberghenov.internship_playground.mvp.model.entity.Toyota;
 
 import java.util.ArrayList;
 
-public class CarList {
+public final class SingletonCarList {
 
-    private static CarList carList;
+    private static SingletonCarList singletonCarList;
 
-    private ArrayList<Car> list;
-
-    private CarList() {
+    private SingletonCarList() {
     }
 
-    public static CarList init() {
-        if (carList == null) {
-            carList = new CarList();
+    public static SingletonCarList init() {
+        if (singletonCarList == null) {
+            singletonCarList = new SingletonCarList();
         }
 
-        return carList;
+        return singletonCarList;
     }
 
     public ArrayList<Car> getList() {
+        ArrayList<Car> list = new ArrayList<>();
         list.add(new Bmw("Bmw", "e34", "Red", 2010, new CarKitting(true, false)));
         list.add(new Bmw("Bmw", "e35", "Green", 2011, new CarKitting(true, false)));
         list.add(new Bmw("Bmw", "e36", "White", 2012, new CarKitting(false, false)));
