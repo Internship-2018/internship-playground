@@ -20,8 +20,8 @@ public class WelcomeFragment extends Fragment implements MainView {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mainPresenter = new MainPresenterIml();
+        mainPresenter.attach(this);
     }
 
     @Nullable
@@ -35,7 +35,13 @@ public class WelcomeFragment extends Fragment implements MainView {
 
     @Override
     public void onStartCarListFragment() {
-        // TODO: 9/26/2018 start fragment
+        if (getActivity() != null) {
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main_container, new CarListFragment())
+                    .addToBackStack(null)
+                    .commit();
+        }
     }
 
     private void initUI(View view) {

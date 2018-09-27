@@ -24,6 +24,7 @@ public class CarListFragment extends Fragment implements CarListView {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new CarListPresenterImpl();
+        presenter.attach(this);
     }
 
     @Nullable
