@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">internship-playground</string>
     <string name="show_store">Show store</string>
+    <string name="color">Color:</string>
+    <string name="model">Model:</string>
+    <string name="year">Year:</string>
+    <string name="carkit">CarKit:</string>
+    <string name="air_con">Air-Con.:</string>
+    <string name="gps">GPS:</string>
+    <string name="air_con">Air-Con.:</string>
 </resources>
