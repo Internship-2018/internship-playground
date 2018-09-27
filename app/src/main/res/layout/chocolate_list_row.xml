@@ -22,15 +22,12 @@
                 android:id="@+id/titleLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="Title" />
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="16dp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -45,7 +42,6 @@
                 android:id="@+id/priceLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="Price" />
 
             <TextView
@@ -53,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/priceLabel"
-                android:layout_weight="1" />
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -67,15 +63,13 @@
                 android:id="@+id/weightLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="Weight" />
 
             <TextView
                 android:id="@+id/weight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/weightLabel"
-                android:layout_weight="1" />
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -89,16 +83,23 @@
                 android:id="@+id/percentageLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="Percentage" />
 
             <TextView
                 android:id="@+id/percentage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/percentageLabel"
-                android:layout_weight="1" />
+                android:textStyle="bold" />
+
         </LinearLayout>
+
+        <Button
+            android:id="@+id/manufacture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Create" />
+
     </LinearLayout>
 
 

@@ -60,6 +60,6 @@ public abstract class Sweet {
         this.weight = weight;
     }
 
-    abstract void manufacture();
-    abstract void manufacture(Date date);
+    abstract public String manufacture();
+    abstract public void manufacture(Date date);
 }

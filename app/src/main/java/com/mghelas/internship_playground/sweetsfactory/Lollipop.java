@@ -20,13 +20,13 @@ public class Lollipop extends Sweet {
     }
 
     @Override
-    void manufacture() {
-        System.out.println("Mix ingredients, put in freezez...");
+    public String manufacture() {
+       return "Mix " + this.getIngredients().toString() + ", put in freezer...";
     }
 
     @Override
-    void manufacture(Date date) {
+    public void manufacture(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        System.out.println("Mix ingredients, put in freezez... on " + sdf.format(date));
+        System.out.println("Mix " + this.getIngredients().toString() + ", put in freezer... on " + sdf.format(date));
     }
 }

@@ -25,12 +25,12 @@ public class Chocolate extends Sweet {
     }
 
     @Override
-    void manufacture() {
-        System.out.println("mix " + this.getIngredients().toString());
+    public String manufacture() {
+        return "mix " + this.getIngredients().toString();
     }
 
     @Override
-    void manufacture(Date date) {
+    public void manufacture(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         System.out.println("mix " + this.getIngredients().toString() + " on " + sdf.format(date));
     }
