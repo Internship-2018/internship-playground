@@ -101,7 +101,6 @@ public class SweetsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        System.out.println(viewType + " asd");
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         if (viewType == ITEM_TYPE_CHOCOLATE) {
             View v = layoutInflater.inflate(R.layout.chocolate_list_row, parent, false);
@@ -138,7 +137,6 @@ public class SweetsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public int getItemCount() {
         return this.items.size();
     }
-
 
 
 }
