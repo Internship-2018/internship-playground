@@ -21,7 +21,6 @@ public class WelcomeFragment extends Fragment implements MainView {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainPresenter = new MainPresenterIml();
-        mainPresenter.attach(this);
     }
 
     @Nullable
@@ -30,6 +29,7 @@ public class WelcomeFragment extends Fragment implements MainView {
 
         View view = inflater.inflate(R.layout.fragment_welocme, container, false);
         initUI(view);
+        mainPresenter.attach(this);
         return view;
     }
 
