@@ -4,6 +4,7 @@ import com.mtlepberghenov.internship_playground.model.entity.Bmw;
 import com.mtlepberghenov.internship_playground.model.entity.Car;
 import com.mtlepberghenov.internship_playground.model.entity.CarKitting;
 import com.mtlepberghenov.internship_playground.model.entity.Toyota;
+import com.mtlepberghenov.internship_playground.model.entity.Vehicle;
 
 import java.util.ArrayList;
 
