@@ -1,7 +1,7 @@
-package com.mtlepberghenov.internship_playground.mvp.presenter;
+package com.mtlepberghenov.internship_playground.screens.carlist.presenter;
 
 import com.mtlepberghenov.internship_playground.base.BaseMvpPresenter;
-import com.mtlepberghenov.internship_playground.mvp.view.CarListView;
+import com.mtlepberghenov.internship_playground.screens.carlist.view.CarListView;
 
 public interface CarListPresenter extends BaseMvpPresenter<CarListView> {
 

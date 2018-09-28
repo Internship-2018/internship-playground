@@ -1,7 +1,7 @@
-package com.mtlepberghenov.internship_playground.mvp.view;
+package com.mtlepberghenov.internship_playground.screens.carlist.view;
 
 import com.mtlepberghenov.internship_playground.base.BaseView;
-import com.mtlepberghenov.internship_playground.mvp.model.entity.Car;
+import com.mtlepberghenov.internship_playground.model.entity.Car;
 
 import java.util.ArrayList;
 

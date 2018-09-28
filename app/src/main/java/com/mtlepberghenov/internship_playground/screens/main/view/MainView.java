@@ -1,4 +1,4 @@
-package com.mtlepberghenov.internship_playground.mvp.view;
+package com.mtlepberghenov.internship_playground.screens.main.view;
 
 import com.mtlepberghenov.internship_playground.base.BaseView;
 

@@ -1,9 +1,10 @@
-package com.mtlepberghenov.internship_playground.ui;
+package com.mtlepberghenov.internship_playground.screens.main.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.mtlepberghenov.internship_playground.R;
+import com.mtlepberghenov.internship_playground.screens.welcome.WelcomeFragment;
 
 public class MainActivity extends AppCompatActivity {
 

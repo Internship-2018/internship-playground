@@ -1,7 +1,7 @@
-package com.mtlepberghenov.internship_playground.mvp.model;
+package com.mtlepberghenov.internship_playground.model;
 
-import com.mtlepberghenov.internship_playground.mvp.model.data.SingletonCarList;
-import com.mtlepberghenov.internship_playground.mvp.model.entity.Car;
+import com.mtlepberghenov.internship_playground.data.SingletonCarList;
+import com.mtlepberghenov.internship_playground.model.entity.Car;
 
 import java.util.ArrayList;
 

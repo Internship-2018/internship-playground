@@ -1,6 +1,5 @@
-package com.mtlepberghenov.internship_playground.ui;
+package com.mtlepberghenov.internship_playground.screens.carlist.view;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,12 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mtlepberghenov.internship_playground.R;
-import com.mtlepberghenov.internship_playground.mvp.model.CarMainModelImpl;
-import com.mtlepberghenov.internship_playground.mvp.model.entity.Car;
-import com.mtlepberghenov.internship_playground.mvp.presenter.CarListPresenter;
-import com.mtlepberghenov.internship_playground.mvp.presenter.CarListPresenterImpl;
-import com.mtlepberghenov.internship_playground.mvp.view.CarListView;
-import com.mtlepberghenov.internship_playground.ui.adapter.CarListAdapter;
+import com.mtlepberghenov.internship_playground.model.CarMainModelImpl;
+import com.mtlepberghenov.internship_playground.model.entity.Car;
+import com.mtlepberghenov.internship_playground.screens.carlist.presenter.CarListPresenter;
+import com.mtlepberghenov.internship_playground.screens.carlist.presenter.CarListPresenterImpl;
 
 import java.util.ArrayList;
 

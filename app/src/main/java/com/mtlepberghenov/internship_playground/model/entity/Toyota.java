@@ -1,4 +1,4 @@
-package com.mtlepberghenov.internship_playground.mvp.model.entity;
+package com.mtlepberghenov.internship_playground.model.entity;
 
 public class Toyota extends Car implements CarAction {
 

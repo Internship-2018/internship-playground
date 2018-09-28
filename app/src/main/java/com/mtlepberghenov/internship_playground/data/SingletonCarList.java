@@ -1,9 +1,9 @@
-package com.mtlepberghenov.internship_playground.mvp.model.data;
+package com.mtlepberghenov.internship_playground.data;
 
-import com.mtlepberghenov.internship_playground.mvp.model.entity.Bmw;
-import com.mtlepberghenov.internship_playground.mvp.model.entity.Car;
-import com.mtlepberghenov.internship_playground.mvp.model.entity.CarKitting;
-import com.mtlepberghenov.internship_playground.mvp.model.entity.Toyota;
+import com.mtlepberghenov.internship_playground.model.entity.Bmw;
+import com.mtlepberghenov.internship_playground.model.entity.Car;
+import com.mtlepberghenov.internship_playground.model.entity.CarKitting;
+import com.mtlepberghenov.internship_playground.model.entity.Toyota;
 
 import java.util.ArrayList;
 

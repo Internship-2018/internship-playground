@@ -1,4 +1,4 @@
-package com.mtlepberghenov.internship_playground.ui;
+package com.mtlepberghenov.internship_playground.screens.welcome;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,9 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mtlepberghenov.internship_playground.R;
-import com.mtlepberghenov.internship_playground.mvp.presenter.MainPresenter;
-import com.mtlepberghenov.internship_playground.mvp.presenter.MainPresenterIml;
-import com.mtlepberghenov.internship_playground.mvp.view.MainView;
+import com.mtlepberghenov.internship_playground.screens.main.presenter.MainPresenter;
+import com.mtlepberghenov.internship_playground.screens.main.presenter.MainPresenterIml;
+import com.mtlepberghenov.internship_playground.screens.main.view.MainView;
+import com.mtlepberghenov.internship_playground.screens.carlist.view.CarListFragment;
 
 public class WelcomeFragment extends Fragment implements MainView {
 

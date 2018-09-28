@@ -1,10 +1,10 @@
-package com.mtlepberghenov.internship_playground.mvp.presenter;
+package com.mtlepberghenov.internship_playground.screens.carlist.presenter;
 
 import android.util.Log;
 
 import com.mtlepberghenov.internship_playground.base.BasePresenter;
-import com.mtlepberghenov.internship_playground.mvp.model.MainModel;
-import com.mtlepberghenov.internship_playground.mvp.view.CarListView;
+import com.mtlepberghenov.internship_playground.model.MainModel;
+import com.mtlepberghenov.internship_playground.screens.carlist.view.CarListView;
 
 public class CarListPresenterImpl extends BasePresenter<CarListView>
         implements CarListPresenter {
