@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.nciuclea.oopzoomvp.R;
+import com.example.nciuclea.oopzoomvp.ZooScreen.ZooFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,7 +63,10 @@ public class WelcomeFragment extends Fragment implements WelcomeView {
 
     @Override
     public void startZooFragment() {
-        //go to the second fragment
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new ZooFragment())
+                .commit();
 
     }
 
