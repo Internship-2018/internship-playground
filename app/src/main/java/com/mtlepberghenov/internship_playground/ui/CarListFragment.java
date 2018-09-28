@@ -1,5 +1,6 @@
 package com.mtlepberghenov.internship_playground.ui;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,6 +28,8 @@ public class CarListFragment extends Fragment implements CarListView {
 
     private RecyclerView recyclerView;
 
+    private CarListAdapter adapter;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,12 +40,12 @@ public class CarListFragment extends Fragment implements CarListView {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_car_list, container, false);
+    }
 
-        View view = inflater.inflate(R.layout.fragment_car_list, container, false);
-
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         initUI(view);
-
-        return view;
     }
 
     private void initUI(View v) {
@@ -56,12 +59,13 @@ public class CarListFragment extends Fragment implements CarListView {
 
         recyclerView.addItemDecoration(decoration);
 
+        adapter = new CarListAdapter();
+        recyclerView.setAdapter(adapter);
         presenter.onRecyclerViewIsReady();
     }
 
     @Override
-    public void onSetRecyclerViewAdapter(ArrayList<Car> carList) {
-        CarListAdapter adapter = new CarListAdapter(carList);
-        recyclerView.setAdapter(adapter);
+    public void setCarListToAdapter(ArrayList<Car> carList) {
+        adapter.setData(carList);
     }
 }

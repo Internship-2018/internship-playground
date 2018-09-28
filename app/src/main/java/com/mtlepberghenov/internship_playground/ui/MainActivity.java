@@ -13,14 +13,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         startWelcomeFragment();
-
-
     }
 
     private void startWelcomeFragment() {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.main_container, new WelcomeFragment())
-                .commit();
+        if (findViewById(R.id.main_container) != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main_container, new WelcomeFragment())
+                    .commit();
+        }
     }
 }

@@ -7,5 +7,5 @@ import java.util.ArrayList;
 
 public interface CarListView extends BaseView {
 
-    void onSetRecyclerViewAdapter(ArrayList<Car> carList);
+    void setCarListToAdapter(ArrayList<Car> carList);
 }

@@ -40,7 +40,7 @@ public class WelcomeFragment extends Fragment implements MainView {
     public void onStartCarListFragment() {
         FragmentManager fm = getFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.main_container);
-        if (fragment == null) {
+        if (fragment != null) {
             fragment = new CarListFragment();
             fm.beginTransaction()
                     .replace(R.id.main_container, fragment)

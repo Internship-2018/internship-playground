@@ -1,6 +1,7 @@
 package com.mtlepberghenov.internship_playground.ui.adapter;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +15,7 @@ import java.util.ArrayList;
 
 public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.MyViewHolder>{
 
-    private ArrayList<Car> carList;
-
-    public CarListAdapter(ArrayList<Car> carList) {
-
-        this.carList = carList;
-    }
+    private ArrayList<Car> carList = new ArrayList<>();
 
     @NonNull
     @Override
@@ -44,6 +40,12 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.MyViewHo
     @Override
     public int getItemCount() {
         return carList.size();
+    }
+
+    public void setData(ArrayList<Car> carList) {
+        this.carList.clear();
+        this.carList.addAll(carList);
+        notifyDataSetChanged();
     }
 
 
