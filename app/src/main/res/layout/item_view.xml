@@ -4,99 +4,15 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="@dimen/small_padding">
+    android:padding="@dimen/small_padding"
+    >
 
-    <TextView
-        android:id="@+id/item_view_car_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/large_text_size"
-        tools:text="Toyota" />
-
-    <GridLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/small_margin"
-        android:columnCount="2"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/small_margin"
-            android:text="@string/model" />
-
-        <TextView
-            android:id="@+id/item_view_car_model"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Prius1" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/small_margin"
-            android:text="@string/color" />
-
-        <TextView
-            android:id="@+id/item_view_car_color"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Red" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/small_margin"
-            android:text="@string/year" />
-
-        <TextView
-            android:id="@+id/item_view_car_year"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="2002" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/small_margin"
-            android:text="@string/carkit" />
-
-        <GridLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:columnCount="2"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/small_margin"
-                android:text="@string/air_con"
-                android:textSize="@dimen/small_text_size" />
-
-            <TextView
-                android:id="@+id/item_view_air_con"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/small_text_size"
-                tools:text="false" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/small_margin"
-                android:text="@string/gps"
-                android:textSize="@dimen/small_text_size" />
-
-            <TextView
-                android:id="@+id/item_view_gps"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/small_text_size"
-                tools:text="true" />
-        </GridLayout>
-    </GridLayout>
+  <TextView
+      android:id="@+id/item_view_text_view"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      tools:text="Toyota"
+      />
 
 
 </LinearLayout>
