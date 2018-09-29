@@ -2,14 +2,14 @@ package com.mtlepberghenov.internship_playground.model.entity;
 
 public abstract class Vehicle {
     private String type;
-    private String carMake;
+    private String make;
     private String model;
     private String color;
     private int year;
 
-    public Vehicle(String type, String carMake, String model, String color, int year) {
+    public Vehicle(String type, String make, String model, String color, int year) {
         this.type = type;
-        this.carMake = carMake;
+        this.make = make;
         this.model = model;
         this.color = color;
         this.year = year;
@@ -19,8 +19,8 @@ public abstract class Vehicle {
         return type;
     }
 
-    public String getCarMake() {
-        return carMake;
+    public String getMake() {
+        return make;
     }
 
     public String getModel() {
@@ -31,7 +31,7 @@ public abstract class Vehicle {
         return color;
     }
 
-    public int getYear() {
-        return year;
+    public String getYear() {
+        return String.valueOf(year);
     }
 }

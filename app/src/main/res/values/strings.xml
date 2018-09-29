@@ -7,4 +7,5 @@
     <string name="carkit">CarKit:</string>
     <string name="air_con">Air-Con.:</string>
     <string name="gps">GPS:</string>
+    <string name="item_text">Type: %s\nMake: %s\nModel: %s\nColor: %s\nYear: %s</string>
 </resources>

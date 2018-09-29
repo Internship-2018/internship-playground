@@ -1,4 +1,4 @@
-package com.mtlepberghenov.internship_playground.screens.carlist.view;
+package com.mtlepberghenov.internship_playground.screens.vehiclelist.view;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,15 +13,15 @@ import android.view.ViewGroup;
 
 import com.mtlepberghenov.internship_playground.R;
 import com.mtlepberghenov.internship_playground.model.CarMainModelImpl;
-import com.mtlepberghenov.internship_playground.model.entity.Car;
-import com.mtlepberghenov.internship_playground.screens.carlist.presenter.CarListPresenter;
-import com.mtlepberghenov.internship_playground.screens.carlist.presenter.CarListPresenterImpl;
+import com.mtlepberghenov.internship_playground.model.entity.Vehicle;
+import com.mtlepberghenov.internship_playground.screens.vehiclelist.presenter.VehicleListPresenter;
+import com.mtlepberghenov.internship_playground.screens.vehiclelist.presenter.VehicleListPresenterImpl;
 
 import java.util.ArrayList;
 
-public class CarListFragment extends Fragment implements CarListView {
+public class VehicleListFragment extends Fragment implements VehicleListView {
 
-    private CarListPresenter presenter;
+    private VehicleListPresenter presenter;
 
     private RecyclerView recyclerView;
 
@@ -30,7 +30,7 @@ public class CarListFragment extends Fragment implements CarListView {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new CarListPresenterImpl(new CarMainModelImpl());
+        presenter = new VehicleListPresenterImpl(new CarMainModelImpl());
         presenter.attach(this);
     }
 
@@ -62,7 +62,7 @@ public class CarListFragment extends Fragment implements CarListView {
     }
 
     @Override
-    public void setCarListToAdapter(ArrayList<Car> carList) {
+    public void setVehicleListToAdapter(ArrayList<Vehicle> carList) {
         adapter.setData(carList);
     }
 }

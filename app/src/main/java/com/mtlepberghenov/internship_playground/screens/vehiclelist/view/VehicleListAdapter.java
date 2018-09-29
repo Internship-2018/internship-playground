@@ -1,4 +1,4 @@
-package com.mtlepberghenov.internship_playground.screens.carlist.view;
+package com.mtlepberghenov.internship_playground.screens.vehiclelist.view;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -6,18 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.mtlepberghenov.internship_playground.R;
-import com.mtlepberghenov.internship_playground.model.entity.Car;
-
 import com.mtlepberghenov.internship_playground.model.entity.Vehicle;
 import java.util.ArrayList;
 
-public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.MyViewHolder>{
+public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.MyViewHolder> {
 
   private ArrayList<Vehicle> vehicleList = new ArrayList<>();
+  private StringBuilder sb = new StringBuilder();
 
   @NonNull
   @Override
@@ -31,7 +30,17 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
 
   @Override
   public void onBindViewHolder(@NonNull VehicleListAdapter.MyViewHolder holder, int i) {
-    holder.textView.setText("");
+
+    /* Note: holder.text = "Type: %s\nMake: %s\nModel: %s\nColor: %s\nYear: %s" */
+    sb.append(String.format(holder.text,
+                                        vehicleList.get(i).getType(),
+                                        vehicleList.get(i).getMake(),
+                                        vehicleList.get(i).getModel(),
+                                        vehicleList.get(i).getColor(),
+                                        vehicleList.get(i).getYear()));
+
+    holder.textView.setText(sb.toString());
+    sb.setLength(0);
   }
 
   @Override
@@ -45,16 +54,14 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
     notifyDataSetChanged();
   }
 
-
-  public static class MyViewHolder extends RecyclerView.ViewHolder{
+  static class MyViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.item_view_text_view) TextView textView;
+    @BindString(R.string.item_text) String text;
 
-    public MyViewHolder(@NonNull View v) {
+    MyViewHolder(@NonNull View v) {
       super(v);
-
       ButterKnife.bind(this, v);
-
     }
   }
 }

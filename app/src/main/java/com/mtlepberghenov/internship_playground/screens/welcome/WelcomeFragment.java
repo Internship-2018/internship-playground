@@ -13,7 +13,7 @@ import com.mtlepberghenov.internship_playground.R;
 import com.mtlepberghenov.internship_playground.screens.main.presenter.MainPresenter;
 import com.mtlepberghenov.internship_playground.screens.main.presenter.MainPresenterIml;
 import com.mtlepberghenov.internship_playground.screens.main.view.MainView;
-import com.mtlepberghenov.internship_playground.screens.carlist.view.CarListFragment;
+import com.mtlepberghenov.internship_playground.screens.vehiclelist.view.VehicleListFragment;
 
 public class WelcomeFragment extends Fragment implements MainView {
 
@@ -42,7 +42,7 @@ public class WelcomeFragment extends Fragment implements MainView {
         FragmentManager fm = getFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.main_container);
         if (fragment != null) {
-            fragment = new CarListFragment();
+            fragment = new VehicleListFragment();
             fm.beginTransaction()
                     .replace(R.id.main_container, fragment)
                     .commit();
