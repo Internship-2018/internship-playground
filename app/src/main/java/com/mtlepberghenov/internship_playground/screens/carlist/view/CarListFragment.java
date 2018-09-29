@@ -25,7 +25,7 @@ public class CarListFragment extends Fragment implements CarListView {
 
     private RecyclerView recyclerView;
 
-    private CarListAdapter adapter;
+    private VehicleListAdapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class CarListFragment extends Fragment implements CarListView {
 
         recyclerView.addItemDecoration(decoration);
 
-        adapter = new CarListAdapter();
+        adapter = new VehicleListAdapter();
         recyclerView.setAdapter(adapter);
         presenter.onRecyclerViewIsReady();
     }
