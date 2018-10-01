@@ -6,6 +6,8 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.mghelas.internship_playground.adapters.SweetsAdapter;
 import com.mghelas.internship_playground.sweetsfactory.Chocolate;
 import com.mghelas.internship_playground.sweetsfactory.Lollipop;
@@ -36,6 +38,12 @@ public class AllProductsActivity extends Activity {
         sweetsAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(sweetsAdapter);
 
+
+        Answers.getInstance().logContentView(new ContentViewEvent());
+        Answers.getInstance().logContentView(new ContentViewEvent()
+                .putContentName("Answers setup process super easy!")
+                .putContentType("Technical documentation")
+                .putContentId("article-350"));
     }
 
     private void prepareChocolateData() {

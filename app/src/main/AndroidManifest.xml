@@ -19,6 +19,10 @@
         <activity
             android:name=".AllProductsActivity"
             android:label="@string/title_activity_all_products"></activity>
-    </application>
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="fd78f1dd8fbca683b8dc5253ae0f80f1eb9c5b8f" />
+    </application>
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
