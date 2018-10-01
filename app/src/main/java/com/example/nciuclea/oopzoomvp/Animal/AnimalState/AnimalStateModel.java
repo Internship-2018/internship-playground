@@ -1,8 +1,10 @@
-package com.example.nciuclea.oopzoomvp.AnimalState;
+package com.example.nciuclea.oopzoomvp.Animal.AnimalState;
 
 import java.util.Date;
 
 interface AnimalStateModel {
+
+    String getStateName();
 
     State getState();
 

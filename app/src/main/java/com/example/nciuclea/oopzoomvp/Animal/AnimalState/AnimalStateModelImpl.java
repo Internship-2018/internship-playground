@@ -1,14 +1,20 @@
-package com.example.nciuclea.oopzoomvp.AnimalState;
+package com.example.nciuclea.oopzoomvp.Animal.AnimalState;
 
 import java.util.Date;
 
 public class AnimalStateModelImpl implements AnimalStateModel {
     private String stateName;
+
     private State state = State.GREEN;
     private Date timeLastAction = new Date(System.currentTimeMillis());
     private long changeStateTime;
 
-    AnimalStateModelImpl(String stateName, State state, long changeStateTime){
+    @Override
+    public String getStateName() {
+        return stateName;
+    }
+
+    public AnimalStateModelImpl(String stateName, State state, long changeStateTime){
         this.stateName = stateName;
         this.state = state;
         this.changeStateTime = changeStateTime;
