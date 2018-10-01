@@ -1,13 +1,13 @@
 package com.example.nciuclea.oopzoomvp.Animal.AnimalState;
 
-interface AnimalStatePresenter {
-    void updateState();
+public interface AnimalStatePresenter {
+    boolean isViewSet();
 
-    String getStateName();
-
-    State getState();
-
-    void takeAction();
+    void setView(AnimalStateView view);
 
     void initUI();
+
+    void updateState();
+
+    void takeAction();
 }

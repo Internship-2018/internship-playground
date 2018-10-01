@@ -1,123 +1,90 @@
 package com.example.nciuclea.oopzoomvp.ZooScreen;
 
+import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.nciuclea.oopzoomvp.Animal.AnimalState.AnimalStatePresenterImpl;
-import com.example.nciuclea.oopzoomvp.Animal.AnimalState.AnimalStateView;
-import com.example.nciuclea.oopzoomvp.Animal.AnimalState.State;
+import com.example.nciuclea.oopzoomvp.Animal.Animal;
 import com.example.nciuclea.oopzoomvp.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalViewHolder> {
+class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.ZooViewHolder> {
 
-    private List<AnimalStatePresenterImpl> statesList;
+    private List<Animal> animalList;
+    private Runnable runnable;
+    private Handler refreshHandler;
 
-    public AnimalAdapter(List<AnimalStatePresenterImpl> statesList) {
-        this.statesList = statesList;
+    public AnimalAdapter(List<Animal> animalList) {
+        this.animalList = animalList;
     }
 
-    public class AnimalViewHolder extends RecyclerView.ViewHolder implements AnimalStateView {
-        public TextView stateTextView;
-        public Button stateButton;
+    public static class ZooViewHolder extends RecyclerView.ViewHolder {
+        public TextView animalTextView;
+        public ImageView animalImageView;
+        public RecyclerView animalRecyclerView;
+        AnimalStateAdapter animalStateAdapter;
+        RecyclerView.LayoutManager animalLayoutManager;
 
-        public AnimalViewHolder(@NonNull View itemView) {
+        public ZooViewHolder(@NonNull View itemView) {
             super(itemView);
-            stateTextView = itemView.findViewById(R.id.stateTextView);
-            stateButton = itemView.findViewById(R.id.stateButton);
-        }
-
-        @Override
-        public void setStateName(String name) {
-            stateTextView.setText(name);
-        }
-
-        @Override
-        public void updateStateButton(State state) {
-            changeStateButtonName(state);
-            changeStateButtonColor(state);
-        }
-
-        @Override
-        public void changeStateButtonName(State state) {
-            String text = "UNDEFINED";
-            switch (state) {
-                case GREEN:
-                    text = "GOOD";
-                    break;
-                case YELLOW:
-                    text = "OK";
-                    break;
-                case RED:
-                    text = "BAD";
-                    break;
-                case BLACK:
-                    text = "DEAD";
-                    break;
-            }
-            stateButton.setText(text);
-        }
-
-        @Override
-        public void changeStateButtonColor(State state) {
-            int colorID = R.color.black;
-            switch (state) {
-                case GREEN:
-                    colorID = R.color.green;
-                    break;
-                case YELLOW:
-                    colorID = R.color.yellow;
-                    break;
-                case RED:
-                    colorID = R.color.red;
-                    break;
-                case BLACK:
-                    colorID = R.color.black;
-                    break;
-            }
-            stateButton.setTextColor(ContextCompat.getColor(itemView.getContext(), colorID));
+            animalTextView = itemView.findViewById(R.id.animalTextView);
+            animalImageView = itemView.findViewById(R.id.animalImageView);
+            animalRecyclerView = itemView.findViewById(R.id.animalRecyclerView);
+            animalRecyclerView.setHasFixedSize(true);
+            animalLayoutManager = new LinearLayoutManager(itemView.getContext());
+            animalRecyclerView.setLayoutManager(animalLayoutManager);
+            animalStateAdapter = new AnimalStateAdapter(null);
+            animalRecyclerView.setAdapter(animalStateAdapter);
         }
     }
 
     @NonNull
     @Override
-    public AnimalAdapter.AnimalViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View stateView = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.item_state, viewGroup, false);
-        AnimalViewHolder animalViewHolder = new AnimalViewHolder(stateView);
-        return animalViewHolder;
+    public ZooViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View animalView = LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.item_animal, viewGroup, false);
+        ZooViewHolder zooViewHolder = new ZooViewHolder(animalView);
+        return zooViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AnimalAdapter.AnimalViewHolder animalViewHolder, final int i) {
-        statesList.get(i).setView(animalViewHolder);
-        statesList.get(i).initUI();
-        animalViewHolder.stateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                statesList.get(i).takeAction();
-            }
-        });
+    public void onBindViewHolder(@NonNull ZooViewHolder zooViewHolder, int i) {
+        zooViewHolder.animalTextView.setText(animalList.get(i).getType());
+        zooViewHolder.animalImageView.setImageResource(animalList.get(i).getImageID());
+        zooViewHolder.animalStateAdapter.updateAnimalStatesList(animalList.get(i).getStatesList());
+        startRefreshing();
     }
 
     @Override
     public int getItemCount() {
-        return statesList.size();
+        return animalList.size();
     }
 
-    public void updateAnimalStatesList(List<AnimalStatePresenterImpl> newAnimalStatesList) {
-        if (statesList == null) statesList = new ArrayList<AnimalStatePresenterImpl>(newAnimalStatesList);
-        statesList.clear();
-        statesList.addAll(newAnimalStatesList);
+    public void updateAnimalList(List<Animal> newAnimalList) {
+        if (animalList == null) animalList = new ArrayList<Animal>(newAnimalList);
+        animalList.clear();
+        animalList.addAll(newAnimalList);
         notifyDataSetChanged();
+    }
+
+    private void startRefreshing() {
+        if (refreshHandler != null) refreshHandler.removeCallbacksAndMessages(null);
+        refreshHandler = new Handler();
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                for (Animal animal : animalList) animal.updateStates();
+                refreshHandler.postDelayed(this, 1000);
+            }
+        };
+        refreshHandler.postDelayed(runnable, 1000);
     }
 }

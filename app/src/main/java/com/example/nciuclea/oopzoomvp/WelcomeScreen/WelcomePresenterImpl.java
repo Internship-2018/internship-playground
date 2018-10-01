@@ -4,10 +4,10 @@ import android.view.View;
 
 class WelcomePresenterImpl implements WelcomePresenter {
 
-    WelcomeFragment view;
-    WelcomeModel model;
+    private WelcomeFragment view;
+    private WelcomeModel model;
 
-    public WelcomePresenterImpl(WelcomeFragment welcomeFragment, WelcomeModel welcomeModel) {
+    WelcomePresenterImpl(WelcomeFragment welcomeFragment, WelcomeModel welcomeModel) {
         this.view = welcomeFragment;
         this.model = welcomeModel;
     }

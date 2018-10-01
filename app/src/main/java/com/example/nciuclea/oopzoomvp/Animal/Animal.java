@@ -1,14 +1,22 @@
 package com.example.nciuclea.oopzoomvp.Animal;
 
-import com.example.nciuclea.oopzoomvp.Animal.AnimalState.AnimalStatePresenterImpl;
+
+
+import com.example.nciuclea.oopzoomvp.Animal.AnimalState.AnimalStatePresenter;
 
 import java.util.List;
 
 public class Animal {
+    private String type;
+    private int imageID;
+    private List<AnimalStatePresenter> statesList;
     protected String name;
-    protected String type;
-    protected int imageID;
-    protected List<AnimalStatePresenterImpl> statesList;
+
+    public Animal(String type, int imageID, List<AnimalStatePresenter> statesList) {
+        this.type = type;
+        this.imageID = imageID;
+        this.statesList = statesList;
+    }
 
     public String getType() {
         return type;
@@ -18,17 +26,11 @@ public class Animal {
         return imageID;
     }
 
-    public List<AnimalStatePresenterImpl> getStatesList() {
+    public List<AnimalStatePresenter> getStatesList() {
         return statesList;
     }
 
-    public Animal(String type, int imageID, List<AnimalStatePresenterImpl> statesList) {
-        this.type = type;
-        this.imageID = imageID;
-        this.statesList = statesList;
-    }
-
     public void updateStates(){
-        for (AnimalStatePresenterImpl state: statesList) state.updateState();
+        for (AnimalStatePresenter state: statesList) state.updateState();
     }
 }
