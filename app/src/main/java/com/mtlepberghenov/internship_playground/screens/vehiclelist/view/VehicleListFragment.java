@@ -19,13 +19,16 @@ import com.mtlepberghenov.internship_playground.screens.vehiclelist.presenter.Ve
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class VehicleListFragment extends Fragment implements VehicleListView {
 
     private VehicleListPresenter presenter;
-
-    private RecyclerView recyclerView;
-
     private VehicleListAdapter adapter;
+
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,11 +40,14 @@ public class VehicleListFragment extends Fragment implements VehicleListView {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_car_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_car_list, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
         initUI(view);
     }
 
