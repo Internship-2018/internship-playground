@@ -1,5 +1,6 @@
 package com.mghelas.internship_playground.adapters;
 
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;

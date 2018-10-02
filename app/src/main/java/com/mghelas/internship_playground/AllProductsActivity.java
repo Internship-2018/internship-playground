@@ -3,6 +3,7 @@ package com.mghelas.internship_playground;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
