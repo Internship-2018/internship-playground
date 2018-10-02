@@ -10,7 +10,9 @@ import java.util.ArrayList;
 
 public class Owl extends Animal {
     public Owl() {
-        super("Owl", R.drawable.owl, new ArrayList<AnimalStatePresenter>() {{
+        super("Owl",
+                R.drawable.owl,
+                new ArrayList<AnimalStatePresenter>() {{
             add(new AnimalStatePresenterImpl(new AnimalStateModelImpl(
                     "Hunger",
                     State.RED,

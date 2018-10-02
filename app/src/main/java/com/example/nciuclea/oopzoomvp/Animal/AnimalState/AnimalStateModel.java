@@ -13,4 +13,8 @@ interface AnimalStateModel {
     void setTimeLastAction(Date timeLastAction);
 
     Date getTimeNewState();
+
+    boolean isMasterAlive();
+
+    void notifyMasterIsDead();
 }

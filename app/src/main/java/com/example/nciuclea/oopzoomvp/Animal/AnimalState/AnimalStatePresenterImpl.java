@@ -1,6 +1,6 @@
 package com.example.nciuclea.oopzoomvp.Animal.AnimalState;
 
-import com.example.nciuclea.oopzoomvp.R;
+import com.example.nciuclea.oopzoomvp.Animal.DeadCallback;
 
 import java.util.Date;
 
@@ -8,8 +8,8 @@ public class AnimalStatePresenterImpl implements AnimalStatePresenter {
 
     private AnimalStateModel model;
     private AnimalStateView view;
-
     private boolean viewIsSet;
+    private DeadCallback deadCallback;
 
     public AnimalStatePresenterImpl(AnimalStateModel model) {
         this.model = model;
@@ -28,6 +28,9 @@ public class AnimalStatePresenterImpl implements AnimalStatePresenter {
     }
 
     @Override
+    public void setDeadCallback(DeadCallback callback) { this.deadCallback = callback; }
+
+    @Override
     public void initUI() {
         if(viewIsSet) {
             view.setStateName(model.getStateName());
@@ -40,7 +43,7 @@ public class AnimalStatePresenterImpl implements AnimalStatePresenter {
     public void updateState() {
         //method lowers the state if changeStateTime has passed
         if (new Date(System.currentTimeMillis())
-                .after(model.getTimeNewState()) && viewIsSet) {
+                .after(model.getTimeNewState()) && viewIsSet && model.isMasterAlive()) {
             switch (model.getState()) {
                 case GREEN:
                     changeState(State.YELLOW);
@@ -49,7 +52,7 @@ public class AnimalStatePresenterImpl implements AnimalStatePresenter {
                     changeState(State.RED);
                     break;
                 case RED:
-                    changeState(State.BLACK);
+                    deadCallback.die();
                     break;
             }
         }
@@ -57,8 +60,14 @@ public class AnimalStatePresenterImpl implements AnimalStatePresenter {
 
     @Override
     public void takeAction() {
-        //method sets the state to maximal one
-        changeState(State.GREEN);
+        //method sets the state to maximal one if animal is alive
+        if (model.isMasterAlive()) changeState(State.GREEN);
+    }
+
+    @Override
+    public void notifyMasterIsDead() {
+        model.notifyMasterIsDead();
+        changeState(State.BLACK);
     }
 
     private void changeState(State state) {
