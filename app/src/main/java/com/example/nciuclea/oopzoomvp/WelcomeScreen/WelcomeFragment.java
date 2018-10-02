@@ -39,9 +39,10 @@ public class WelcomeFragment extends Fragment implements WelcomeView {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        presenter = new WelcomePresenterImpl(this, new WelcomeModelImpl());
         zooName = view.findViewById(R.id.zoo_name);
         enterButton = view.findViewById(R.id.enter_button);
+        presenter = new WelcomePresenterImpl(this, new WelcomeModelImpl());
+
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

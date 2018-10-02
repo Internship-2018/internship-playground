@@ -1,6 +1,7 @@
 package com.example.nciuclea.oopzoomvp.Animal;
 
 import com.example.nciuclea.oopzoomvp.Animal.AnimalState.AnimalStateModelImpl;
+import com.example.nciuclea.oopzoomvp.Animal.AnimalState.AnimalStatePresenter;
 import com.example.nciuclea.oopzoomvp.Animal.AnimalState.AnimalStatePresenterImpl;
 import com.example.nciuclea.oopzoomvp.Animal.AnimalState.State;
 import com.example.nciuclea.oopzoomvp.R;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 
 public class Owl extends Animal {
     public Owl() {
-        super("Owl", R.drawable.owl, new ArrayList<AnimalStatePresenterImpl>() {{
+        super("Owl", R.drawable.owl, new ArrayList<AnimalStatePresenter>() {{
             add(new AnimalStatePresenterImpl(new AnimalStateModelImpl(
                     "Hunger",
                     State.RED,
@@ -21,5 +22,10 @@ public class Owl extends Animal {
                     10000
             )));
         }});
+    }
+
+    public Owl(String name){
+        this();
+        this.name = name;
     }
 }

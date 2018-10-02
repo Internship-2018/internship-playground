@@ -3,21 +3,22 @@ package com.example.nciuclea.oopzoomvp.Animal.AnimalState;
 import java.util.Date;
 
 public class AnimalStateModelImpl implements AnimalStateModel {
-    private String stateName;
 
-    private State state = State.GREEN;
-    private Date timeLastAction = new Date(System.currentTimeMillis());
+    private String stateName;
+    private State state;
     private long changeStateTime;
+    private Date timeLastAction;
+
+    public AnimalStateModelImpl(String stateName, State state, long changeStateTime) {
+        this.stateName = stateName;
+        this.state = state;
+        this.changeStateTime = changeStateTime;
+        timeLastAction  = new Date();
+    }
 
     @Override
     public String getStateName() {
         return stateName;
-    }
-
-    public AnimalStateModelImpl(String stateName, State state, long changeStateTime){
-        this.stateName = stateName;
-        this.state = state;
-        this.changeStateTime = changeStateTime;
     }
 
     @Override
@@ -36,9 +37,8 @@ public class AnimalStateModelImpl implements AnimalStateModel {
     }
 
     @Override
-    public Date getTimeNewState(){
+    public Date getTimeNewState() {
         return new Date(timeLastAction.getTime() + changeStateTime);
     }
-
 
 }

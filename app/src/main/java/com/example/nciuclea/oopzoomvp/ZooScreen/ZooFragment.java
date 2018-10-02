@@ -12,11 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.nciuclea.oopzoomvp.Animal.Animal;
-import com.example.nciuclea.oopzoomvp.Animal.Owl;
-import com.example.nciuclea.oopzoomvp.Animal.Tiger;
 import com.example.nciuclea.oopzoomvp.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,8 +21,9 @@ import java.util.List;
  */
 public class ZooFragment extends Fragment implements ZooView {
 
+    private ZooPresenter presenter;
     private RecyclerView zooRecyclerView;
-    private RecyclerView.Adapter zooAdapter;
+    private AnimalAdapter animalAdapter;
     private RecyclerView.LayoutManager zooLayoutManager;
 
     public ZooFragment() {
@@ -44,20 +42,16 @@ public class ZooFragment extends Fragment implements ZooView {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        initUI(view);
-    }
-
-    private void initUI(@NonNull View view) {
+        presenter = new ZooPresenterImpl(this, new ZooModelImpl());
         zooRecyclerView = view.findViewById(R.id.zoo_recyclerview);
         zooRecyclerView.setHasFixedSize(true);
         zooLayoutManager = new LinearLayoutManager(view.getContext());
         zooRecyclerView.setLayoutManager(zooLayoutManager);
-        //will go to model
-        List<Animal> animalList = new ArrayList<Animal>();
-        animalList.add(new Tiger());
-        animalList.add(new Owl());
-        zooAdapter = new ZooAdapter(null);
-        ((ZooAdapter) zooAdapter).updateAnimalList(animalList);
-        zooRecyclerView.setAdapter(zooAdapter);
+        animalAdapter = new AnimalAdapter(null);
+        presenter.onRecyclerViewReady();
+        zooRecyclerView.setAdapter(animalAdapter);
     }
+
+    @Override
+    public void updateAnimalList(List<Animal> newAnimalList) { animalAdapter.updateAnimalList(newAnimalList); }
 }
