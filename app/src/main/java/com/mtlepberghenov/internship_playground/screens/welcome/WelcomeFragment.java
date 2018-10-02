@@ -54,6 +54,4 @@ public class WelcomeFragment extends Fragment implements MainView {
             mainPresenter.onShowStoreBtnClicked();
         });
     }
-
-
 }
