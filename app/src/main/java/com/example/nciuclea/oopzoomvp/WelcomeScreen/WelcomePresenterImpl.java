@@ -1,7 +1,5 @@
 package com.example.nciuclea.oopzoomvp.WelcomeScreen;
 
-import android.view.View;
-
 class WelcomePresenterImpl implements WelcomePresenter {
 
     private WelcomeFragment view;
@@ -14,11 +12,11 @@ class WelcomePresenterImpl implements WelcomePresenter {
 
     @Override
     public void onEnterButtonClicked() {
-        view.startZooFragment();
+        view.startZooView();
     }
 
     @Override
-    public void onUICreated() {
+    public void onInitUI() {
         view.onSetZooName(model.getZooName());
         view.onSetButtonName(model.getButtonName());
     }

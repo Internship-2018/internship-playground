@@ -11,7 +11,7 @@ public class ZooPresenterImpl implements ZooPresenter {
     }
 
     @Override
-    public void onRecyclerViewReady() {
+    public void onInitRecyclerView() {
         view.updateAnimalList(model.getAnimalList());
     }
 }

@@ -2,7 +2,7 @@ package com.example.nciuclea.oopzoomvp.Animal.AnimalState;
 
 import java.util.Date;
 
-interface AnimalStateModel {
+public interface AnimalStateModel {
 
     String getStateName();
 
@@ -13,4 +13,8 @@ interface AnimalStateModel {
     void setTimeLastAction(Date timeLastAction);
 
     Date getTimeNewState();
+
+    boolean isMasterAlive();
+
+    void setMasterIsDead();
 }

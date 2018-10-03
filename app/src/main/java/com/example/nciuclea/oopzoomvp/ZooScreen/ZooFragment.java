@@ -48,7 +48,7 @@ public class ZooFragment extends Fragment implements ZooView {
         zooLayoutManager = new LinearLayoutManager(view.getContext());
         zooRecyclerView.setLayoutManager(zooLayoutManager);
         animalAdapter = new AnimalAdapter(null);
-        presenter.onRecyclerViewReady();
+        presenter.onInitRecyclerView();
         zooRecyclerView.setAdapter(animalAdapter);
     }
 

@@ -2,20 +2,27 @@ package com.example.nciuclea.oopzoomvp.Animal;
 
 
 
+import com.example.nciuclea.oopzoomvp.Animal.AnimalState.AnimalStateModel;
 import com.example.nciuclea.oopzoomvp.Animal.AnimalState.AnimalStatePresenter;
 
 import java.util.List;
 
-public class Animal {
+public class Animal implements DeadCallback {
     private String type;
     private int imageID;
-    private List<AnimalStatePresenter> statesList;
+    private AnimalStatePresenter presenter;
+    private List<AnimalStateModel> statesList;
     protected String name;
+    private boolean isAlive = true;
 
-    public Animal(String type, int imageID, List<AnimalStatePresenter> statesList) {
+    public Animal(String type, int imageID, List<AnimalStateModel> statesList) {
         this.type = type;
         this.imageID = imageID;
         this.statesList = statesList;
+    }
+
+    public void setPresenter(AnimalStatePresenter presenter) {
+        this.presenter = presenter;
     }
 
     public String getType() {
@@ -26,11 +33,21 @@ public class Animal {
         return imageID;
     }
 
-    public List<AnimalStatePresenter> getStatesList() {
+    public List<AnimalStateModel> getStatesList() {
         return statesList;
     }
 
     public void updateStates(){
-        for (AnimalStatePresenter state: statesList) state.updateState();
+        presenter.onUpdateState();
+    }
+
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    @Override
+    public void die(){
+        isAlive = false; //will be used for stopping states updates on certain animal
+        presenter.onMasterDeath();
     }
 }

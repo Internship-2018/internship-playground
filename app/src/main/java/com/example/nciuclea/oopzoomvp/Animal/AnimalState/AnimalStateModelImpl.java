@@ -8,12 +8,13 @@ public class AnimalStateModelImpl implements AnimalStateModel {
     private State state;
     private long changeStateTime;
     private Date timeLastAction;
+    private boolean masterIsAlive = true;
 
     public AnimalStateModelImpl(String stateName, State state, long changeStateTime) {
         this.stateName = stateName;
         this.state = state;
         this.changeStateTime = changeStateTime;
-        timeLastAction  = new Date();
+        timeLastAction = new Date();
     }
 
     @Override
@@ -39,6 +40,16 @@ public class AnimalStateModelImpl implements AnimalStateModel {
     @Override
     public Date getTimeNewState() {
         return new Date(timeLastAction.getTime() + changeStateTime);
+    }
+
+    @Override
+    public boolean isMasterAlive() {
+        return masterIsAlive;
+    }
+
+    @Override
+    public void setMasterIsDead() {
+        masterIsAlive = false;
     }
 
 }

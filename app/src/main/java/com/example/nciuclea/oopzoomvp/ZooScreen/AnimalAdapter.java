@@ -7,9 +7,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.nciuclea.oopzoomvp.Animal.ActionText;
 import com.example.nciuclea.oopzoomvp.Animal.Animal;
 import com.example.nciuclea.oopzoomvp.R;
 
@@ -30,6 +33,7 @@ class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.ZooViewHolder> {
         public TextView animalTextView;
         public ImageView animalImageView;
         public RecyclerView animalRecyclerView;
+        public Button actionButton;
         AnimalStateAdapter animalStateAdapter;
         RecyclerView.LayoutManager animalLayoutManager;
 
@@ -37,6 +41,7 @@ class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.ZooViewHolder> {
             super(itemView);
             animalTextView = itemView.findViewById(R.id.animalTextView);
             animalImageView = itemView.findViewById(R.id.animalImageView);
+            actionButton = itemView.findViewById(R.id.actionButton);
             animalRecyclerView = itemView.findViewById(R.id.animalRecyclerView);
             animalRecyclerView.setHasFixedSize(true);
             animalLayoutManager = new LinearLayoutManager(itemView.getContext());
@@ -56,10 +61,27 @@ class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.ZooViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ZooViewHolder zooViewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ZooViewHolder zooViewHolder, final int i) {
         zooViewHolder.animalTextView.setText(animalList.get(i).getType());
         zooViewHolder.animalImageView.setImageResource(animalList.get(i).getImageID());
+        if (animalList.get(i) instanceof ActionText) {
+            zooViewHolder.actionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (animalList.get(i).isAlive()) {
+                        Toast toast = Toast.makeText(zooViewHolder.itemView.getContext(),
+                                ((ActionText) animalList.get(i)).getActionText(),
+                                Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                }
+            });
+        } else {
+            zooViewHolder.actionButton.setVisibility(View.GONE);
+        }
         zooViewHolder.animalStateAdapter.updateAnimalStatesList(animalList.get(i).getStatesList());
+        zooViewHolder.animalStateAdapter.setDeadCallback(animalList.get(i));
+        animalList.get(i).setPresenter(zooViewHolder.animalStateAdapter);
         startRefreshing();
     }
 
@@ -81,10 +103,20 @@ class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.ZooViewHolder> {
         runnable = new Runnable() {
             @Override
             public void run() {
-                for (Animal animal : animalList) animal.updateStates();
+                for (Animal animal : animalList) {
+                    if (animal.isAlive()) {
+                        animal.updateStates();
+                    } else {
+                        startFuneral();
+                    }
+                }
                 refreshHandler.postDelayed(this, 1000);
             }
         };
         refreshHandler.postDelayed(runnable, 1000);
+    }
+
+    private void startFuneral() {
+        //to implement after refactoring to MVP
     }
 }
