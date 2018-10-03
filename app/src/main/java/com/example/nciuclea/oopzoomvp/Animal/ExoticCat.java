@@ -1,8 +1,7 @@
 package com.example.nciuclea.oopzoomvp.Animal;
 
+import com.example.nciuclea.oopzoomvp.Animal.AnimalState.AnimalStateModel;
 import com.example.nciuclea.oopzoomvp.Animal.AnimalState.AnimalStateModelImpl;
-import com.example.nciuclea.oopzoomvp.Animal.AnimalState.AnimalStatePresenter;
-import com.example.nciuclea.oopzoomvp.Animal.AnimalState.AnimalStatePresenterImpl;
 import com.example.nciuclea.oopzoomvp.Animal.AnimalState.State;
 import com.example.nciuclea.oopzoomvp.R;
 
@@ -13,27 +12,27 @@ public class ExoticCat extends Animal implements ActionText {
     public ExoticCat() {
         super("Exotic cat",
                 R.drawable.cat,
-                new ArrayList<AnimalStatePresenter>() {{
-                        add(new AnimalStatePresenterImpl(new AnimalStateModelImpl(
+                new ArrayList<AnimalStateModel>() {{
+                        add(new AnimalStateModelImpl(
                                 "Hunger",
                                 State.GREEN,
                                 2000
-                        )));
-                        add(new AnimalStatePresenterImpl(new AnimalStateModelImpl(
+                        ));
+                        add(new AnimalStateModelImpl(
                                 "Cleanliness",
                                 State.GREEN,
                                 10000
-                        )));
-                        add(new AnimalStatePresenterImpl(new AnimalStateModelImpl(
+                        ));
+                        add(new AnimalStateModelImpl(
                                 "Cage",
                                 State.GREEN,
                                 5000
-                        )));
-                        add(new AnimalStatePresenterImpl(new AnimalStateModelImpl(
+                        ));
+                        add(new AnimalStateModelImpl(
                                 "Mood",
                                 State.YELLOW,
                                 10000
-                        )));
+                        ));
                     }});
     }
 

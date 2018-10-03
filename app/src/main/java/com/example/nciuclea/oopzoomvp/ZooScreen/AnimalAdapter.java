@@ -80,6 +80,8 @@ class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.ZooViewHolder> {
             zooViewHolder.actionButton.setVisibility(View.GONE);
         }
         zooViewHolder.animalStateAdapter.updateAnimalStatesList(animalList.get(i).getStatesList());
+        zooViewHolder.animalStateAdapter.setDeadCallback(animalList.get(i));
+        animalList.get(i).setPresenter(zooViewHolder.animalStateAdapter);
         startRefreshing();
     }
 

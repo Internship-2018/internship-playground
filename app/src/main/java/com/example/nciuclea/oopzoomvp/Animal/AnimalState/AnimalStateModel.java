@@ -2,7 +2,7 @@ package com.example.nciuclea.oopzoomvp.Animal.AnimalState;
 
 import java.util.Date;
 
-interface AnimalStateModel {
+public interface AnimalStateModel {
 
     String getStateName();
 

@@ -1,8 +1,7 @@
 package com.example.nciuclea.oopzoomvp.Animal;
 
+import com.example.nciuclea.oopzoomvp.Animal.AnimalState.AnimalStateModel;
 import com.example.nciuclea.oopzoomvp.Animal.AnimalState.AnimalStateModelImpl;
-import com.example.nciuclea.oopzoomvp.Animal.AnimalState.AnimalStatePresenter;
-import com.example.nciuclea.oopzoomvp.Animal.AnimalState.AnimalStatePresenterImpl;
 import com.example.nciuclea.oopzoomvp.Animal.AnimalState.State;
 import com.example.nciuclea.oopzoomvp.R;
 
@@ -12,17 +11,17 @@ public class Owl extends Animal {
     public Owl() {
         super("Owl",
                 R.drawable.owl,
-                new ArrayList<AnimalStatePresenter>() {{
-            add(new AnimalStatePresenterImpl(new AnimalStateModelImpl(
+                new ArrayList<AnimalStateModel>() {{
+            add(new AnimalStateModelImpl(
                     "Hunger",
                     State.RED,
                     4000
-            )));
-            add(new AnimalStatePresenterImpl(new AnimalStateModelImpl(
+            ));
+            add(new AnimalStateModelImpl(
                     "Cleanliness",
                     State.YELLOW,
                     10000
-            )));
+            ));
         }});
     }
 
