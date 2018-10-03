@@ -2,7 +2,6 @@ package com.mtlepberghenov.internship_playground.screens.main.view;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 
 import com.crashlytics.android.Crashlytics;
 import com.mtlepberghenov.internship_playground.R;
@@ -30,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void forceCrash(View view) {
+    public void forceCrash() {
         throw new RuntimeException("This is a crash");
     }
 }
