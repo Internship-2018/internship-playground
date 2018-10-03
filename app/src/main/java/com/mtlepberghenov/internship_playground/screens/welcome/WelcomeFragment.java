@@ -33,7 +33,7 @@ public class WelcomeFragment extends Fragment implements MainView {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        initUI(view);
+        initUI();
         mainPresenter.attach(this);
     }
 
@@ -49,8 +49,8 @@ public class WelcomeFragment extends Fragment implements MainView {
         }
     }
 
-    private void initUI(View view) {
-        view.findViewById(R.id.show_store_btn).setOnClickListener(v -> {
+    private void initUI() {
+        getView().findViewById(R.id.show_store_btn).setOnClickListener(v -> {
             mainPresenter.onShowStoreBtnClicked();
         });
     }
