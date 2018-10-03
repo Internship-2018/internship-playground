@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.example.nciuclea.oopzoomvp.R;
 import com.example.nciuclea.oopzoomvp.ZooScreen.ZooFragment;
 
+import androidx.navigation.Navigation;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -64,11 +66,7 @@ public class WelcomeFragment extends Fragment implements WelcomeView {
 
     @Override
     public void startZooFragment() {
-        getFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, new ZooFragment())
-                .commit();
-
+        Navigation.findNavController(getView()).navigate(R.id.action_welcomeFragment_to_zooFragment);
     }
 
 

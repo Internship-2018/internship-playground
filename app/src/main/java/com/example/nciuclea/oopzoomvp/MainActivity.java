@@ -7,6 +7,8 @@ import android.os.Bundle;
 
 import com.example.nciuclea.oopzoomvp.WelcomeScreen.WelcomeFragment;
 import com.crashlytics.android.Crashlytics;
+
+import androidx.navigation.Navigation;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
@@ -16,16 +18,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
-
-        startFragment(R.id.fragment_container, new WelcomeFragment());
     }
 
-    public void startFragment(int containerId, Fragment fragment) {
-        if (findViewById(containerId) != null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(containerId, fragment)
-                    .commit();
-        }
+    @Override
+    public boolean onSupportNavigateUp() {
+        return Navigation.findNavController(this, R.id.my_nav_host_fragment).navigateUp();
     }
 }
