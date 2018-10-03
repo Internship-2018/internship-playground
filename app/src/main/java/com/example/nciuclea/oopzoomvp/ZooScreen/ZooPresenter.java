@@ -1,5 +1,5 @@
 package com.example.nciuclea.oopzoomvp.ZooScreen;
 
 interface ZooPresenter {
-    void onRecyclerViewReady();
+    void onInitRecyclerView();
 }

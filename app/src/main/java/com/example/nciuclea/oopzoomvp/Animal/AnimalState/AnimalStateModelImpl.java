@@ -48,7 +48,7 @@ public class AnimalStateModelImpl implements AnimalStateModel {
     }
 
     @Override
-    public void notifyMasterIsDead() {
+    public void setMasterIsDead() {
         masterIsAlive = false;
     }
 

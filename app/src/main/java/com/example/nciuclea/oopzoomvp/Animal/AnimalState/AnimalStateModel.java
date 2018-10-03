@@ -16,5 +16,5 @@ interface AnimalStateModel {
 
     boolean isMasterAlive();
 
-    void notifyMasterIsDead();
+    void setMasterIsDead();
 }

@@ -34,7 +34,7 @@ public class Animal implements DeadCallback {
     }
 
     public void updateStates(){
-        for (AnimalStatePresenter state: statesList) state.updateState();
+        for (AnimalStatePresenter state: statesList) state.onUpdateState();
     }
 
     public boolean isAlive() {
@@ -44,6 +44,6 @@ public class Animal implements DeadCallback {
     @Override
     public void die(){
         isAlive = false; //will be used for stopping states updates on certain animal
-        for (AnimalStatePresenter state: statesList) state.notifyMasterIsDead();
+        for (AnimalStatePresenter state: statesList) state.onMasterDeath();
     }
 }

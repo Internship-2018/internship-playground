@@ -42,48 +42,8 @@ public class AnimalStateAdapter extends RecyclerView.Adapter<AnimalStateAdapter.
         }
 
         @Override
-        public void updateStateButton(State state) {
-            changeStateButtonName(state);
-            changeStateButtonColor(state);
-        }
-
-        @Override
-        public void changeStateButtonName(State state) {
-            String text = "UNDEFINED";
-            switch (state) {
-                case GREEN:
-                    text = "GOOD";
-                    break;
-                case YELLOW:
-                    text = "OK";
-                    break;
-                case RED:
-                    text = "BAD";
-                    break;
-                case BLACK:
-                    text = "DEAD";
-                    break;
-            }
+        public void updateButtonState(String text, int colorID) {
             stateButton.setText(text);
-        }
-
-        @Override
-        public void changeStateButtonColor(State state) {
-            int colorID = R.color.black;
-            switch (state) {
-                case GREEN:
-                    colorID = R.color.green;
-                    break;
-                case YELLOW:
-                    colorID = R.color.yellow;
-                    break;
-                case RED:
-                    colorID = R.color.red;
-                    break;
-                case BLACK:
-                    colorID = R.color.black;
-                    break;
-            }
             stateButton.setTextColor(ContextCompat.getColor(itemView.getContext(), colorID));
         }
     }
@@ -99,11 +59,11 @@ public class AnimalStateAdapter extends RecyclerView.Adapter<AnimalStateAdapter.
     @Override
     public void onBindViewHolder(@NonNull AnimalStateAdapter.AnimalViewHolder animalViewHolder, final int i) {
         animalStatesList.get(i).setView(animalViewHolder); //setting view to presenter
-        animalStatesList.get(i).initUI(); //filling UI elements
+        animalStatesList.get(i).onInitUI(); //filling UI elements
         animalViewHolder.stateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                animalStatesList.get(i).takeAction();
+                animalStatesList.get(i).onTakeAction();
             }
         });
     }

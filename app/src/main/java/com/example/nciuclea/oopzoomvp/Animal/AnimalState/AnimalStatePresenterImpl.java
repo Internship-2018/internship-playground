@@ -1,6 +1,7 @@
 package com.example.nciuclea.oopzoomvp.Animal.AnimalState;
 
 import com.example.nciuclea.oopzoomvp.Animal.DeadCallback;
+import com.example.nciuclea.oopzoomvp.R;
 
 import java.util.Date;
 
@@ -31,16 +32,15 @@ public class AnimalStatePresenterImpl implements AnimalStatePresenter {
     public void setDeadCallback(DeadCallback callback) { this.deadCallback = callback; }
 
     @Override
-    public void initUI() {
+    public void onInitUI() {
         if(viewIsSet) {
             view.setStateName(model.getStateName());
-            view.changeStateButtonName(model.getState());
-            view.changeStateButtonColor(model.getState());
+            changeState(model.getState());
         }
     }
 
     @Override
-    public void updateState() {
+    public void onUpdateState() {
         //method lowers the state if changeStateTime has passed
         if (new Date(System.currentTimeMillis())
                 .after(model.getTimeNewState()) && viewIsSet && model.isMasterAlive()) {
@@ -59,20 +59,40 @@ public class AnimalStatePresenterImpl implements AnimalStatePresenter {
     }
 
     @Override
-    public void takeAction() {
+    public void onTakeAction() {
         //method sets the state to maximal one if animal is alive
         if (model.isMasterAlive()) changeState(State.GREEN);
     }
 
     @Override
-    public void notifyMasterIsDead() {
-        model.notifyMasterIsDead();
+    public void onMasterDeath() {
+        model.setMasterIsDead();
         changeState(State.BLACK);
     }
 
     private void changeState(State state) {
         model.setState(state);
         model.setTimeLastAction(new Date());
-        view.updateStateButton(state);
+        String text = "UNDEFINED";
+        int colorID = R.color.black;
+        switch (state) {
+            case GREEN:
+                text = "GOOD";
+                colorID = R.color.green;
+                break;
+            case YELLOW:
+                text = "OK";
+                colorID = R.color.yellow;
+                break;
+            case RED:
+                text = "BAD";
+                colorID = R.color.red;
+                break;
+            case BLACK:
+                text = "DEAD";
+                colorID = R.color.black;
+                break;
+        }
+        view.updateButtonState(text, colorID);
     }
 }

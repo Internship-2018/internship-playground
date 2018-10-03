@@ -9,11 +9,11 @@ public interface AnimalStatePresenter {
 
     void setDeadCallback(DeadCallback callback);
 
-    void initUI();
+    void onInitUI();
 
-    void updateState();
+    void onUpdateState();
 
-    void takeAction();
+    void onTakeAction();
 
-    void notifyMasterIsDead();
+    void onMasterDeath();
 }
