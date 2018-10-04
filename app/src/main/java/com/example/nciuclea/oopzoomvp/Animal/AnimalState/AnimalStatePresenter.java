@@ -1,6 +1,6 @@
-package com.example.nciuclea.oopzoomvp.ZooScreen.Animal.AnimalState;
+package com.example.nciuclea.oopzoomvp.Animal.AnimalState;
 
-import com.example.nciuclea.oopzoomvp.ZooScreen.Animal.DeadCallback;
+import com.example.nciuclea.oopzoomvp.Animal.DeadCallback;
 
 public interface AnimalStatePresenter {
 

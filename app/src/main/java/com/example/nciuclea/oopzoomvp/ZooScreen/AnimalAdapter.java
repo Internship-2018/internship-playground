@@ -1,4 +1,4 @@
-package com.example.nciuclea.oopzoomvp.ZooScreen.Animal;
+package com.example.nciuclea.oopzoomvp.ZooScreen;
 
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -12,14 +12,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.nciuclea.oopzoomvp.ZooScreen.Animal.AnimalState.AnimalStateModel;
+import com.example.nciuclea.oopzoomvp.Animal.ActionText;
+import com.example.nciuclea.oopzoomvp.Animal.Animal;
+import com.example.nciuclea.oopzoomvp.Animal.AnimalState.AnimalStateModel;
 import com.example.nciuclea.oopzoomvp.R;
-import com.example.nciuclea.oopzoomvp.ZooScreen.Animal.AnimalState.AnimalStateAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.ZooViewHolder> {
+class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.ZooViewHolder> {
 
     private List<Animal> animalList;
     private Handler refreshHandler;
@@ -80,7 +81,7 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.ZooViewHol
             zooViewHolder.actionButton.setVisibility(View.GONE);
         }
         zooViewHolder.animalStateAdapter.updateAnimalStatesList(animal.getStatesList());
-        zooViewHolder.animalStateAdapter.setDeadCallback(animal);
+        zooViewHolder.animalStateAdapter.setDeadCallback(animal); 
         animal.setPresenter(zooViewHolder.animalStateAdapter);
         startRefreshing();
     }

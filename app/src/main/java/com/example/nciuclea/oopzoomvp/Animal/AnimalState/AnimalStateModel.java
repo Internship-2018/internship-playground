@@ -1,4 +1,4 @@
-package com.example.nciuclea.oopzoomvp.ZooScreen.Animal.AnimalState;
+package com.example.nciuclea.oopzoomvp.Animal.AnimalState;
 
 import java.util.Date;
 

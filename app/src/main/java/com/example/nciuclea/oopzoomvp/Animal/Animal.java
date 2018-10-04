@@ -1,9 +1,9 @@
-package com.example.nciuclea.oopzoomvp.ZooScreen.Animal;
+package com.example.nciuclea.oopzoomvp.Animal;
 
 
 
-import com.example.nciuclea.oopzoomvp.ZooScreen.Animal.AnimalState.AnimalStateModel;
-import com.example.nciuclea.oopzoomvp.ZooScreen.Animal.AnimalState.AnimalStatePresenter;
+import com.example.nciuclea.oopzoomvp.Animal.AnimalState.AnimalStateModel;
+import com.example.nciuclea.oopzoomvp.Animal.AnimalState.AnimalStatePresenter;
 
 import java.util.List;
 

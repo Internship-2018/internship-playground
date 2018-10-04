@@ -1,9 +1,9 @@
 package com.example.nciuclea.oopzoomvp.ZooScreen;
 
-import com.example.nciuclea.oopzoomvp.ZooScreen.Animal.Animal;
-import com.example.nciuclea.oopzoomvp.ZooScreen.Animal.ExoticCat;
-import com.example.nciuclea.oopzoomvp.ZooScreen.Animal.Owl;
-import com.example.nciuclea.oopzoomvp.ZooScreen.Animal.Tiger;
+import com.example.nciuclea.oopzoomvp.Animal.Animal;
+import com.example.nciuclea.oopzoomvp.Animal.ExoticCat;
+import com.example.nciuclea.oopzoomvp.Animal.Owl;
+import com.example.nciuclea.oopzoomvp.Animal.Tiger;
 
 import java.util.ArrayList;
 import java.util.List;

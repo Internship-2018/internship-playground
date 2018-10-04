@@ -11,9 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.nciuclea.oopzoomvp.ZooScreen.Animal.Animal;
+import com.example.nciuclea.oopzoomvp.Animal.Animal;
 import com.example.nciuclea.oopzoomvp.R;
-import com.example.nciuclea.oopzoomvp.ZooScreen.Animal.AnimalAdapter;
 
 import java.util.List;
 
