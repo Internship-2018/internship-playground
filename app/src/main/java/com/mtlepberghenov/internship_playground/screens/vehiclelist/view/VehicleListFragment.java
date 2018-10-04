@@ -10,65 +10,56 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.mtlepberghenov.internship_playground.R;
 import com.mtlepberghenov.internship_playground.model.CarMainModelImpl;
 import com.mtlepberghenov.internship_playground.model.entity.Vehicle;
 import com.mtlepberghenov.internship_playground.screens.vehiclelist.presenter.VehicleListPresenter;
 import com.mtlepberghenov.internship_playground.screens.vehiclelist.presenter.VehicleListPresenterImpl;
-
 import java.util.ArrayList;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class VehicleListFragment extends Fragment implements VehicleListView {
 
-    private VehicleListPresenter presenter;
-    private VehicleListAdapter adapter;
+  private VehicleListPresenter presenter;
+  private VehicleListAdapter adapter;
 
-    @BindView(R.id.recycler_view)
-    RecyclerView recyclerView;
+  @BindView(R.id.recycler_view) RecyclerView recyclerView;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        presenter = new VehicleListPresenterImpl(new CarMainModelImpl());
-        presenter.attach(this);
-    }
+  @Override public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    presenter = new VehicleListPresenterImpl(new CarMainModelImpl());
+    presenter.attach(this);
+  }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_car_list, container, false);
-        ButterKnife.bind(this, view);
-        return view;
-    }
+  @Nullable
+  @Override
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+      @Nullable Bundle savedInstanceState) {
+    View view = inflater.inflate(R.layout.fragment_car_list, container, false);
+    ButterKnife.bind(this, view);
+    return view;
+  }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+  @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    initUI();
+  }
 
-        initUI(view);
-    }
+  private void initUI() {
+    recyclerView.setHasFixedSize(true);
+    LinearLayoutManager manager = new LinearLayoutManager(getContext());
+    recyclerView.setLayoutManager(manager);
 
-    private void initUI(View v) {
-        recyclerView = v.findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(manager);
+    DividerItemDecoration decoration =
+        new DividerItemDecoration(recyclerView.getContext(), manager.getOrientation());
+    recyclerView.addItemDecoration(decoration);
 
-        DividerItemDecoration decoration =
-                new DividerItemDecoration(recyclerView.getContext(), manager.getOrientation());
+    adapter = new VehicleListAdapter();
+    recyclerView.setAdapter(adapter);
+    presenter.onRecyclerViewIsReady();
+  }
 
-        recyclerView.addItemDecoration(decoration);
-
-        adapter = new VehicleListAdapter();
-        recyclerView.setAdapter(adapter);
-        presenter.onRecyclerViewIsReady();
-    }
-
-    @Override
-    public void setVehicleListToAdapter(ArrayList<Vehicle> carList) {
-        adapter.setData(carList);
-    }
+  @Override public void onSetData(ArrayList<Vehicle> carList) {
+    adapter.setData(carList);
+  }
 }

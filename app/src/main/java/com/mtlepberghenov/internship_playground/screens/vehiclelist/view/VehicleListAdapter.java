@@ -33,18 +33,17 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
 
     /* Note: holder.text = "Type: %s\nMake: %s\nModel: %s\nColor: %s\nYear: %s" */
     sb.append(String.format(holder.text,
-                                        vehicleList.get(i).getType(),
-                                        vehicleList.get(i).getMake(),
-                                        vehicleList.get(i).getModel(),
-                                        vehicleList.get(i).getColor(),
-                                        vehicleList.get(i).getYear()));
+        vehicleList.get(i).getType(),
+        vehicleList.get(i).getMake(),
+        vehicleList.get(i).getModel(),
+        vehicleList.get(i).getColor(),
+        vehicleList.get(i).getYear()));
 
     holder.textView.setText(sb.toString());
     sb.setLength(0);
   }
 
-  @Override
-  public int getItemCount() {
+  @Override public int getItemCount() {
     return vehicleList.size();
   }
 

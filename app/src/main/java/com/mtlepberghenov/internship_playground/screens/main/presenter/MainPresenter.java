@@ -5,5 +5,5 @@ import com.mtlepberghenov.internship_playground.screens.main.view.MainView;
 
 public interface MainPresenter extends BaseMvpPresenter<MainView> {
 
-    void onShowStoreBtnClicked();
+  void onClicked();
 }
