@@ -1,11 +1,8 @@
 package com.example.nciuclea.oopzoomvp;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
-import com.example.nciuclea.oopzoomvp.WelcomeScreen.WelcomeFragment;
 import com.crashlytics.android.Crashlytics;
 
 import androidx.navigation.Navigation;
@@ -24,4 +21,5 @@ public class MainActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         return Navigation.findNavController(this, R.id.my_nav_host_fragment).navigateUp();
     }
+
 }
