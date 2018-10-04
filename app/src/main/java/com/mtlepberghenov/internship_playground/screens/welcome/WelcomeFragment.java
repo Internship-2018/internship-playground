@@ -7,17 +7,20 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.mtlepberghenov.internship_playground.R;
 import com.mtlepberghenov.internship_playground.screens.main.presenter.MainPresenter;
 import com.mtlepberghenov.internship_playground.screens.main.presenter.MainPresenterIml;
 import com.mtlepberghenov.internship_playground.screens.main.view.MainView;
-import com.mtlepberghenov.internship_playground.screens.vehiclelist.view.VehicleListFragment;
 
 public class WelcomeFragment extends Fragment implements MainView {
 
   private MainPresenter mainPresenter;
+
+  private NavController navController;
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -37,11 +40,9 @@ public class WelcomeFragment extends Fragment implements MainView {
   }
 
   @Override public void onStartScreen() {
-    if (getFragmentManager() != null) {
-      getFragmentManager()
-          .beginTransaction()
-          .replace(R.id.main_container, new VehicleListFragment())
-          .commitNow();
+    if (getActivity() != null) {
+      navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+      navController.navigate(R.id.vehicleListFragment);
     }
   }
 
