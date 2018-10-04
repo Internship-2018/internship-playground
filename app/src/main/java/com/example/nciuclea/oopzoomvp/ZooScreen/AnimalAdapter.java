@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.nciuclea.oopzoomvp.Animal.ActionText;
 import com.example.nciuclea.oopzoomvp.Animal.Animal;
+import com.example.nciuclea.oopzoomvp.Animal.AnimalState.AnimalStateModel;
 import com.example.nciuclea.oopzoomvp.R;
 
 import java.util.ArrayList;
@@ -22,21 +23,16 @@ import java.util.List;
 class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.ZooViewHolder> {
 
     private List<Animal> animalList;
-    private Runnable runnable;
     private Handler refreshHandler;
 
-    public AnimalAdapter(List<Animal> animalList) {
-        this.animalList = animalList;
-    }
-
     public static class ZooViewHolder extends RecyclerView.ViewHolder {
+
         public TextView animalTextView;
         public ImageView animalImageView;
         public RecyclerView animalRecyclerView;
         public Button actionButton;
         AnimalStateAdapter animalStateAdapter;
         RecyclerView.LayoutManager animalLayoutManager;
-
         public ZooViewHolder(@NonNull View itemView) {
             super(itemView);
             animalTextView = itemView.findViewById(R.id.animalTextView);
@@ -46,9 +42,14 @@ class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.ZooViewHolder> {
             animalRecyclerView.setHasFixedSize(true);
             animalLayoutManager = new LinearLayoutManager(itemView.getContext());
             animalRecyclerView.setLayoutManager(animalLayoutManager);
-            animalStateAdapter = new AnimalStateAdapter(null);
+            animalStateAdapter = new AnimalStateAdapter(new ArrayList<AnimalStateModel>());
             animalRecyclerView.setAdapter(animalStateAdapter);
         }
+
+    }
+
+    public AnimalAdapter(List<Animal> animalList) {
+        this.animalList = animalList;
     }
 
     @NonNull
@@ -56,21 +57,21 @@ class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.ZooViewHolder> {
     public ZooViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View animalView = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.item_animal, viewGroup, false);
-        ZooViewHolder zooViewHolder = new ZooViewHolder(animalView);
-        return zooViewHolder;
+        return new ZooViewHolder(animalView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ZooViewHolder zooViewHolder, final int i) {
-        zooViewHolder.animalTextView.setText(animalList.get(i).getType());
-        zooViewHolder.animalImageView.setImageResource(animalList.get(i).getImageID());
-        if (animalList.get(i) instanceof ActionText) {
+        final Animal animal = animalList.get(i);
+        zooViewHolder.animalTextView.setText(animal.getType());
+        zooViewHolder.animalImageView.setImageResource(animal.getImageID());
+        if (animal instanceof ActionText) {
             zooViewHolder.actionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (animalList.get(i).isAlive()) {
+                    if (animal.isAlive()) {
                         Toast toast = Toast.makeText(zooViewHolder.itemView.getContext(),
-                                ((ActionText) animalList.get(i)).getActionText(),
+                                ((ActionText) animal).getActionText(),
                                 Toast.LENGTH_SHORT);
                         toast.show();
                     }
@@ -79,9 +80,9 @@ class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.ZooViewHolder> {
         } else {
             zooViewHolder.actionButton.setVisibility(View.GONE);
         }
-        zooViewHolder.animalStateAdapter.updateAnimalStatesList(animalList.get(i).getStatesList());
-        zooViewHolder.animalStateAdapter.setDeadCallback(animalList.get(i));
-        animalList.get(i).setPresenter(zooViewHolder.animalStateAdapter);
+        zooViewHolder.animalStateAdapter.updateAnimalStatesList(animal.getStatesList());
+        zooViewHolder.animalStateAdapter.setDeadCallback(animal); 
+        animal.setPresenter(zooViewHolder.animalStateAdapter);
         startRefreshing();
     }
 
@@ -100,7 +101,7 @@ class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.ZooViewHolder> {
     private void startRefreshing() {
         if (refreshHandler != null) refreshHandler.removeCallbacksAndMessages(null);
         refreshHandler = new Handler();
-        runnable = new Runnable() {
+        Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 for (Animal animal : animalList) {
