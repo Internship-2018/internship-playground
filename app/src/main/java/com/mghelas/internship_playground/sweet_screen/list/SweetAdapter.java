@@ -1,4 +1,4 @@
-package com.mghelas.internship_playground.SweetScreen;
+package com.mghelas.internship_playground.sweet_screen.list;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,26 +9,35 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mghelas.internship_playground.R;
-import com.mghelas.internship_playground.Model.Chocolate;
-import com.mghelas.internship_playground.Model.Lollipop;
-import com.mghelas.internship_playground.Model.Sweet;
+import com.mghelas.internship_playground.Entity.Chocolate;
+import com.mghelas.internship_playground.Entity.Lollipop;
+import com.mghelas.internship_playground.Entity.Sweet;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SweetsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class SweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+
+    public interface OnItemClickListener {
+        void onItemClick(int id);
+    }
 
     private List<Sweet> items = new ArrayList<>();
+    private final OnItemClickListener listener;
     private static final int ITEM_TYPE_CHOCOLATE = 1;
     private static final int ITEM_TYPE_LOLLIPOP = 2;
 
-    public SweetsAdapter(List<Sweet> items) {
-        this.items.addAll(items);
+    public SweetAdapter(List<Sweet> items, OnItemClickListener listener) {
+        this.items = items;
+        this.listener = listener;
     }
 
     public List<Sweet> getItems() {
         return items;
     }
+
+
 
     private class ChocolateViewHolder extends RecyclerView.ViewHolder {
 
@@ -36,24 +45,18 @@ public class SweetsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         private TextView price;
         private TextView weight;
         private TextView percentage;
-        private Button manufacture;
 
         ChocolateViewHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.title);
-            price = (TextView) itemView.findViewById(R.id.price);
-            weight = (TextView) itemView.findViewById(R.id.weight);
+            title = (TextView) itemView.findViewById(R.id.titleDetailed);
+            price = (TextView) itemView.findViewById(R.id.priceDetailed);
+            weight = (TextView) itemView.findViewById(R.id.weightDetailed);
             percentage = (TextView) itemView.findViewById(R.id.percentage);
-            manufacture = (Button) itemView.findViewById(R.id.manufacture);
-//            System.out.println(get);
-            manufacture.setOnClickListener(new View.OnClickListener() {
+
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast toast = Toast.makeText(v.getContext(),
-                            getItems().get(getAdapterPosition()).manufacture(),
-                            Toast.LENGTH_SHORT);
-
-                    toast.show();
+                    listener.onItemClick(getAdapterPosition());
                 }
             });
         }
@@ -68,24 +71,18 @@ public class SweetsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private class LollipopViewHolder extends RecyclerView.ViewHolder {
         public TextView title, price, weight, flavour;
-        public Button manufacture;
 
         LollipopViewHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.title);
-            price = (TextView) itemView.findViewById(R.id.price);
-            weight = (TextView) itemView.findViewById(R.id.weight);
-            flavour = (TextView) itemView.findViewById(R.id.flavour);
-            manufacture = (Button) itemView.findViewById(R.id.manufacture);
+            title = (TextView) itemView.findViewById(R.id.titleDetailed);
+            price = (TextView) itemView.findViewById(R.id.priceDetailed);
+            weight = (TextView) itemView.findViewById(R.id.weightDetailed);
+            flavour = (TextView) itemView.findViewById(R.id.flavourDetailed);
 
-            manufacture.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast toast = Toast.makeText(v.getContext(),
-                            getItems().get(getAdapterPosition()).manufacture(),
-                            Toast.LENGTH_SHORT);
-
-                    toast.show();
+                    listener.onItemClick(getAdapterPosition());
                 }
             });
         }

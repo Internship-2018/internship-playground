@@ -12,11 +12,24 @@
         tools:layout="@layout/fragment_start">
         <action
             android:id="@+id/action_startFragment_to_sweetFragment"
-            app:destination="@id/sweetFragment" />
+            app:destination="@id/sweetListFragment" />
     </fragment>
     <fragment
-        android:id="@+id/sweetFragment"
-        android:name="com.mghelas.internship_playground.SweetScreen.SweetFragment"
+        android:id="@+id/sweetListFragment"
+        android:name="com.mghelas.internship_playground.sweet_screen.list.SweetListFragment"
         android:label="fragment_sweet_list"
-        tools:layout="@layout/fragment_sweet_list" />
+        tools:layout="@layout/fragment_sweet_list" >
+        <action
+            android:id="@+id/action_sweetListFragment_to_sweetDetailedFragment"
+            app:destination="@id/sweetDetailedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sweetDetailedFragment"
+        android:name="com.mghelas.internship_playground.sweet_screen.detailed.SweetDetailedFragment"
+        android:label="fragment_sweet_detailed"
+        tools:layout="@layout/fragment_sweet_detailed" >
+        <action
+            android:id="@+id/action_sweetDetailedFragment_to_sweetListFragment"
+            app:destination="@id/sweetListFragment" />
+    </fragment>
 </navigation>

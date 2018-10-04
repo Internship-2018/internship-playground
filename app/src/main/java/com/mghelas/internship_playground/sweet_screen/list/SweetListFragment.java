@@ -1,4 +1,4 @@
-package com.mghelas.internship_playground.SweetScreen;
+package com.mghelas.internship_playground.sweet_screen.list;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,18 +11,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mghelas.internship_playground.R;
-import com.mghelas.internship_playground.Model.Sweet;
+import com.mghelas.internship_playground.Entity.Sweet;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SweetFragment extends Fragment implements SweetViewIntf {
+import androidx.navigation.Navigation;
+
+public class SweetListFragment extends Fragment implements SweetListViewIntf {
 
     private List<Sweet> sweetsList = new ArrayList<>();
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
 
-    private SweetPresenterIntf sweetPresenter;
+    private SweetListPresenterIntf sweetPresenter;
 
     public RecyclerView getRecyclerView() {
         return recyclerView;
@@ -32,7 +34,7 @@ public class SweetFragment extends Fragment implements SweetViewIntf {
         return sweetsList;
     }
 
-    SweetsAdapter sweetsAdapter;
+    SweetAdapter sweetsAdapter;
 
     @Nullable
     @Override
@@ -42,21 +44,25 @@ public class SweetFragment extends Fragment implements SweetViewIntf {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        sweetPresenter = new SweetPresenterImpl(this);
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.fragment_sweet_list);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
-
-        sweetPresenter.getChocolateItems();
-        sweetPresenter.getLollipopItems();
-
+        populateView();
     }
 
 
     @Override
     public void populateView() {
-        sweetPresenter.setAdapter(new SweetsAdapter(sweetsList));
+        sweetPresenter = new SweetListPresenterImpl(this);
+        sweetPresenter.setAdapter(new SweetAdapter(sweetPresenter.getAllSweets(), new SweetAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int id) {
+                Bundle bundle= new Bundle();
+                bundle.putInt("id", id);
+                Navigation.findNavController(getView()).navigate(R.id.action_sweetListFragment_to_sweetDetailedFragment, bundle);
+            }
+        }));
     }
 }
