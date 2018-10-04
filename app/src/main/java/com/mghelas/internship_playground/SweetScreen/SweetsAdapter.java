@@ -1,6 +1,5 @@
-package com.mghelas.internship_playground.adapters;
+package com.mghelas.internship_playground.SweetScreen;
 
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +9,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mghelas.internship_playground.R;
-import com.mghelas.internship_playground.sweetsfactory.Chocolate;
-import com.mghelas.internship_playground.sweetsfactory.Lollipop;
-import com.mghelas.internship_playground.sweetsfactory.Sweet;
+import com.mghelas.internship_playground.Model.Chocolate;
+import com.mghelas.internship_playground.Model.Lollipop;
+import com.mghelas.internship_playground.Model.Sweet;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.mghelas.internship_playground.sweetsfactory;
+package com.mghelas.internship_playground.Model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
