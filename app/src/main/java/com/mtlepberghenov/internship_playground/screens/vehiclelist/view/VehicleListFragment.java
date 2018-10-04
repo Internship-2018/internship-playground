@@ -3,6 +3,7 @@ package com.mtlepberghenov.internship_playground.screens.vehiclelist.view;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,7 @@ import com.mtlepberghenov.internship_playground.model.entity.Vehicle;
 import com.mtlepberghenov.internship_playground.screens.vehiclelist.presenter.VehicleListPresenter;
 import com.mtlepberghenov.internship_playground.screens.vehiclelist.presenter.VehicleListPresenterImpl;
 import java.util.ArrayList;
+import java.util.List;
 
 public class VehicleListFragment extends Fragment implements VehicleListView {
 
@@ -56,10 +58,16 @@ public class VehicleListFragment extends Fragment implements VehicleListView {
 
     adapter = new VehicleListAdapter();
     recyclerView.setAdapter(adapter);
-    presenter.onRecyclerViewIsReady();
+    presenter.onScreenIsReady();
   }
 
-  @Override public void onSetData(ArrayList<Vehicle> carList) {
+  @Override public void onSetData(List<Vehicle> carList) {
     adapter.setData(carList);
+  }
+
+  @Override public void onShowMessage(String text) {
+    if (getView() != null) {
+      Snackbar.make(getView(), text, Snackbar.LENGTH_SHORT).show();
+    }
   }
 }

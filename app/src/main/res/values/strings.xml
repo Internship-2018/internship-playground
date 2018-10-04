@@ -8,4 +8,6 @@
     <string name="air_con">Air-Con.:</string>
     <string name="gps">GPS:</string>
     <string name="item_text">Type: %s\nMake: %s\nModel: %s\nColor: %s\nYear: %s</string>
+  <string name="error">Error</string>
+    <string name="Done">Done</string>
 </resources>

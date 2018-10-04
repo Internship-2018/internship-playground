@@ -5,5 +5,5 @@ import com.mtlepberghenov.internship_playground.screens.vehiclelist.view.Vehicle
 
 public interface VehicleListPresenter extends BaseMvpPresenter<VehicleListView> {
 
-  void onRecyclerViewIsReady();
+  void onScreenIsReady();
 }

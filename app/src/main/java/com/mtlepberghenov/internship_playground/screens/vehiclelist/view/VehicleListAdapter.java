@@ -12,10 +12,11 @@ import butterknife.ButterKnife;
 import com.mtlepberghenov.internship_playground.R;
 import com.mtlepberghenov.internship_playground.model.entity.Vehicle;
 import java.util.ArrayList;
+import java.util.List;
 
 public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.MyViewHolder> {
 
-  private ArrayList<Vehicle> vehicleList = new ArrayList<>();
+  private List<Vehicle> vehicleList = new ArrayList<>();
   private StringBuilder sb = new StringBuilder();
 
   @NonNull
@@ -47,7 +48,7 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
     return vehicleList.size();
   }
 
-  public void setData(ArrayList<Vehicle> vehicleList) {
+  public void setData(List<Vehicle> vehicleList) {
     this.vehicleList.clear();
     this.vehicleList.addAll(vehicleList);
     notifyDataSetChanged();
