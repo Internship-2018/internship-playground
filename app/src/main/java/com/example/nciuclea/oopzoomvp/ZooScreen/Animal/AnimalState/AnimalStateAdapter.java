@@ -1,4 +1,4 @@
-package com.example.nciuclea.oopzoomvp.ZooScreen;
+package com.example.nciuclea.oopzoomvp.ZooScreen.Animal.AnimalState;
 
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -10,11 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
-import com.example.nciuclea.oopzoomvp.Animal.AnimalState.AnimalStateModel;
-import com.example.nciuclea.oopzoomvp.Animal.AnimalState.AnimalStatePresenter;
-import com.example.nciuclea.oopzoomvp.Animal.AnimalState.AnimalStateView;
-import com.example.nciuclea.oopzoomvp.Animal.AnimalState.State;
-import com.example.nciuclea.oopzoomvp.Animal.DeadCallback;
+import com.example.nciuclea.oopzoomvp.ZooScreen.Animal.DeadCallback;
 import com.example.nciuclea.oopzoomvp.R;
 
 import java.util.ArrayList;
@@ -26,7 +22,7 @@ public class AnimalStateAdapter extends RecyclerView.Adapter<AnimalStateAdapter.
     private DeadCallback deadCallback;
     private List<AnimalStateModel> animalStateModelList;
 
-    AnimalStateAdapter(List<AnimalStateModel> animalStateModelList) {
+    public AnimalStateAdapter(List<AnimalStateModel> animalStateModelList) {
         this.animalStateModelList = animalStateModelList;
     }
 
@@ -118,7 +114,7 @@ public class AnimalStateAdapter extends RecyclerView.Adapter<AnimalStateAdapter.
         return animalStateModelList.size();
     }
 
-    void updateAnimalStatesList(List<AnimalStateModel> newAnimalStatesList) {
+    public void updateAnimalStatesList(List<AnimalStateModel> newAnimalStatesList) {
         if (animalStateModelList == null) animalStateModelList = new ArrayList<AnimalStateModel>(newAnimalStatesList);
         animalStateModelList.clear();
         animalStateModelList.addAll(newAnimalStatesList);

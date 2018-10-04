@@ -1,6 +1,6 @@
 package com.example.nciuclea.oopzoomvp.ZooScreen;
 
-import com.example.nciuclea.oopzoomvp.Animal.Animal;
+import com.example.nciuclea.oopzoomvp.ZooScreen.Animal.Animal;
 
 import java.util.List;
 
