@@ -19,17 +19,17 @@ import com.mtlepberghenov.internship_playground.screens.vehiclelist.model.entity
 import com.mtlepberghenov.internship_playground.screens.vehiclelist.presenter.VehicleListPresenter;
 import com.mtlepberghenov.internship_playground.screens.vehiclelist.presenter.VehicleListPresenterImpl;
 import java.util.List;
+import javax.inject.Inject;
 
 public class VehicleListFragment extends Fragment implements VehicleListView {
 
-  private VehicleListPresenter presenter;
+  @Inject VehicleListPresenterImpl presenter;
   private VehicleListAdapter adapter;
 
   @BindView(R.id.recycler_view) RecyclerView recyclerView;
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    presenter = new VehicleListPresenterImpl(new VehicleListModelImpl());
     presenter.attach(this);
   }
 

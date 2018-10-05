@@ -17,11 +17,6 @@ public class VehicleListPresenterImpl extends BasePresenter<VehicleListView>
   private static final String ERROR = TextWrapper.newInstance().getErrorMessage();
   public static final String DONE = TextWrapper.newInstance().getDoneMessage();
 
-  public VehicleListPresenterImpl(VehicleListModel model) {
-
-    this.model = model;
-  }
-
   @Override public void onScreenIsReady() {
 
     model.getData()
