@@ -14,11 +14,10 @@ import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.mtlepberghenov.internship_playground.R;
-import com.mtlepberghenov.internship_playground.model.CarMainModelImpl;
-import com.mtlepberghenov.internship_playground.model.entity.Vehicle;
+import com.mtlepberghenov.internship_playground.screens.vehiclelist.model.VehicleListModelImpl;
+import com.mtlepberghenov.internship_playground.screens.vehiclelist.model.entity.Vehicle;
 import com.mtlepberghenov.internship_playground.screens.vehiclelist.presenter.VehicleListPresenter;
 import com.mtlepberghenov.internship_playground.screens.vehiclelist.presenter.VehicleListPresenterImpl;
-import java.util.ArrayList;
 import java.util.List;
 
 public class VehicleListFragment extends Fragment implements VehicleListView {
@@ -30,7 +29,7 @@ public class VehicleListFragment extends Fragment implements VehicleListView {
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    presenter = new VehicleListPresenterImpl(new CarMainModelImpl());
+    presenter = new VehicleListPresenterImpl(new VehicleListModelImpl());
     presenter.attach(this);
   }
 
