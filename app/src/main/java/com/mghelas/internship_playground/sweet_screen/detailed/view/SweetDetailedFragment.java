@@ -1,4 +1,4 @@
-package com.mghelas.internship_playground.sweet_screen.detailed;
+package com.mghelas.internship_playground.sweet_screen.detailed.view;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,6 +16,8 @@ import com.mghelas.internship_playground.Entity.Chocolate;
 import com.mghelas.internship_playground.Entity.Lollipop;
 import com.mghelas.internship_playground.Entity.Sweet;
 import com.mghelas.internship_playground.R;
+import com.mghelas.internship_playground.sweet_screen.detailed.presenter.SweetDetailedPresenterImpl;
+import com.mghelas.internship_playground.sweet_screen.detailed.presenter.SweetDetailedPresenterIntf;
 
 import androidx.navigation.Navigation;
 

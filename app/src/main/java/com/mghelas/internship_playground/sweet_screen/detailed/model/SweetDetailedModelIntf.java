@@ -1,4 +1,4 @@
-package com.mghelas.internship_playground.sweet_screen.detailed;
+package com.mghelas.internship_playground.sweet_screen.detailed.model;
 
 import com.mghelas.internship_playground.Entity.Sweet;
 

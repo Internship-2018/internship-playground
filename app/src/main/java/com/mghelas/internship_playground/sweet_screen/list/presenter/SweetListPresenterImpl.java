@@ -1,8 +1,11 @@
-package com.mghelas.internship_playground.sweet_screen.list;
+package com.mghelas.internship_playground.sweet_screen.list.presenter;
 
 import android.support.v7.widget.RecyclerView;
 
 import com.mghelas.internship_playground.Entity.Sweet;
+import com.mghelas.internship_playground.sweet_screen.list.model.SweetListModelImpl;
+import com.mghelas.internship_playground.sweet_screen.list.model.SweetListModelIntf;
+import com.mghelas.internship_playground.sweet_screen.list.view.SweetListFragment;
 
 import java.util.List;
 
@@ -10,7 +13,7 @@ public class SweetListPresenterImpl implements SweetListPresenterIntf {
     private SweetListFragment sweetListFragment;
     private SweetListModelIntf sweetModel;
 
-    SweetListPresenterImpl(SweetListFragment sweetListFragment) {
+    public SweetListPresenterImpl(SweetListFragment sweetListFragment) {
         this.sweetListFragment = sweetListFragment;
         this.sweetModel = new SweetListModelImpl();
     }
@@ -22,18 +25,8 @@ public class SweetListPresenterImpl implements SweetListPresenterIntf {
     }
 
     @Override
-    public Sweet findById(int id) {
-        return sweetModel.findById(id);
-    }
-
-    @Override
-    public void remove(int id) {
-        sweetModel.remove(id);
-    }
-
-    @Override
-    public void add(Sweet sweet) {
-        sweetModel.add(sweet);
+    public void onAdd() {
+//        sweetListFragment.
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.mghelas.internship_playground.sweet_screen.list;
+package com.mghelas.internship_playground.sweet_screen.list.view;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

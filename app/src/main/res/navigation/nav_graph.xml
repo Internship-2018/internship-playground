@@ -7,16 +7,19 @@
 
     <fragment
         android:id="@+id/startFragment"
-        android:name="com.mghelas.internship_playground.StartScreen.StartFragment"
+        android:name="com.mghelas.internship_playground.start_screen.view.StartFragment"
         android:label="fragment_start"
         tools:layout="@layout/fragment_start">
         <action
             android:id="@+id/action_startFragment_to_sweetFragment"
             app:destination="@id/sweetListFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_sweetAddFragment"
+            app:destination="@id/sweetAddFragment" />
     </fragment>
     <fragment
         android:id="@+id/sweetListFragment"
-        android:name="com.mghelas.internship_playground.sweet_screen.list.SweetListFragment"
+        android:name="com.mghelas.internship_playground.sweet_screen.list.view.SweetListFragment"
         android:label="fragment_sweet_list"
         tools:layout="@layout/fragment_sweet_list" >
         <action
@@ -25,11 +28,20 @@
     </fragment>
     <fragment
         android:id="@+id/sweetDetailedFragment"
-        android:name="com.mghelas.internship_playground.sweet_screen.detailed.SweetDetailedFragment"
+        android:name="com.mghelas.internship_playground.sweet_screen.detailed.view.SweetDetailedFragment"
         android:label="fragment_sweet_detailed"
         tools:layout="@layout/fragment_sweet_detailed" >
         <action
             android:id="@+id/action_sweetDetailedFragment_to_sweetListFragment"
             app:destination="@id/sweetListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sweetAddFragment"
+        android:name="com.mghelas.internship_playground.sweet_screen.add.SweetAddFragment"
+        android:label="fragment_sweet_add"
+        tools:layout="@layout/fragment_sweet_add" >
+        <action
+            android:id="@+id/action_sweetAddFragment_to_startFragment"
+            app:destination="@id/startFragment" />
     </fragment>
 </navigation>
