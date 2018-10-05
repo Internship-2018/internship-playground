@@ -17,13 +17,13 @@ import com.mghelas.internship_playground.Entity.Lollipop;
 import com.mghelas.internship_playground.Entity.Sweet;
 import com.mghelas.internship_playground.R;
 import com.mghelas.internship_playground.sweet_screen.detailed.presenter.SweetDetailedPresenterImpl;
-import com.mghelas.internship_playground.sweet_screen.detailed.presenter.SweetDetailedPresenterIntf;
+import com.mghelas.internship_playground.sweet_screen.detailed.presenter.SweetDetailedPresenter;
 
 import androidx.navigation.Navigation;
 
 public class SweetDetailedFragment extends Fragment implements SweetDetailedView {
 
-    SweetDetailedPresenterIntf sweetDetailedPresenter;
+    SweetDetailedPresenter sweetDetailedPresenter;
     Sweet sweet;
 
     TextView title;

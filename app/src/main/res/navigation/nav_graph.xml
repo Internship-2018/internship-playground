@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/startFragment"
-        android:name="com.mghelas.internship_playground.start_screen.view.StartFragment"
+        android:name="com.mghelas.internship_playground.start_screen.StartFragment"
         android:label="fragment_start"
         tools:layout="@layout/fragment_start">
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/sweetListFragment"
-        android:name="com.mghelas.internship_playground.sweet_screen.list.view.SweetListFragment"
+        android:name="com.mghelas.internship_playground.sweet_screen.list.SweetListFragment"
         android:label="fragment_sweet_list"
         tools:layout="@layout/fragment_sweet_list" >
         <action

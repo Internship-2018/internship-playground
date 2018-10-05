@@ -3,7 +3,7 @@ package com.mghelas.internship_playground.sweet_screen.detailed.model;
 import com.mghelas.internship_playground.Entity.Sweet;
 import com.mghelas.internship_playground.datasource.DataSource;
 
-public class SweetDetailedModelImpl implements SweetDetailedModelIntf {
+public class SweetDetailedModelImpl implements SweetDetailedModel {
 
     private DataSource dataSource;
 
