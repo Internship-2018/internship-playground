@@ -4,6 +4,7 @@ package com.example.nciuclea.oopzoomvp.Animal;
 
 import com.example.nciuclea.oopzoomvp.Animal.AnimalState.AnimalStateModel;
 import com.example.nciuclea.oopzoomvp.Animal.AnimalState.AnimalStatePresenter;
+import com.example.nciuclea.oopzoomvp.Animal.AnimalState.State;
 
 import java.util.List;
 
@@ -12,9 +13,11 @@ public class Animal implements DeadCallback {
     private int imageID;
     private AnimalStatePresenter presenter;
     private List<AnimalStateModel> statesList;
+
+    private State generalState;
+
     protected String name;
     private boolean isAlive = true;
-
     public Animal(String type, int imageID, List<AnimalStateModel> statesList) {
         this.type = type;
         this.imageID = imageID;
@@ -31,6 +34,14 @@ public class Animal implements DeadCallback {
 
     public int getImageID() {
         return imageID;
+    }
+
+    public State getGeneralState() {
+        return generalState;
+    }
+
+    public void setGeneralState(State generalState) {
+        this.generalState = generalState;
     }
 
     public List<AnimalStateModel> getStatesList() {
