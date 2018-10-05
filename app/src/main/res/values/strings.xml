@@ -15,4 +15,6 @@
     <string name="health_button">HEEL</string>
     <string name="filter_text">Filter</string>
     <string name="filter_button">CHANGE</string>
+    <string name="start_view_cta">Start Start</string>
+    <string name="main_view_cta">Main Start</string>
 </resources>
