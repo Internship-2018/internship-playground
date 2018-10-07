@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/sweetDetailedFragment"
-        android:name="com.mghelas.internship_playground.sweet_screen.detailed.view.SweetDetailedFragment"
+        android:name="com.mghelas.internship_playground.sweet_screen.detailed.SweetDetailedFragment"
         android:label="fragment_sweet_detailed"
         tools:layout="@layout/fragment_sweet_detailed" >
         <action

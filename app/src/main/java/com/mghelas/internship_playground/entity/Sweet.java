@@ -1,4 +1,4 @@
-package com.mghelas.internship_playground.Entity;
+package com.mghelas.internship_playground.entity;
 
 import java.util.Date;
 import java.util.List;

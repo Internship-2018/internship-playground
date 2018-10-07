@@ -12,8 +12,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Switch;
 
-import com.mghelas.internship_playground.Entity.Chocolate;
-import com.mghelas.internship_playground.Entity.Sweet;
+import com.mghelas.internship_playground.entity.Sweet;
 import com.mghelas.internship_playground.R;
 
 public class SweetAddFragment extends Fragment implements SweetAddViewIntf{

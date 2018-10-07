@@ -11,7 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mghelas.internship_playground.R;
-import com.mghelas.internship_playground.Entity.Sweet;
+import com.mghelas.internship_playground.entity.Sweet;
+import com.mghelas.internship_playground.sweet_screen.list.impl.SweetListModelImpl;
 import com.mghelas.internship_playground.sweet_screen.list.impl.SweetListPresenterImpl;
 import com.mghelas.internship_playground.sweet_screen.list.impl.SweetListViewImpl;
 import com.mghelas.internship_playground.sweet_screen.list.impl.SweetListWireframeImpl;
@@ -19,72 +20,36 @@ import com.mghelas.internship_playground.sweet_screen.list.impl.SweetListWirefra
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.navigation.Navigation;
-
-public class SweetListFragment extends Fragment implements SweetListView {
-
-    private List<Sweet> sweetsList = new ArrayList<>();
-    private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
+public class SweetListFragment extends Fragment {
 
     SweetListNativeView sweetListNativeView;
     SweetListPresenter sweetListPresenter;
-
-    public RecyclerView getRecyclerView() {
-        return recyclerView;
-    }
-
-    public List<Sweet> getSweetsList() {
-        return sweetsList;
-    }
-
-    SweetAdapter sweetsAdapter;
+    SweetListWireframe sweetListWireframe;
+    SweetListModel sweetListModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final SweetListViewImpl view = new SweetListViewImpl();
+        sweetListModel = new SweetListModelImpl();
+        sweetListWireframe = new SweetListWireframeImpl(this);
         sweetListNativeView = view;
-        sweetListPresenter = new SweetListPresenterImpl(view, new SweetListWireframeImpl(this));
+        sweetListPresenter = new SweetListPresenterImpl(view, sweetListWireframe, sweetListModel);
 
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_sweet_list, container, false);
+        return inflater.inflate(sweetListNativeView.getLayout(), container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        sweetListNativeView.initView(this);
+        sweetListNativeView.initView(this, sweetListPresenter);
         sweetListPresenter.onViewInitialised();
-        recyclerView = view.findViewById(R.id.fragment_sweet_list);
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(view.getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        populateView();
     }
 
-
-    @Override
-    public void populateView() {
-        sweetPresenter = new SweetListPresenterImpl(this);
-        sweetPresenter.setAdapter(new SweetAdapter(sweetPresenter.getAllSweets(), new SweetAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int id) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("id", id);
-                Navigation.findNavController(getView()).navigate(R.id.action_sweetListFragment_to_sweetDetailedFragment, bundle);
-
-            }
-        }));
-    }
-
-    @Override
-    public void add() {
-
-    }
 }

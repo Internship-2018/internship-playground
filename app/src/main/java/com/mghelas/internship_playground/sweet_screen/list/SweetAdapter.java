@@ -9,35 +9,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mghelas.internship_playground.R;
-import com.mghelas.internship_playground.Entity.Chocolate;
-import com.mghelas.internship_playground.Entity.Lollipop;
-import com.mghelas.internship_playground.Entity.Sweet;
+import com.mghelas.internship_playground.entity.Chocolate;
+import com.mghelas.internship_playground.entity.Lollipop;
+import com.mghelas.internship_playground.entity.Sweet;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
-    public interface OnItemClickListener {
-        void onItemClick(int id);
-    }
-
-    private List<Sweet> items = new ArrayList<>();
-    private final OnItemClickListener listener;
+    private List<Sweet> items;
+    private ItemClickHandler itemClickHandler;
     private static final int ITEM_TYPE_CHOCOLATE = 1;
     private static final int ITEM_TYPE_LOLLIPOP = 2;
 
-    public SweetAdapter(List<Sweet> items, OnItemClickListener listener) {
+    public SweetAdapter(List<Sweet> items, ItemClickHandler itemClickHandler) {
         this.items = items;
-        this.listener = listener;
+        this.itemClickHandler = itemClickHandler;
     }
-
-    public List<Sweet> getItems() {
-        return items;
-    }
-
-
 
     private class ChocolateViewHolder extends RecyclerView.ViewHolder {
 
@@ -48,15 +37,15 @@ public class SweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         ChocolateViewHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.titleDetailed);
-            price = (TextView) itemView.findViewById(R.id.priceDetailed);
-            weight = (TextView) itemView.findViewById(R.id.weightDetailed);
-            percentage = (TextView) itemView.findViewById(R.id.percentage);
+            title = itemView.findViewById(R.id.titleDetailed);
+            price = itemView.findViewById(R.id.priceDetailed);
+            weight = itemView.findViewById(R.id.weightDetailed);
+            percentage = itemView.findViewById(R.id.percentage);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClick(getAdapterPosition());
+                    itemClickHandler.onItemClicked(getAdapterPosition());
                 }
             });
         }
@@ -74,15 +63,15 @@ public class SweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         LollipopViewHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.titleDetailed);
-            price = (TextView) itemView.findViewById(R.id.priceDetailed);
-            weight = (TextView) itemView.findViewById(R.id.weightDetailed);
-            flavour = (TextView) itemView.findViewById(R.id.flavourDetailed);
+            title = itemView.findViewById(R.id.titleDetailed);
+            price = itemView.findViewById(R.id.priceDetailed);
+            weight = itemView.findViewById(R.id.weightDetailed);
+            flavour = itemView.findViewById(R.id.flavourDetailed);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClick(getAdapterPosition());
+                    itemClickHandler.onItemClicked(getAdapterPosition());
                 }
             });
         }

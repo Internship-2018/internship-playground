@@ -1,8 +1,8 @@
 package com.mghelas.internship_playground.datasource;
 
-import com.mghelas.internship_playground.Entity.Chocolate;
-import com.mghelas.internship_playground.Entity.Lollipop;
-import com.mghelas.internship_playground.Entity.Sweet;
+import com.mghelas.internship_playground.entity.Chocolate;
+import com.mghelas.internship_playground.entity.Lollipop;
+import com.mghelas.internship_playground.entity.Sweet;
 
 import java.util.ArrayList;
 import java.util.List;

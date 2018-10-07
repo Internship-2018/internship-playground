@@ -1,9 +1,6 @@
 package com.mghelas.internship_playground.sweet_screen.list.impl;
 
-import android.support.v7.widget.RecyclerView;
-
-import com.mghelas.internship_playground.Entity.Sweet;
-import com.mghelas.internship_playground.sweet_screen.list.SweetListFragment;
+import com.mghelas.internship_playground.entity.Sweet;
 import com.mghelas.internship_playground.sweet_screen.list.SweetListModel;
 import com.mghelas.internship_playground.sweet_screen.list.SweetListPresenter;
 import com.mghelas.internship_playground.sweet_screen.list.SweetListView;
@@ -29,8 +26,8 @@ public class SweetListPresenterImpl implements SweetListPresenter {
     }
 
     @Override
-    public void onItemClicked() {
-        sweetListWireframe.showDetailedContent();
+    public void onItemClicked(int id) {
+        sweetListWireframe.showDetailedContent(id);
     }
 
     @Override
@@ -38,15 +35,5 @@ public class SweetListPresenterImpl implements SweetListPresenter {
         return sweetModel.getAll();
     }
 
-    @Override
-    public void onAdd() {
-//        sweetListFragment.
-    }
-
-    @Override
-    public void setAdapter(RecyclerView.Adapter adapter) {
-        adapter.notifyDataSetChanged();
-        this.sweetListFragment.getRecyclerView().setAdapter(adapter);
-    }
 
 }
