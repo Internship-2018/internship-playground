@@ -1,13 +1,19 @@
 package com.mghelas.internship_playground.sweet_screen.add.impl;
 
 import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
+import android.widget.TableLayout;
 
+import com.mghelas.internship_playground.Ingredients;
 import com.mghelas.internship_playground.R;
 import com.mghelas.internship_playground.entity.Chocolate;
 import com.mghelas.internship_playground.entity.Lollipop;
@@ -46,7 +52,12 @@ public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView {
         final Switch cocoa = sweetAddFragment.getView().findViewById(R.id.cocoa_add);
         final Switch sugar = sweetAddFragment.getView().findViewById(R.id.sugar_add);
         flavour = sweetAddFragment.getView().findViewById(R.id.flavour_add);
-
+        final RelativeLayout switchContainer = sweetAddFragment.getView().findViewById(R.id.switch_container);
+        for (Ingredients ingredient : Ingredients.values()) {
+            Switch aSwitch = new Switch(sweetAddFragment.getContext());
+            aSwitch.setText(ingredient.toString().toLowerCase());
+            switchContainer.addView(aSwitch);
+        }
 
         sweetType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -69,7 +80,7 @@ public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView {
                             Double.parseDouble(price.getText().toString()),
                             Double.parseDouble(weight.getText().toString()),
                             pricePerKg.isChecked(), Integer.parseInt(flavour.getText().toString()));
-                    List<String> ingredients = getIngredients(milk, cocoa, sugar);
+                    List<String> ingredients = getIngredients(switchContainer);
                     sweet.setIngredients(ingredients);
 
                 } else {
@@ -77,7 +88,7 @@ public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView {
                             Double.parseDouble(price.getText().toString()),
                             Double.parseDouble(weight.getText().toString()),
                             pricePerKg.isChecked(), flavour.getText().toString());
-                    List<String> ingredients = getIngredients(milk, cocoa, sugar);
+                    List<String> ingredients = getIngredients(switchContainer);
                     ingredients.add(((Lollipop) sweet).getFlavour() + " concentrate");
                     sweet.setIngredients(ingredients);
                 }
@@ -87,17 +98,24 @@ public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView {
     }
 
     @NonNull
-    private List<String> getIngredients(Switch milk, Switch cocoa, Switch sugar) {
+    private List<String> getIngredients(RelativeLayout switchContainer) {
         List<String> ingredients = new ArrayList<>();
-        if (milk.isChecked()) {
-            ingredients.add(milk.getText().toString());
+
+        for (int i = 0; i < switchContainer.getChildCount(); i++) {
+            Switch s = (Switch) switchContainer.getChildAt(i);
+            if (s.isChecked()) {
+                ingredients.add(s.getText().toString());
+            }
         }
-        if (cocoa.isChecked()) {
-            ingredients.add(cocoa.getText().toString());
-        }
-        if (sugar.isChecked()) {
-            ingredients.add(sugar.getText().toString());
-        }
+//        if (milk.isChecked()) {
+//            ingredients.add(milk.getText().toString());
+//        }
+//        if (cocoa.isChecked()) {
+//            ingredients.add(cocoa.getText().toString());
+//        }
+//        if (sugar.isChecked()) {
+//            ingredients.add(sugar.getText().toString());
+//        }
         return ingredients;
     }
 
