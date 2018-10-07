@@ -18,7 +18,6 @@ import com.mtlepberghenov.internship_playground.model.CarMainModelImpl;
 import com.mtlepberghenov.internship_playground.model.entity.Vehicle;
 import com.mtlepberghenov.internship_playground.screens.vehiclelist.presenter.VehicleListPresenter;
 import com.mtlepberghenov.internship_playground.screens.vehiclelist.presenter.VehicleListPresenterImpl;
-import java.util.ArrayList;
 import java.util.List;
 
 public class VehicleListFragment extends Fragment implements VehicleListView {
@@ -38,7 +37,7 @@ public class VehicleListFragment extends Fragment implements VehicleListView {
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.fragment_car_list, container, false);
+    View view = inflater.inflate(R.layout.fragment_vehicle_list, container, false);
     ButterKnife.bind(this, view);
     return view;
   }
