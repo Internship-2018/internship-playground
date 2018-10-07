@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/sweet_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -19,22 +19,25 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <RadioButton
-            android:id="@+id/isLollipop"
+            android:id="@+id/is_lollipop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Lollipop" />
+            android:checked="true"
+            android:text="Lollipop"
+            tools:text="Lollipop" />
 
         <RadioButton
-            android:id="@+id/isChocolate"
+            android:id="@+id/is_chocolate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Chocolate" />
+            android:text="Chocolate"
+            tools:text="Chocolate" />
     </RadioGroup>
 
     <EditText
-        android:id="@+id/titleTextEdit"
+        android:id="@+id/title_add"
         android:layout_width="163dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -43,10 +46,10 @@
         android:hint="Title"
         android:inputType="textNoSuggestions|textPersonName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/sweet_type" />
 
     <EditText
-        android:id="@+id/weightEditText"
+        android:id="@+id/weight_add"
         android:layout_width="163dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -55,34 +58,34 @@
         android:hint="Weight"
         android:inputType="number"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextEdit" />
+        app:layout_constraintTop_toBottomOf="@+id/title_add" />
 
     <Switch
-        android:id="@+id/pricePerKgSwitch"
+        android:id="@+id/price_per_kg_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Price per kg"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weightEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/weight_add" />
 
     <EditText
-        android:id="@+id/flavourEditText"
+        android:id="@+id/flavour_add"
         android:layout_width="169dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
-        android:hint="FLavour"
+        android:hint="Flavour"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/weightEditText"
-        app:layout_constraintTop_toBottomOf="@+id/priceEditText" />
+        app:layout_constraintStart_toEndOf="@+id/weight_add"
+        app:layout_constraintTop_toBottomOf="@+id/price_add" />
 
     <EditText
-        android:id="@+id/priceEditText"
+        android:id="@+id/price_add"
         android:layout_width="168dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -93,11 +96,11 @@
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.413"
-        app:layout_constraintStart_toEndOf="@+id/titleTextEdit"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        app:layout_constraintStart_toEndOf="@+id/title_add"
+        app:layout_constraintTop_toBottomOf="@+id/sweet_type" />
 
     <Button
-        android:id="@+id/createSweetButton"
+        android:id="@+id/create_sweet_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -108,37 +111,37 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sugarSwitch"
+        app:layout_constraintTop_toBottomOf="@+id/sugar_add"
         app:layout_constraintVertical_bias="0.283" />
 
     <Switch
-        android:id="@+id/milkSwitch"
+        android:id="@+id/milk_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Milk"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pricePerKgSwitch" />
+        app:layout_constraintTop_toBottomOf="@+id/price_per_kg_add" />
 
     <Switch
-        android:id="@+id/sugarSwitch"
+        android:id="@+id/sugar_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
         android:layout_marginTop="8dp"
         android:text="Sugar"
-        app:layout_constraintStart_toEndOf="@+id/milkSwitch"
-        app:layout_constraintTop_toBottomOf="@+id/pricePerKgSwitch" />
+        app:layout_constraintStart_toEndOf="@+id/milk_add"
+        app:layout_constraintTop_toBottomOf="@+id/price_per_kg_add" />
 
     <Switch
-        android:id="@+id/cocoaSwitch"
+        android:id="@+id/cocoa_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
         android:layout_marginTop="8dp"
         android:text="Cocoa"
-        app:layout_constraintStart_toEndOf="@+id/sugarSwitch"
-        app:layout_constraintTop_toBottomOf="@+id/pricePerKgSwitch" />
+        app:layout_constraintStart_toEndOf="@+id/sugar_add"
+        app:layout_constraintTop_toBottomOf="@+id/price_per_kg_add" />
 
 </android.support.constraint.ConstraintLayout>

@@ -1,9 +1,10 @@
-package com.mghelas.internship_playground.sweet_screen.add;
+package com.mghelas.internship_playground.sweet_screen.add.impl;
 
-import com.mghelas.internship_playground.entity.Sweet;
 import com.mghelas.internship_playground.datasource.DataSource;
+import com.mghelas.internship_playground.entity.Sweet;
+import com.mghelas.internship_playground.sweet_screen.add.SweetAddModel;
 
-public class SweetAddModelImpl implements SweetAddModelIntf {
+public class SweetAddModelImpl implements SweetAddModel {
 
     private DataSource dataSource;
 

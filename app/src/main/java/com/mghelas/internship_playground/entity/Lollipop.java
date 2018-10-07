@@ -6,6 +6,9 @@ import java.util.Date;
 public class Lollipop extends Sweet {
     private String flavour;
 
+    public Lollipop() {
+    }
+
     public Lollipop(String title, Double price, Double weight, Boolean pricePerKg, String flavour) {
         super(title, price, weight, pricePerKg);
         this.flavour = flavour;
