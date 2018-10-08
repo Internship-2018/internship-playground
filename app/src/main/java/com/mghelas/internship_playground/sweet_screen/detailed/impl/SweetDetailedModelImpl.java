@@ -4,8 +4,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
+import com.mghelas.internship_playground.datasource.IngredientsReaderContract;
 import com.mghelas.internship_playground.datasource.SweetReaderContract;
 import com.mghelas.internship_playground.datasource.DbHelper;
+import com.mghelas.internship_playground.datasource.SweetsIngredientsReaderContract;
 import com.mghelas.internship_playground.entity.Chocolate;
 import com.mghelas.internship_playground.entity.Lollipop;
 import com.mghelas.internship_playground.entity.Sweet;
@@ -23,22 +25,35 @@ public class SweetDetailedModelImpl implements SweetDetailedModel {
 
     @Override
     public Sweet findById(int id) {
-        String query = "SELECT sweets.*, ingredients.title as ingredient_title" +
-                " FROM sweets" +
-                " LEFT OUTER JOIN sweets_ingredients" +
-                " ON sweets._id = ?" +
-                " AND sweets._id = sweets_ingredients.sweet_id" +
-                " LEFT OUTER JOIN ingredients" +
-                " ON sweets_ingredients.ingredient_id = ingredients._id";
-
+        String query = "SELECT *" +
+                " FROM ingredients" +
+                " JOIN sweets_ingredients" +
+                " ON ingredients._id = sweets_ingredients.ingredient_id" +
+                " AND sweets_ingredients.sweet_id = ?";
 
         SQLiteDatabase db = sweetReaderDbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery(query, new String[]{Integer.toString(id)});
 
-//        String selection = SweetReaderContract.SweetEntry._ID + " = ?";
+        String selection = SweetsIngredientsReaderContract.SweetsIngredientsEntry.COLUMN_NAME_SWEET_ID + " = ?";
 
-//        String[] selectionArgs = {Integer.toString(id)};
+        String[] selectionArgs = {Integer.toString(id)};
+        String[] projection = {
+                BaseColumns._ID,
+                IngredientsReaderContract.IngredientEntry.COLUMN_NAME_TITLE
+        };
+        Cursor cursor = db.rawQuery(query, selectionArgs);
+//        Cursor cursor = db.query(
+//                IngredientsReaderContract.IngredientEntry.TABLE_NAME,
+//                projection,
+//                selection,
+//                selectionArgs,
+//                null,
+//                null,
+//                null
+//        );
 
+        while (cursor.moveToNext()) {
+            System.out.println(cursor.getString(cursor.getColumnIndexOrThrow(SweetReaderContract.SweetEntry.COLUMN_NAME_TITLE)));
+        }
 //        String[] projection = {
 //                BaseColumns._ID,
 //                SweetReaderContract.SweetEntry.COLUMN_NAME_TITLE,
@@ -66,8 +81,7 @@ public class SweetDetailedModelImpl implements SweetDetailedModel {
             boolean pricePerKg = cursor.getInt(cursor.getColumnIndexOrThrow(SweetReaderContract.SweetEntry.COLUMN_NAME_PRICE_PER_KG)) != 0;
             Integer percentage = cursor.getInt(cursor.getColumnIndexOrThrow(SweetReaderContract.SweetEntry.COLUMN_NAME_PERCENTAGE));
             String flavour = cursor.getString(cursor.getColumnIndexOrThrow(SweetReaderContract.SweetEntry.COLUMN_NAME_FLAVOUR));
-            String ingredient = cursor.getString(cursor.getColumnIndexOrThrow("ingredient_title"));
-            System.out.println(ingredient);
+//            String ingredient = cursor.getString(cursor.getColumnIndexOrThrow("ingredient_title"));
             if (percentage != 0) {
                 sweet = new Chocolate(title, price, weight, pricePerKg, percentage);
             } else {
