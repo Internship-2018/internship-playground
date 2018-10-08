@@ -19,6 +19,7 @@ public class AnimalsAdapter extends RecyclerView.Adapter<AnimalsAdapter.AnimalVi
 
     private Context context;
     private List<DBAnimal> animalsList;
+    private AllAnimalsClickHandler clickHandler;
 
     public AnimalsAdapter(Context context, List<DBAnimal> animalsList) {
         this.context = context;
@@ -49,6 +50,10 @@ public class AnimalsAdapter extends RecyclerView.Adapter<AnimalsAdapter.AnimalVi
         notifyDataSetChanged();
     }
 
+    public void setClickHandler(AllAnimalsClickHandler clickHandler) {
+        this.clickHandler = clickHandler;
+    }
+
 
     class AnimalViewHolder extends RecyclerView.ViewHolder {
 
@@ -62,6 +67,12 @@ public class AnimalsAdapter extends RecyclerView.Adapter<AnimalsAdapter.AnimalVi
             animalImageView = itemView.findViewById(R.id.animalImageView);
             animalTextView = itemView.findViewById(R.id.animalTextView);
             animalOverallStateButton = itemView.findViewById(R.id.overallStateButton);
+            animalOverallStateButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickHandler.onClick(v, animalsList.get(getAdapterPosition()).getId());
+                }
+            });
         }
 
         void updateItemUI(DBAnimal animal) {

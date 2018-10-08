@@ -8,4 +8,6 @@ public interface AllAnimalsModel {
     void pullFromDB();
 
     List<DBAnimal> getAnimalsList();
+
+    void updateAnimalState(int id, ModelUpdatedCallback callback);
 }

@@ -15,17 +15,14 @@ import java.util.List;
 
 public class DefaultAllAnimalsView implements AllAnimalsView, AllAnimalsNativeView {
 
+    private Context context;
     RecyclerView recyclerView;
     private AnimalsAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private Context context;
+    private AllAnimalsClickHandler clickHandler;
 
     public DefaultAllAnimalsView(Context context) {
         this.context = context;
-    }
-
-    void setOnClickHandler(AllAnimalsClickHandler allAnimalsClickHandler) {
-
     }
 
     @Override
@@ -41,6 +38,13 @@ public class DefaultAllAnimalsView implements AllAnimalsView, AllAnimalsNativeVi
         recyclerView.setLayoutManager(layoutManager);
         adapter = new AnimalsAdapter(context, new ArrayList<DBAnimal>());
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void setOnClickHandler(AllAnimalsClickHandler allAnimalsClickHandler) {
+        //Should I store clickhandler in View?
+        this.clickHandler = allAnimalsClickHandler;
+        adapter.setClickHandler(clickHandler);
     }
 
     @Override

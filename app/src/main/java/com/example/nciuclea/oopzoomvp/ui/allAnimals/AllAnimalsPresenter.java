@@ -1,5 +1,5 @@
 package com.example.nciuclea.oopzoomvp.ui.allAnimals;
 
-public interface AllAnimalsPresenter {
+public interface AllAnimalsPresenter extends AllAnimalsClickHandler {
     void onViewInitialized();
 }

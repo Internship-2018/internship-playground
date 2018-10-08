@@ -37,6 +37,7 @@ public class AllAnimalsFragment extends Fragment {
         DefaultAllAnimalsView view = new DefaultAllAnimalsView(getContext());
         allAnimalsNativeView = view;
         allAnimalsPresenter = new DefaultAllAnimalsPresenter(view, new DefaultAllAnimalsModel(db), new DefaultAllAnimalsWireFrame(this));
+
     }
 
 
@@ -47,6 +48,7 @@ public class AllAnimalsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(allAnimalsNativeView.getLayout(), container, false);
         allAnimalsNativeView.initView(view);
+        allAnimalsNativeView.setOnClickHandler(allAnimalsPresenter);
         allAnimalsPresenter.onViewInitialized();
         return view;
     }
