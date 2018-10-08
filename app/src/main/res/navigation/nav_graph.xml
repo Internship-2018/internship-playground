@@ -21,7 +21,7 @@
         android:id="@+id/zooFragment"
         android:name="com.example.nciuclea.oopzoomvp.ZooScreen.ZooFragment"
         android:label="fragment_zoo"
-        tools:layout="@layout/fragment_zoo" ></fragment>
+        tools:layout="@layout/fragment_zoo" />
     <fragment
         android:id="@+id/allAnimalsFragment"
         android:name="com.example.nciuclea.oopzoomvp.ui.allAnimals.AllAnimalsFragment"
