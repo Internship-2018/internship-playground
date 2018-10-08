@@ -15,4 +15,8 @@
       android:name="com.mtlepberghenov.internship_playground.ui.list.ListFragment"
       android:label="fragment_car_list"
       tools:layout="@layout/fragment_vehicle_list"/>
+  <fragment
+      android:id="@+id/addDialogFragment"
+      android:name="com.mtlepberghenov.internship_playground.ui.adddialog.AddDialogFragment"
+      android:label="AddDialogFragment"/>
 </navigation>

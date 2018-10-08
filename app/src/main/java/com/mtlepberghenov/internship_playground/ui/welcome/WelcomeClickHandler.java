@@ -1,5 +1,8 @@
 package com.mtlepberghenov.internship_playground.ui.welcome;
 
 public interface WelcomeClickHandler {
-  void onWelcomeClicked();
+
+  void onShowBtnClicked();
+
+  void onAddBtnClicked();
 }

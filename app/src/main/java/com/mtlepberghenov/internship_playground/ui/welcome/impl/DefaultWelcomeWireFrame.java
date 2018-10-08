@@ -14,13 +14,15 @@ public class DefaultWelcomeWireFrame implements WelcomeWireFrame {
   private NavController navController;
 
   public DefaultWelcomeWireFrame(FragmentActivity welcomeFragment) {
-
     this.welcomeFragment = welcomeFragment;
+    navController = Navigation.findNavController(welcomeFragment, R.id.nav_host_fragment);
   }
 
   @Override public void showMainContent() {
-    Log.d(DefaultWelcomeWireFrame.class.getSimpleName(), "showMainContent: ");
-    navController = Navigation.findNavController(welcomeFragment, R.id.nav_host_fragment);
     navController.navigate(R.id.vehicleListFragment);
+  }
+
+  @Override public void showAddContent() {
+    navController.navigate(R.id.addDialogFragment);
   }
 }

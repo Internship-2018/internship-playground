@@ -22,7 +22,11 @@ public class DefaultWelcomePresenter implements WelcomePresenter {
     view.setOnWelcomeHandler(this);
   }
 
-  @Override public void onWelcomeClicked() {
+  @Override public void onShowBtnClicked() {
     welcomeWireFrame.showMainContent();
+  }
+
+  @Override public void onAddBtnClicked() {
+    welcomeWireFrame.showAddContent();
   }
 }

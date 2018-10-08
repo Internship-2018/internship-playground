@@ -1,7 +1,6 @@
 package com.mtlepberghenov.internship_playground.ui.welcome.impl;
 
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.mtlepberghenov.internship_playground.R;
@@ -27,14 +26,23 @@ public class DefaultWelcomeView implements WelcomeNativeView, WelcomeView {
 
   @OnClick(R.id.show_store_btn)
   public void onClick() {
-    Log.d(DefaultWelcomeView.class.getSimpleName(), "onClick: ");
-    onWelcomeClicked();
+    onShowBtnClicked();
   }
 
-  private void onWelcomeClicked() {
-    Log.d(DefaultWelcomeView.class.getSimpleName(), "onWelcomeClicked: " + clickHandler);
+  @OnClick(R.id.add_btn)
+  public void onAddBtnClick() {
+    onAddBtnClicked();
+  }
+
+  private void onAddBtnClicked() {
+    if (clickHandler !=null) {
+      clickHandler.onAddBtnClicked();
+    }
+  }
+
+  private void onShowBtnClicked() {
     if (clickHandler != null) {
-      clickHandler.onWelcomeClicked();
+      clickHandler.onShowBtnClicked();
     }
   }
 }

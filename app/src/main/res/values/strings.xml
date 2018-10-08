@@ -10,4 +10,10 @@
     <string name="item_text">Type: %s\nMake: %s\nModel: %s\nColor: %s\nYear: %s</string>
   <string name="error">Error</string>
     <string name="Done">Done</string>
+  <string name="type">Type</string>
+  <string name="vehicle_model">Model</string>
+  <string name="vehicle_color">Color</string>
+  <string name="vehicle_year">Year</string>
+  <string name="add">Add</string>
+  <string name="cancel">Cancel</string>
 </resources>

@@ -5,4 +5,6 @@
     <dimen name="large_text_size">12pt</dimen>
     <dimen name="small_margin">8dp</dimen>
     <dimen name="small_text_size">4pt</dimen>
+  <dimen name="large_padding">32dp</dimen>
+  <dimen name="width_button_welcome">120dp</dimen>
 </resources>
