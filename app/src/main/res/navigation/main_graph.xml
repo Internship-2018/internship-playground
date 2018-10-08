@@ -7,12 +7,12 @@
 
   <fragment
       android:id="@+id/welcomeFragment"
-      android:name="com.mtlepberghenov.internship_playground.screens.welcome.WelcomeFragment"
+      android:name="com.mtlepberghenov.internship_playground.ui.welcome.WelcomeFragment"
       android:label="fragment_welocme"
       tools:layout="@layout/fragment_welocme"/>
   <fragment
       android:id="@+id/vehicleListFragment"
       android:name="com.mtlepberghenov.internship_playground.screens.vehiclelist.view.VehicleListFragment"
       android:label="fragment_car_list"
-      tools:layout="@layout/fragment_car_list"/>
+      tools:layout="@layout/fragment_vehicle_list"/>
 </navigation>

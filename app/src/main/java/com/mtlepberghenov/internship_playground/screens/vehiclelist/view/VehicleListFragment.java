@@ -37,7 +37,7 @@ public class VehicleListFragment extends Fragment implements VehicleListView {
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.fragment_car_list, container, false);
+    View view = inflater.inflate(R.layout.fragment_vehicle_list, container, false);
     ButterKnife.bind(this, view);
     return view;
   }
