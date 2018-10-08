@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DefaultAllAnimalsModel implements AllAnimalsModel {
-    ArrayList<DBAnimal> animalsList = new ArrayList<>();
-    DatabaseHelper db;
+    private ArrayList<DBAnimal> animalsList = new ArrayList<>();
+    private DatabaseHelper db;
 
     public DefaultAllAnimalsModel(DatabaseHelper db) {
         this.db = db;

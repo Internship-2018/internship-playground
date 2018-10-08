@@ -65,8 +65,12 @@ public class DBAnimal {
         switch (type) {
             case "Tiger":
                 return R.drawable.tiger;
-                default:
-                    return R.drawable.ic_launcher_foreground;
+            case "Owl":
+                return R.drawable.owl;
+            case "Cat":
+                return R.drawable.cat;
+            default:
+                return R.drawable.ic_launcher_foreground;
         }
     }
 }

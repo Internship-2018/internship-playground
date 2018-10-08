@@ -12,9 +12,9 @@ import com.example.nciuclea.oopzoomvp.database.model.DBAnimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DatabaseHelper  extends SQLiteOpenHelper {
+public class DatabaseHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 3;
 
     public static final String DATABASE_NAME = "animals_db";
 
@@ -27,12 +27,19 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
         //creating Animals table
         db.execSQL(DBAnimal.CREATE_TABLE);
 
-        DBAnimal animal = new DBAnimal("Tiger", State.GREEN, System.currentTimeMillis());
-        ContentValues values = new ContentValues();
-        values.put(DBAnimal.COLUMN_TYPE, animal.getType());
-        values.put(DBAnimal.COLUMN_OVERALL_STATE, animal.getOverallState().name());
-        values.put(DBAnimal.COLUMN_TIMESTAMP, System.currentTimeMillis());
-        db.insert(DBAnimal.TABLE_NAME, null, values);
+        ArrayList<DBAnimal> initialAnimalList = new ArrayList<DBAnimal>() {{
+            add(new DBAnimal("Tiger", State.GREEN, System.currentTimeMillis()));
+            add(new DBAnimal("Owl", State.RED, System.currentTimeMillis()));
+            add(new DBAnimal("Cat", State.YELLOW, System.currentTimeMillis()));
+        }};
+
+        for(DBAnimal animal: initialAnimalList) {
+            ContentValues values = new ContentValues();
+            values.put(DBAnimal.COLUMN_TYPE, animal.getType());
+            values.put(DBAnimal.COLUMN_OVERALL_STATE, animal.getOverallState().name());
+            values.put(DBAnimal.COLUMN_TIMESTAMP, System.currentTimeMillis());
+            db.insert(DBAnimal.TABLE_NAME, null, values);
+        }
     }
 
     @Override
