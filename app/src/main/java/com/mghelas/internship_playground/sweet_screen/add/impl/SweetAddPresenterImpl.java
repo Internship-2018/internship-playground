@@ -1,10 +1,13 @@
 package com.mghelas.internship_playground.sweet_screen.add.impl;
 
+import com.mghelas.internship_playground.entity.Ingredient;
 import com.mghelas.internship_playground.entity.Sweet;
 import com.mghelas.internship_playground.sweet_screen.add.SweetAddModel;
 import com.mghelas.internship_playground.sweet_screen.add.SweetAddPresenter;
 import com.mghelas.internship_playground.sweet_screen.add.SweetAddView;
 import com.mghelas.internship_playground.sweet_screen.add.SweetAddWireframe;
+
+import java.util.List;
 
 public class SweetAddPresenterImpl implements SweetAddPresenter {
 
@@ -27,6 +30,11 @@ public class SweetAddPresenterImpl implements SweetAddPresenter {
     @Override
     public void add(Sweet sweet) {
         sweetAddModel.add(sweet);
+    }
+
+    @Override
+    public List<Ingredient> getAllIngredients() {
+        return sweetAddModel.getAllIngredients();
     }
 
     @Override

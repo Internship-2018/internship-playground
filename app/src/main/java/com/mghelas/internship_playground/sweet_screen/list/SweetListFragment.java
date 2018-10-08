@@ -4,24 +4,19 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mghelas.internship_playground.R;
-import com.mghelas.internship_playground.entity.Sweet;
+import com.mghelas.internship_playground.datasource.DbHelper;
 import com.mghelas.internship_playground.sweet_screen.list.impl.SweetListModelImpl;
 import com.mghelas.internship_playground.sweet_screen.list.impl.SweetListPresenterImpl;
 import com.mghelas.internship_playground.sweet_screen.list.impl.SweetListViewImpl;
 import com.mghelas.internship_playground.sweet_screen.list.impl.SweetListWireframeImpl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class SweetListFragment extends Fragment {
 
+    DbHelper sweetReaderDbHelper;
     SweetListNativeView sweetListNativeView;
     SweetListPresenter sweetListPresenter;
     SweetListWireframe sweetListWireframe;
@@ -31,7 +26,8 @@ public class SweetListFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final SweetListViewImpl view = new SweetListViewImpl();
-        sweetListModel = new SweetListModelImpl();
+        sweetReaderDbHelper = new DbHelper(getContext());
+        sweetListModel = new SweetListModelImpl(sweetReaderDbHelper);
         sweetListWireframe = new SweetListWireframeImpl(this);
         sweetListNativeView = view;
         sweetListPresenter = new SweetListPresenterImpl(view, sweetListWireframe, sweetListModel);

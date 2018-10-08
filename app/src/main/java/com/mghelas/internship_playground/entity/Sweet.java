@@ -4,11 +4,12 @@ import java.util.Date;
 import java.util.List;
 
 public abstract class Sweet {
+    private Integer id;
     private String title;
     private Double price;
     private Double weight;
     private Boolean pricePerKg;
-    private List<String> ingredients;
+    private List<Ingredient> ingredients;
 
     public Sweet() {
     }
@@ -20,6 +21,14 @@ public abstract class Sweet {
         this.pricePerKg = pricePerKg;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
     public Boolean getPricePerKg() {
         return pricePerKg;
     }
@@ -28,11 +37,11 @@ public abstract class Sweet {
         this.pricePerKg = pricePerKg;
     }
 
-    public List<String> getIngredients() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<String> ingredients) {
+    public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
@@ -61,5 +70,6 @@ public abstract class Sweet {
     }
 
     abstract public String manufacture();
+
     abstract public void manufacture(Date date);
 }

@@ -23,6 +23,10 @@ public class SweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private static final int ITEM_TYPE_CHOCOLATE = 1;
     private static final int ITEM_TYPE_LOLLIPOP = 2;
 
+    public List<Sweet> getItems() {
+        return items;
+    }
+
     public SweetAdapter(List<Sweet> items, ItemClickHandler itemClickHandler) {
         this.items = items;
         this.itemClickHandler = itemClickHandler;
@@ -45,7 +49,7 @@ public class SweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    itemClickHandler.onItemClicked(getAdapterPosition());
+                    itemClickHandler.onItemClicked(getItems().get(getAdapterPosition()).getId());
                 }
             });
         }
@@ -71,7 +75,7 @@ public class SweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    itemClickHandler.onItemClicked(getAdapterPosition());
+                    itemClickHandler.onItemClicked(getItems().get(getAdapterPosition()).getId());
                 }
             });
         }

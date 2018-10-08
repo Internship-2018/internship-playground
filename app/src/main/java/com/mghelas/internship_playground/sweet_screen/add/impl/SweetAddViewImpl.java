@@ -16,11 +16,13 @@ import android.widget.TableLayout;
 import com.mghelas.internship_playground.Ingredients;
 import com.mghelas.internship_playground.R;
 import com.mghelas.internship_playground.entity.Chocolate;
+import com.mghelas.internship_playground.entity.Ingredient;
 import com.mghelas.internship_playground.entity.Lollipop;
 import com.mghelas.internship_playground.entity.Sweet;
 import com.mghelas.internship_playground.sweet_screen.add.AddClickHandler;
 import com.mghelas.internship_playground.sweet_screen.add.SweetAddFragment;
 import com.mghelas.internship_playground.sweet_screen.add.SweetAddNativeView;
+import com.mghelas.internship_playground.sweet_screen.add.SweetAddPresenter;
 import com.mghelas.internship_playground.sweet_screen.add.SweetAddView;
 import com.mghelas.internship_playground.sweet_screen.add.SweetTypeRadioHandler;
 
@@ -39,7 +41,7 @@ public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView {
     }
 
     @Override
-    public void initView(final SweetAddFragment sweetAddFragment) {
+    public void initView(final SweetAddFragment sweetAddFragment, SweetAddPresenter sweetAddPresenter) {
         final Button addBtn = sweetAddFragment.getView().findViewById(R.id.create_sweet_btn);
         final RadioGroup sweetType = sweetAddFragment.getView().findViewById(R.id.sweet_type);
         final RadioButton isChocolate = sweetAddFragment.getView().findViewById(R.id.is_chocolate);
@@ -53,9 +55,11 @@ public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView {
         final Switch sugar = sweetAddFragment.getView().findViewById(R.id.sugar_add);
         flavour = sweetAddFragment.getView().findViewById(R.id.flavour_add);
         final RelativeLayout switchContainer = sweetAddFragment.getView().findViewById(R.id.switch_container);
-        for (Ingredients ingredient : Ingredients.values()) {
+        System.out.println(sweetAddPresenter.getAllIngredients().toString());
+        for (Ingredient ingredient : sweetAddPresenter.getAllIngredients()) {
             Switch aSwitch = new Switch(sweetAddFragment.getContext());
-            aSwitch.setText(ingredient.toString().toLowerCase());
+            aSwitch.setId(ingredient.getId());
+            aSwitch.setText(ingredient.getTitle());
             switchContainer.addView(aSwitch);
         }
 
@@ -80,7 +84,7 @@ public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView {
                             Double.parseDouble(price.getText().toString()),
                             Double.parseDouble(weight.getText().toString()),
                             pricePerKg.isChecked(), Integer.parseInt(flavour.getText().toString()));
-                    List<String> ingredients = getIngredients(switchContainer);
+                    List<Ingredient> ingredients = getIngredients(switchContainer);
                     sweet.setIngredients(ingredients);
 
                 } else {
@@ -88,8 +92,8 @@ public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView {
                             Double.parseDouble(price.getText().toString()),
                             Double.parseDouble(weight.getText().toString()),
                             pricePerKg.isChecked(), flavour.getText().toString());
-                    List<String> ingredients = getIngredients(switchContainer);
-                    ingredients.add(((Lollipop) sweet).getFlavour() + " concentrate");
+                    List<Ingredient> ingredients = getIngredients(switchContainer);
+//                    ingredients.add(((Lollipop) sweet).getFlavour() + " concentrate");
                     sweet.setIngredients(ingredients);
                 }
                 onAddClicked(sweet);
@@ -98,13 +102,14 @@ public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView {
     }
 
     @NonNull
-    private List<String> getIngredients(RelativeLayout switchContainer) {
-        List<String> ingredients = new ArrayList<>();
+    private List<Ingredient> getIngredients(RelativeLayout switchContainer) {
+        List<Ingredient> ingredients = new ArrayList<>();
 
         for (int i = 0; i < switchContainer.getChildCount(); i++) {
             Switch s = (Switch) switchContainer.getChildAt(i);
             if (s.isChecked()) {
-                ingredients.add(s.getText().toString());
+                Ingredient ingredient = new Ingredient(s.getId(), s.getText().toString());
+                ingredients.add(ingredient);
             }
         }
 //        if (milk.isChecked()) {

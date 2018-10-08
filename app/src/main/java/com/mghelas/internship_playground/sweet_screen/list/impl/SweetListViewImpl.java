@@ -17,7 +17,6 @@ import java.util.List;
 public class SweetListViewImpl implements SweetListView, SweetListNativeView {
 
     private ItemClickHandler itemClickHandler;
-
     @Override
     public int getLayout() {
         return R.layout.fragment_sweet_list;

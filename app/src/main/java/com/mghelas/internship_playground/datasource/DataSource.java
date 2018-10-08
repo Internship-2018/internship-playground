@@ -34,15 +34,15 @@ public class DataSource {
         List<String> fistiIngredients = new ArrayList<>(meteoritIngredients);
         Chocolate chocolate = new Chocolate("Meteorit", 50.0, 10.0, true, 50);
         meteoritIngredients.add("Hazelnut");
-        chocolate.setIngredients(meteoritIngredients);
+//        chocolate.setIngredients(meteoritIngredients);
         items.add(chocolate);
         chocolate = new Chocolate("Alunel", 30.0, 15.0, true, 75);
         alunelIngredients.add("Walnut");
-        chocolate.setIngredients(alunelIngredients);
+//        chocolate.setIngredients(alunelIngredients);
         items.add(chocolate);
         chocolate = new Chocolate("Fisti", 20.0, 12.0, true, 25);
         fistiIngredients.add("Pistachio");
-        chocolate.setIngredients(fistiIngredients);
+//        chocolate.setIngredients(fistiIngredients);
         items.add(chocolate);
 
 
@@ -54,15 +54,15 @@ public class DataSource {
         List<String> ingredients = new ArrayList<>();
         Lollipop lollipop = new Lollipop("Curcubeu", 5.0, 10.0, false, "Apple");
         curcubeuIngredients.add(lollipop.getFlavour() + " concentrate");
-        lollipop.setIngredients(curcubeuIngredients);
+//        lollipop.setIngredients(curcubeuIngredients);
         items.add(lollipop);
         lollipop = new Lollipop("Jelly", 7.0, 5.0, false, "Banana");
         jellyIngredients.add(lollipop.getFlavour() + " concentrate");
-        lollipop.setIngredients(jellyIngredients);
+//        lollipop.setIngredients(jellyIngredients);
         items.add(lollipop);
         lollipop = new Lollipop("Fani", 8.0, 11.0, false, "Strawberry");
         faniIngredients.add(lollipop.getFlavour() + " concentrate");
-        lollipop.setIngredients(faniIngredients);
+//        lollipop.setIngredients(faniIngredients);
         items.add(lollipop);
 
         return items;

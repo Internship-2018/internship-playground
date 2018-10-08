@@ -7,21 +7,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.mghelas.internship_playground.entity.Chocolate;
-import com.mghelas.internship_playground.entity.Lollipop;
-import com.mghelas.internship_playground.entity.Sweet;
-import com.mghelas.internship_playground.R;
+import com.mghelas.internship_playground.datasource.DbHelper;
 import com.mghelas.internship_playground.sweet_screen.detailed.impl.SweetDetailedModelImpl;
 import com.mghelas.internship_playground.sweet_screen.detailed.impl.SweetDetailedPresenterImpl;
 import com.mghelas.internship_playground.sweet_screen.detailed.impl.SweetDetailedViewImpl;
 import com.mghelas.internship_playground.sweet_screen.detailed.impl.SweetDetailedWireframeImpl;
-
-import androidx.navigation.Navigation;
 
 public class SweetDetailedFragment extends Fragment {
 
@@ -29,13 +20,14 @@ public class SweetDetailedFragment extends Fragment {
     SweetDetailedNativeView sweetDetailedNativeView;
     SweetDetailedModel sweetDetailedModel;
     SweetDetailedWireframe sweetDetailedWireframe;
-
+    DbHelper sweetReaderDbHelper;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SweetDetailedViewImpl sweetDetailedView = new SweetDetailedViewImpl();
-        sweetDetailedModel = new SweetDetailedModelImpl();
+        sweetReaderDbHelper = new DbHelper(getContext());
+        sweetDetailedModel = new SweetDetailedModelImpl(sweetReaderDbHelper);
         sweetDetailedWireframe = new SweetDetailedWireframeImpl(this);
         sweetDetailedNativeView = sweetDetailedView;
         sweetDetailedPresenter = new SweetDetailedPresenterImpl(sweetDetailedView, sweetDetailedWireframe, sweetDetailedModel);

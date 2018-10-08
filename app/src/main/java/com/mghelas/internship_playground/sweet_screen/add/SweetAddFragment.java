@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mghelas.internship_playground.datasource.DbHelper;
 import com.mghelas.internship_playground.sweet_screen.add.impl.SweetAddModelImpl;
 import com.mghelas.internship_playground.sweet_screen.add.impl.SweetAddPresenterImpl;
 import com.mghelas.internship_playground.sweet_screen.add.impl.SweetAddViewImpl;
@@ -23,7 +24,7 @@ public class SweetAddFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sweetAddModel = new SweetAddModelImpl();
+        sweetAddModel = new SweetAddModelImpl(new DbHelper(getContext()));
         SweetAddViewImpl sweetAddView = new SweetAddViewImpl();
         sweetAddNativeView = sweetAddView;
         sweetAddWireframe = new SweetAddWireframeImpl(this);
@@ -40,7 +41,7 @@ public class SweetAddFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        sweetAddNativeView.initView(this);
+        sweetAddNativeView.initView(this, sweetAddPresenter);
         sweetAddPresenter.viewInitialized();
     }
 }
