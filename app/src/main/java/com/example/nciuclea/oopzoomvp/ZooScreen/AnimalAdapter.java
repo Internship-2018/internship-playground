@@ -37,9 +37,9 @@ class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.ZooViewHolder> {
         RecyclerView.LayoutManager animalLayoutManager;
         public ZooViewHolder(@NonNull View itemView) {
             super(itemView);
-            animalTextView = itemView.findViewById(R.id.animalTextView);
-            animalImageView = itemView.findViewById(R.id.animalImageView);
-            actionButton = itemView.findViewById(R.id.actionButton);
+            animalTextView = itemView.findViewById(R.id.animalTextView_zooScreen);
+            animalImageView = itemView.findViewById(R.id.animalImageView_zooScreen);
+            actionButton = itemView.findViewById(R.id.actionButton_zooScreen);
             animalRecyclerView = itemView.findViewById(R.id.animalRecyclerView);
             animalRecyclerView.setHasFixedSize(true);
             animalLayoutManager = new LinearLayoutManager(itemView.getContext());

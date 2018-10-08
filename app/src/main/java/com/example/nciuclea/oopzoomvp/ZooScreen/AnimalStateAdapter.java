@@ -73,7 +73,7 @@ public class AnimalStateAdapter extends RecyclerView.Adapter<AnimalStateAdapter.
         public AnimalViewHolder(@NonNull View itemView) {
             super(itemView);
             stateTextView = itemView.findViewById(R.id.stateTextView);
-            stateButton = itemView.findViewById(R.id.stateButton);
+            stateButton = itemView.findViewById(R.id.stateButton_zooScreen);
         }
 
         @Override

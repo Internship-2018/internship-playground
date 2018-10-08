@@ -18,7 +18,7 @@
         tools:text="Hunger" />
 
     <Button
-        android:id="@+id/stateButton"
+        android:id="@+id/stateButton_zooScreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"

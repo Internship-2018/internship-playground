@@ -61,7 +61,7 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
                 cursor.getInt(cursor.getColumnIndex(DBAnimal.COLUMN_ID)),
                 cursor.getString(cursor.getColumnIndex(DBAnimal.COLUMN_TYPE)),
                 cursor.getString(cursor.getColumnIndex(DBAnimal.COLUMN_STATUS)),
-                cursor.getString(cursor.getColumnIndex(DBAnimal.COLUMN_TIMESTAMP))
+                cursor.getLong(cursor.getColumnIndex(DBAnimal.COLUMN_TIMESTAMP))
         );
 
         cursor.close();
@@ -83,13 +83,14 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
                         cursor.getInt(cursor.getColumnIndex(DBAnimal.COLUMN_ID)),
                         cursor.getString(cursor.getColumnIndex(DBAnimal.COLUMN_TYPE)),
                         cursor.getString(cursor.getColumnIndex(DBAnimal.COLUMN_STATUS)),
-                        cursor.getString(cursor.getColumnIndex(DBAnimal.COLUMN_TIMESTAMP))
+                        cursor.getLong(cursor.getColumnIndex(DBAnimal.COLUMN_TIMESTAMP))
                 );
 
                 dbAnimals.add(dbAnimal);
             } while (cursor.moveToNext());
         }
 
+        cursor.close();
         db.close();
 
         return dbAnimals;
@@ -101,7 +102,9 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(countQuery, null);
 
         int count = cursor.getCount();
+
         cursor.close();
+        db.close();
 
         return count;
     }

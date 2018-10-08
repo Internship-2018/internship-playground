@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_welcomeFragment_to_zooFragment"
             app:destination="@id/zooFragment" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_allAnimalsFragment"
+            app:destination="@id/allAnimalsFragment" />
     </fragment>
     <fragment
         android:id="@+id/zooFragment"
@@ -28,4 +31,9 @@
         android:name="com.example.nciuclea.oopzoomvp.AnimalScreen.AnimalFragment"
         android:label="fragment_animal"
         tools:layout="@layout/fragment_animal" />
+    <fragment
+        android:id="@+id/allAnimalsFragment"
+        android:name="com.example.nciuclea.oopzoomvp.ui.allAnimals.AllAnimalsFragment"
+        android:label="fragment_all_animals"
+        tools:layout="@layout/fragment_all_animals" />
 </navigation>
