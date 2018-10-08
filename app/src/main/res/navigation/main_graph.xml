@@ -12,7 +12,7 @@
       tools:layout="@layout/fragment_welocme"/>
   <fragment
       android:id="@+id/vehicleListFragment"
-      android:name="com.mtlepberghenov.internship_playground.screens.vehiclelist.view.VehicleListFragment"
+      android:name="com.mtlepberghenov.internship_playground.ui.list.ListFragment"
       android:label="fragment_car_list"
       tools:layout="@layout/fragment_vehicle_list"/>
 </navigation>

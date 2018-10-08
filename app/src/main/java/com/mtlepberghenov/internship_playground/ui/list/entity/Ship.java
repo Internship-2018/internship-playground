@@ -1,4 +1,4 @@
-package com.mtlepberghenov.internship_playground.screens.vehiclelist.model.entity;
+package com.mtlepberghenov.internship_playground.ui.list.entity;
 
 public class Ship extends Vehicle {
 

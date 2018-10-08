@@ -1,4 +1,4 @@
-package com.mtlepberghenov.internship_playground.screens.vehiclelist.view;
+package com.mtlepberghenov.internship_playground.ui.list;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -10,14 +10,13 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.mtlepberghenov.internship_playground.R;
-import com.mtlepberghenov.internship_playground.screens.vehiclelist.model.entity.Vehicle;
+import com.mtlepberghenov.internship_playground.ui.list.entity.Vehicle;
 import java.util.ArrayList;
 import java.util.List;
 
 public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.MyViewHolder> {
 
   private List<Vehicle> vehicleList = new ArrayList<>();
-  private StringBuilder sb = new StringBuilder();
 
   @NonNull
   @Override
@@ -31,17 +30,7 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
 
   @Override
   public void onBindViewHolder(@NonNull VehicleListAdapter.MyViewHolder holder, int i) {
-
-    /* Note: holder.text = "Type: %s\nMake: %s\nModel: %s\nColor: %s\nYear: %s" */
-    sb.append(String.format(holder.text,
-        vehicleList.get(i).getType(),
-        vehicleList.get(i).getMake(),
-        vehicleList.get(i).getModel(),
-        vehicleList.get(i).getColor(),
-        vehicleList.get(i).getYear()));
-
-    holder.textView.setText(sb.toString());
-    sb.setLength(0);
+    holder.bindData(vehicleList.get(i));
   }
 
   @Override public int getItemCount() {
@@ -54,7 +43,7 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
     notifyDataSetChanged();
   }
 
-  static class MyViewHolder extends RecyclerView.ViewHolder {
+  class MyViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.item_view_text_view) TextView textView;
     @BindString(R.string.item_text) String text;
@@ -62,6 +51,21 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
     MyViewHolder(@NonNull View v) {
       super(v);
       ButterKnife.bind(this, v);
+    }
+
+    void bindData(Vehicle vehicle) {
+      StringBuilder sb = new StringBuilder();
+
+      /* Note: text = "Type: %s\nMake: %s\nModel: %s\nColor: %s\nYear: %s" */
+      sb.append(String.format(text,
+                                    vehicle.getType(),
+                                    vehicle.getMake(),
+                                    vehicle.getModel(),
+                                    vehicle.getColor(),
+                                    vehicle.getYear()));
+
+      textView.setText(sb.toString());
+      sb.setLength(0);
     }
   }
 }

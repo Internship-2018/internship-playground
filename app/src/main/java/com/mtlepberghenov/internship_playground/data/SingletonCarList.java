@@ -1,9 +1,9 @@
 package com.mtlepberghenov.internship_playground.data;
 
-import com.mtlepberghenov.internship_playground.screens.vehiclelist.model.entity.Car;
-import com.mtlepberghenov.internship_playground.screens.vehiclelist.model.entity.Motorcycle;
-import com.mtlepberghenov.internship_playground.screens.vehiclelist.model.entity.Ship;
-import com.mtlepberghenov.internship_playground.screens.vehiclelist.model.entity.Vehicle;
+import com.mtlepberghenov.internship_playground.ui.list.entity.Car;
+import com.mtlepberghenov.internship_playground.ui.list.entity.Motorcycle;
+import com.mtlepberghenov.internship_playground.ui.list.entity.Ship;
+import com.mtlepberghenov.internship_playground.ui.list.entity.Vehicle;
 import java.util.ArrayList;
 
 public final class SingletonCarList {

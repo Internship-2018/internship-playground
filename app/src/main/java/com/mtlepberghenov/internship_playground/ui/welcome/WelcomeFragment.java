@@ -22,7 +22,7 @@ public class WelcomeFragment extends Fragment {
     DefaultWelcomeView view = new DefaultWelcomeView();
     welcomeNativeView = view;
     welcomePresenter = new DefaultWelcomePresenter(view, new DefaultWelcomeModel(),
-        new DefaultWelcomeWireFrame(this));
+        new DefaultWelcomeWireFrame(getActivity()));
   }
 
   @Nullable
@@ -33,7 +33,7 @@ public class WelcomeFragment extends Fragment {
   }
 
   @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-    welcomeNativeView.initView(this);
+    welcomeNativeView.initView(getActivity());
     welcomePresenter.onViewInitialised();
   }
 }
