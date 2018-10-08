@@ -23,13 +23,14 @@ import javax.inject.Inject;
 
 public class VehicleListFragment extends Fragment implements VehicleListView {
 
-  @Inject VehicleListPresenterImpl presenter;
+  private VehicleListPresenter presenter;
   private VehicleListAdapter adapter;
 
   @BindView(R.id.recycler_view) RecyclerView recyclerView;
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    presenter = new VehicleListPresenterImpl();
     presenter.attach(this);
   }
 
