@@ -1,7 +1,9 @@
 package com.example.nciuclea.oopzoomvp.ui.allAnimals;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +18,11 @@ import java.util.List;
 
 public class AnimalsAdapter extends RecyclerView.Adapter<AnimalsAdapter.AnimalViewHolder>{
 
+    private Context context;
     private List<DBAnimal> animalsList;
 
-    public AnimalsAdapter(List<DBAnimal> animalsList) {
+    public AnimalsAdapter(Context context, List<DBAnimal> animalsList) {
+        this.context = context;
         this.animalsList = animalsList;
     }
 
@@ -63,7 +67,11 @@ public class AnimalsAdapter extends RecyclerView.Adapter<AnimalsAdapter.AnimalVi
 
         void updateItemUI(DBAnimal animal) {
             animalTextView.setText(animal.getType());
-            animalOverallStateButton.setText(animal.getOverallState().name());
+            animalOverallStateButton.setText(animal.getOverallState().getText());
+            animalOverallStateButton.setTextColor(context.getResources()
+                    .getColor(animal.getOverallState().getColor()));
+            animalImageView.setImageDrawable(context.getResources()
+                    .getDrawable(animal.getImageID()));
         }
     }
 }

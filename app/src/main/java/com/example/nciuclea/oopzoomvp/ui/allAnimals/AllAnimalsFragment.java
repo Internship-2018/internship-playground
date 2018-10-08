@@ -34,7 +34,7 @@ public class AllAnimalsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db = new DatabaseHelper(this.getContext());
-        DefaultAllAnimalsView view = new DefaultAllAnimalsView();
+        DefaultAllAnimalsView view = new DefaultAllAnimalsView(getContext());
         allAnimalsNativeView = view;
         allAnimalsPresenter = new DefaultAllAnimalsPresenter(view, new DefaultAllAnimalsModel(db), new DefaultAllAnimalsWireFrame(this));
     }
@@ -48,8 +48,6 @@ public class AllAnimalsFragment extends Fragment {
         View view = inflater.inflate(allAnimalsNativeView.getLayout(), container, false);
         allAnimalsNativeView.initView(view);
         allAnimalsPresenter.onViewInitialized();
-
-
         return view;
     }
 

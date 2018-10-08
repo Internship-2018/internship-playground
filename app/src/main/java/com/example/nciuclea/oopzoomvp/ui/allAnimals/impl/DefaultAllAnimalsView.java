@@ -1,5 +1,6 @@
 package com.example.nciuclea.oopzoomvp.ui.allAnimals.impl;
 
+import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -17,6 +18,11 @@ public class DefaultAllAnimalsView implements AllAnimalsView, AllAnimalsNativeVi
     RecyclerView recyclerView;
     private AnimalsAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+    private Context context;
+
+    public DefaultAllAnimalsView(Context context) {
+        this.context = context;
+    }
 
     void setOnClickHandler(AllAnimalsClickHandler allAnimalsClickHandler) {
 
@@ -33,7 +39,7 @@ public class DefaultAllAnimalsView implements AllAnimalsView, AllAnimalsNativeVi
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new AnimalsAdapter(new ArrayList<DBAnimal>());
+        adapter = new AnimalsAdapter(context, new ArrayList<DBAnimal>());
         recyclerView.setAdapter(adapter);
     }
 
