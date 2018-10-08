@@ -59,12 +59,6 @@ class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.ZooViewHolder> {
     public ZooViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View animalView = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.item_animal, viewGroup, false);
-        animalView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_zooFragment_to_animalFragment);
-            }
-        });
         return new ZooViewHolder(animalView);
     }
 

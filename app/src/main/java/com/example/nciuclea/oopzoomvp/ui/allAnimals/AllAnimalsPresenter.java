@@ -1,4 +1,5 @@
 package com.example.nciuclea.oopzoomvp.ui.allAnimals;
 
-interface AllAnimalsPresenter {
+public interface AllAnimalsPresenter {
+    void onViewInitialized();
 }

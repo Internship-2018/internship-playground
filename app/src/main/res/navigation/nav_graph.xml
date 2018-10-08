@@ -21,16 +21,7 @@
         android:id="@+id/zooFragment"
         android:name="com.example.nciuclea.oopzoomvp.ZooScreen.ZooFragment"
         android:label="fragment_zoo"
-        tools:layout="@layout/fragment_zoo" >
-        <action
-            android:id="@+id/action_zooFragment_to_animalFragment"
-            app:destination="@id/animalFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/animalFragment"
-        android:name="com.example.nciuclea.oopzoomvp.AnimalScreen.AnimalFragment"
-        android:label="fragment_animal"
-        tools:layout="@layout/fragment_animal" />
+        tools:layout="@layout/fragment_zoo" ></fragment>
     <fragment
         android:id="@+id/allAnimalsFragment"
         android:name="com.example.nciuclea.oopzoomvp.ui.allAnimals.AllAnimalsFragment"

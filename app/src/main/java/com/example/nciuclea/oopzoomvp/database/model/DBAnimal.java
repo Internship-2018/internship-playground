@@ -2,19 +2,17 @@ package com.example.nciuclea.oopzoomvp.database.model;
 
 import com.example.nciuclea.oopzoomvp.Animal.AnimalState.State;
 
-import java.util.Date;
-
 public class DBAnimal {
     public static final String TABLE_NAME = "animals";
 
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_TYPE = "type";
-    public static final String COLUMN_STATUS = "status";
+    public static final String COLUMN_OVERALL_STATE = "overall_state";
     public static final String COLUMN_TIMESTAMP = "timestamp";
 
     private int id;
     private String type;
-    private String status;
+    private State overallState;
     private long timestamp;
 
     public int getId() {
@@ -25,12 +23,12 @@ public class DBAnimal {
         return type;
     }
 
-    public String getStatus() {
-        return status;
+    public State getOverallState() {
+        return overallState;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setOverallState(State overallState) {
+        this.overallState = overallState;
     }
 
     public long getTimestamp() {
@@ -45,7 +43,7 @@ public class DBAnimal {
             "CREATE TABLE " + TABLE_NAME + "("
                     + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + COLUMN_TYPE + " TEXT,"
-                    + COLUMN_STATUS + " TEXT,"
+                    + COLUMN_OVERALL_STATE + " TEXT,"
                     + COLUMN_TIMESTAMP + " INTEGER"
                     + ")";
 
@@ -53,10 +51,16 @@ public class DBAnimal {
 
     }
 
-    public DBAnimal(int id, String type, String status, long timestamp) {
+    public DBAnimal(String type, State overallState, long timestamp) {
+        this.type = type;
+        this.overallState = overallState;
+        this.timestamp = timestamp;
+    }
+
+    public DBAnimal(int id, String type, State overallState, long timestamp) {
         this.id = id;
         this.type = type;
-        this.status = status;
+        this.overallState = overallState;
         this.timestamp = timestamp;
     }
 }

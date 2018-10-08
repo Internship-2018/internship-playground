@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.nciuclea.oopzoomvp.Animal.Animal;
+import com.example.nciuclea.oopzoomvp.Animal.AnimalState.State;
 import com.example.nciuclea.oopzoomvp.database.model.DBAnimal;
 
 import java.util.ArrayList;
@@ -26,21 +26,28 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         //creating Animals table
         db.execSQL(DBAnimal.CREATE_TABLE);
+
+        DBAnimal animal = new DBAnimal("Tiger", State.GREEN, System.currentTimeMillis());
+        ContentValues values = new ContentValues();
+        values.put(DBAnimal.COLUMN_TYPE, animal.getType());
+        values.put(DBAnimal.COLUMN_OVERALL_STATE, animal.getOverallState().name());
+        values.put(DBAnimal.COLUMN_TIMESTAMP, System.currentTimeMillis());
+        db.insert(DBAnimal.TABLE_NAME, null, values);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + DBAnimal.TABLE_NAME);
-
         onCreate(db);
     }
 
-    public long addAnimal(Animal animal) {
+    public long addAnimal(DBAnimal animal) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(DBAnimal.COLUMN_TYPE, animal.getType());
-        values.put(DBAnimal.COLUMN_STATUS, animal.getGeneralState().name());
+        values.put(DBAnimal.COLUMN_OVERALL_STATE, animal.getOverallState().name());
+        values.put(DBAnimal.COLUMN_TIMESTAMP, System.currentTimeMillis());
         long id = db.insert(DBAnimal.TABLE_NAME, null, values);
         db.close();
         return id;
@@ -50,7 +57,7 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(DBAnimal.TABLE_NAME,
-                new String[]{DBAnimal.COLUMN_ID, DBAnimal.COLUMN_TYPE, DBAnimal.COLUMN_STATUS, DBAnimal.COLUMN_TIMESTAMP},
+                new String[]{DBAnimal.COLUMN_ID, DBAnimal.COLUMN_TYPE, DBAnimal.COLUMN_OVERALL_STATE, DBAnimal.COLUMN_TIMESTAMP},
                 DBAnimal.COLUMN_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
@@ -60,7 +67,7 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
         DBAnimal dbAnimal = new DBAnimal(
                 cursor.getInt(cursor.getColumnIndex(DBAnimal.COLUMN_ID)),
                 cursor.getString(cursor.getColumnIndex(DBAnimal.COLUMN_TYPE)),
-                cursor.getString(cursor.getColumnIndex(DBAnimal.COLUMN_STATUS)),
+                State.valueOf(cursor.getString(cursor.getColumnIndex(DBAnimal.COLUMN_OVERALL_STATE))),
                 cursor.getLong(cursor.getColumnIndex(DBAnimal.COLUMN_TIMESTAMP))
         );
 
@@ -82,7 +89,7 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
                 DBAnimal dbAnimal = new DBAnimal(
                         cursor.getInt(cursor.getColumnIndex(DBAnimal.COLUMN_ID)),
                         cursor.getString(cursor.getColumnIndex(DBAnimal.COLUMN_TYPE)),
-                        cursor.getString(cursor.getColumnIndex(DBAnimal.COLUMN_STATUS)),
+                        State.valueOf(cursor.getString(cursor.getColumnIndex(DBAnimal.COLUMN_OVERALL_STATE))),
                         cursor.getLong(cursor.getColumnIndex(DBAnimal.COLUMN_TIMESTAMP))
                 );
 
@@ -97,7 +104,7 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
     }
 
     public int getAnimalsCount() {
-        String countQuery = "SELECT 8 FROM " + DBAnimal.TABLE_NAME;
+        String countQuery = "SELECT * FROM " + DBAnimal.TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
 
@@ -107,5 +114,27 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
         db.close();
 
         return count;
+    }
+
+    public long updateAnimalState(DBAnimal animal) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(DBAnimal.COLUMN_OVERALL_STATE, animal.getOverallState().name());
+        values.put(DBAnimal.COLUMN_TIMESTAMP, animal.getTimestamp());
+
+        long id = db.update(DBAnimal.TABLE_NAME, values, DBAnimal.COLUMN_ID + " = ?",
+                new String[]{String.valueOf(animal.getId())});
+
+        db.close();
+
+        return id;
+    }
+
+    public void deleteAnimal(DBAnimal animal) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(DBAnimal.TABLE_NAME, DBAnimal.COLUMN_ID + " = ?",
+                new String[]{String.valueOf(animal.getId())});
+        db.close();
     }
 }

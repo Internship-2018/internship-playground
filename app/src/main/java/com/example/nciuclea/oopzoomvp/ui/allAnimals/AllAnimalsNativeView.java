@@ -1,5 +1,9 @@
 package com.example.nciuclea.oopzoomvp.ui.allAnimals;
 
+import android.view.View;
+
 public interface AllAnimalsNativeView {
-    void initView(AllAnimalsFragment allAnimalsFragment);
+    int getLayout();
+
+    void initView(View view);
 }

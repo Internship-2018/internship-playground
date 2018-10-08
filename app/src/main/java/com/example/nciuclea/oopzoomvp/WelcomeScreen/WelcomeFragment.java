@@ -65,7 +65,7 @@ public class WelcomeFragment extends Fragment implements WelcomeView {
 
     @Override
     public void startZooView() {
-        Navigation.findNavController(getView()).navigate(R.id.action_welcomeFragment_to_zooFragment);
+        Navigation.findNavController(getView()).navigate(R.id.action_welcomeFragment_to_allAnimalsFragment);
     }
 
 
