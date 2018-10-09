@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="com.example.nciuclea.oopzoomvp.WelcomeScreen.WelcomeFragment"
+        android:name="com.example.nciuclea.oopzoomvp.welcome.WelcomeFragment"
         android:label="fragment_welcome"
         tools:layout="@layout/fragment_welcome" >
         <action
@@ -19,12 +19,12 @@
     </fragment>
     <fragment
         android:id="@+id/zooFragment"
-        android:name="com.example.nciuclea.oopzoomvp.ZooScreen.ZooFragment"
+        android:name="com.example.nciuclea.oopzoomvp.zoo.ZooFragment"
         android:label="fragment_zoo"
         tools:layout="@layout/fragment_zoo" ></fragment>
     <fragment
         android:id="@+id/allAnimalsFragment"
-        android:name="com.example.nciuclea.oopzoomvp.ui.allAnimals.AllAnimalsFragment"
+        android:name="com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsFragment"
         android:label="fragment_all_animals"
         tools:layout="@layout/fragment_all_animals" />
 </navigation>

@@ -1,6 +1,6 @@
 package com.example.nciuclea.oopzoomvp.database.model;
 
-import com.example.nciuclea.oopzoomvp.Animal.AnimalState.State;
+import com.example.nciuclea.oopzoomvp.animal.state.State;
 import com.example.nciuclea.oopzoomvp.R;
 
 public class DBAnimal {

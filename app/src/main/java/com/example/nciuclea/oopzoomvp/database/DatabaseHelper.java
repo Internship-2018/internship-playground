@@ -5,8 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
-import com.example.nciuclea.oopzoomvp.Animal.AnimalState.State;
+import com.example.nciuclea.oopzoomvp.animal.state.State;
 import com.example.nciuclea.oopzoomvp.database.model.DBAnimal;
 
 import java.util.ArrayList;
@@ -132,6 +133,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         long id = db.update(DBAnimal.TABLE_NAME, values, DBAnimal.COLUMN_ID + " = ?",
                 new String[]{String.valueOf(animal.getId())});
+
+        Log.d("DB_HELPER", String.valueOf(animal.getTimestamp()));
 
         db.close();
 
