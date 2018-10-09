@@ -15,27 +15,27 @@ import com.example.nciuclea.oopzoomvp.database.model.DBAnimal;
 
 import java.util.List;
 
-public class AnimalsAdapter extends RecyclerView.Adapter<AnimalsAdapter.AnimalViewHolder>{
+public class AllAnimalsAdapter extends RecyclerView.Adapter<AllAnimalsAdapter.AnimalViewHolder>{
 
     private Context context;
     private List<DBAnimal> animalsList;
     private AllAnimalsClickHandler clickHandler;
 
-    public AnimalsAdapter(Context context, List<DBAnimal> animalsList) {
+    public AllAnimalsAdapter(Context context, List<DBAnimal> animalsList) {
         this.context = context;
         this.animalsList = animalsList;
     }
 
     @NonNull
     @Override
-    public AnimalsAdapter.AnimalViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public AllAnimalsAdapter.AnimalViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View animalView = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.item_all_animals_animal, viewGroup, false);
         return new AnimalViewHolder(animalView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AnimalsAdapter.AnimalViewHolder animalViewHolder, int i) {
+    public void onBindViewHolder(@NonNull AllAnimalsAdapter.AnimalViewHolder animalViewHolder, int i) {
         animalViewHolder.updateItemUI(animalsList.get(i));
     }
 

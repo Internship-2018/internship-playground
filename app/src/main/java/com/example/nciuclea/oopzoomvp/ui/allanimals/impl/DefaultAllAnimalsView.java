@@ -16,7 +16,7 @@ public class DefaultAllAnimalsView implements AllAnimalsView, AllAnimalsNativeVi
 
     private Context context;
     RecyclerView recyclerView;
-    private AnimalsAdapter adapter;
+    private AllAnimalsAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private AllAnimalsClickHandler clickHandler;
 
@@ -35,7 +35,7 @@ public class DefaultAllAnimalsView implements AllAnimalsView, AllAnimalsNativeVi
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new AnimalsAdapter(context, new ArrayList<DBAnimal>());
+        adapter = new AllAnimalsAdapter(context, new ArrayList<DBAnimal>());
         recyclerView.setAdapter(adapter);
     }
 
