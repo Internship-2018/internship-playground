@@ -1,9 +1,9 @@
 package com.mtlepberghenov.internship_playground.ui.adddialog;
 
 import com.mtlepberghenov.internship_playground.data.SqlVehicle;
-import io.reactivex.Observable;
+import io.reactivex.Single;
 
 public interface AddDialogModel {
 
-  void onWriteData(Observable<SqlVehicle> observable);
+  void onWriteData(Single<SqlVehicle> single);
 }
