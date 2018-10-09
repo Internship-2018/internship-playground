@@ -3,6 +3,7 @@
     package="com.example.nciuclea.oopzoomvp">
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_tiger"
         android:label="@string/app_name"
@@ -19,7 +20,7 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="ce8cfccac9b850064b1e23f585eed97c20fcd370" />
-        <service android:name=".TimeService" />
+        <service android:name=".StateUpdaterService" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

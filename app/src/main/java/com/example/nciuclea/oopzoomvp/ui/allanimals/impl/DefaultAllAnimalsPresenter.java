@@ -19,10 +19,15 @@ public class DefaultAllAnimalsPresenter implements AllAnimalsPresenter, ModelUpd
         this.allAnimalsWireframe = wireframe;
     }
 
+    //ModelUpdatedCallback
+    @Override
+    public void onModelUpdated() {
+        allAnimalsView.updateData(allAnimalsModel.getAnimalsList());
+    }
+
     @Override
     public void onViewInitialized() {
-        allAnimalsModel.pullFromDB();
-        allAnimalsView.updateData(allAnimalsModel.getAnimalsList());
+        allAnimalsModel.pullFromDB(this);
     }
 
     @Override
@@ -31,7 +36,7 @@ public class DefaultAllAnimalsPresenter implements AllAnimalsPresenter, ModelUpd
     }
 
     @Override
-    public void onModelUpdated() {
-        allAnimalsView.updateData(allAnimalsModel.getAnimalsList());
+    public void onDBUpdateReceive() {
+        allAnimalsModel.pullFromDB(this);
     }
 }

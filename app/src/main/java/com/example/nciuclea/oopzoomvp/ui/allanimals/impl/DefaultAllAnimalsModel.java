@@ -18,9 +18,11 @@ public class DefaultAllAnimalsModel implements AllAnimalsModel {
     }
 
     @Override
-    public void pullFromDB() {
+    public void pullFromDB(ModelUpdatedCallback callback) {
+        List<DBAnimal> newAnimalsList = db.getAllAnimals(); //Async
         animalsList.clear();
-        animalsList.addAll(db.getAllAnimals());
+        animalsList.addAll(newAnimalsList);
+        callback.onModelUpdated();
     }
 
     @Override
@@ -34,7 +36,7 @@ public class DefaultAllAnimalsModel implements AllAnimalsModel {
             if(animal.getId() == id) {
                 animal.setOverallState(State.GREEN);
                 animal.setTimestamp(System.currentTimeMillis());
-                db.updateAnimalState(animal);
+                db.updateAnimalState(animal); //Async
             }
         }
         callback.onModelUpdated();
