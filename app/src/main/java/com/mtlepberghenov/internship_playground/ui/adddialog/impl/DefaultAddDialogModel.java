@@ -17,7 +17,8 @@ public class DefaultAddDialogModel implements AddDialogModel {
   private SQLiteDatabase db;
   private ContentValues cv;
 
-  @Override public void onWriteData(Single<SqlVehicle> single) {
+  @Override public void onWriteData(Single<SqlVehicle> single,
+      CallBack callBack) {
     single
         .subscribe(new SingleObserver<SqlVehicle>() {
           @Override public void onSubscribe(Disposable d) {
@@ -33,6 +34,7 @@ public class DefaultAddDialogModel implements AddDialogModel {
             cv.put(Tables.COLUMN_COLOR, sqlVehicle.getModel().toString());
             cv.put(Tables.COLUMN_YEAR, sqlVehicle.getYear().toString());
             db.insert(Tables.TABLE_NAME, null, cv);
+            callBack.onSuccess();
             db.close();
           }
 

@@ -34,13 +34,16 @@ public class DefaultAddDialogPresenter implements AddDialogPresenter {
     view.setOnAddDialogHandler(this);
   }
 
-  @SuppressLint("CheckResult")
   @Override public void onAddBtnClicked(@NonNull SqlVehicle sqlVehicle) {
     Single<SqlVehicle> single = Single.just(sqlVehicle);
-    model.onWriteData(single);
+    model.onWriteData(single, () -> {
+      view.showMessage(TextWrapper.getDoneMessage());
+    });
+    view.close();
   }
 
   @Override public void onCancelBtnClicked() {
     wireframe.onClose();
   }
 }
+

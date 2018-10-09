@@ -48,6 +48,10 @@ public class DefaultAddDialogView implements AddDialogNativeView, AddDialogView 
     Toast.makeText(activity.getApplicationContext(), stringRes, Toast.LENGTH_LONG).show();
   }
 
+  @Override public void close() {
+    // TODO: 10.10.2018 close dialog fragment
+  }
+
   @OnClick(R.id.dialog_btn_add) void onClickAddBtn() {
     SqlVehicle sqlVehicle = new SqlVehicle(
         typeEditText.getText(),
