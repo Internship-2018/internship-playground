@@ -6,17 +6,11 @@ import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.jakewharton.rxbinding2.view.RxView;
 import com.mtlepberghenov.internship_playground.R;
 import com.mtlepberghenov.internship_playground.data.SqlVehicle;
 import com.mtlepberghenov.internship_playground.ui.adddialog.AddDialogClickHandler;
 import com.mtlepberghenov.internship_playground.ui.adddialog.AddDialogNativeView;
 import com.mtlepberghenov.internship_playground.ui.adddialog.AddDialogView;
-import com.mtlepberghenov.internship_playground.ui.list.entity.Car;
-import com.mtlepberghenov.internship_playground.ui.list.entity.Vehicle;
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import org.reactivestreams.Subscription;
 
 public class DefaultAddDialogView implements AddDialogNativeView, AddDialogView {
 
@@ -33,19 +27,23 @@ public class DefaultAddDialogView implements AddDialogNativeView, AddDialogView 
     return R.layout.fragment_add_dialog;
   }
 
+  @Override public int getDialogTitle() {
+    return R.string.dialog_title;
+  }
+
   @Override public void initView(FragmentActivity activity) {
-    ButterKnife.bind(this, activity);
+    ButterKnife.bind(activity);
   }
 
   @Override public void setOnAddDialogHandler(AddDialogClickHandler clickHandler) {
     this.clickHandler = clickHandler;
   }
 
-  @OnClick(R.id.dialog_btn_ok) void onOkBtnClick(){
+  @OnClick(R.id.dialog_btn_ok) void onOkBtnClick() {
     SqlVehicle sqlVehicle = new SqlVehicle(typeEditText.getText(),
-                                            modelEditText.getText(),
-                                            colorEditText.getText(),
-                                            yearEditText.getText());
+        modelEditText.getText(),
+        colorEditText.getText(),
+        yearEditText.getText());
     onOkBtnClicked(sqlVehicle);
   }
 

@@ -1,12 +1,15 @@
 package com.mtlepberghenov.internship_playground.ui.adddialog;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.mtlepberghenov.internship_playground.R;
 import com.mtlepberghenov.internship_playground.ui.adddialog.impl.DefaultAddDialogModel;
 import com.mtlepberghenov.internship_playground.ui.adddialog.impl.DefaultAddDialogPresenter;
 import com.mtlepberghenov.internship_playground.ui.adddialog.impl.DefaultAddDialogView;
@@ -19,15 +22,16 @@ public class AddDialogFragment extends DialogFragment {
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
     DefaultAddDialogView view = new DefaultAddDialogView();
     nativeView = view;
-    presenter = new DefaultAddDialogPresenter(view, new DefaultAddDialogModel(), new DefaultAddDialogWireframe(getActivity()));
+    presenter = new DefaultAddDialogPresenter(view, new DefaultAddDialogModel(),
+        new DefaultAddDialogWireframe(getActivity()));
   }
 
   @Nullable @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
+    getDialog().setTitle(nativeView.getDialogTitle());
     return inflater.inflate(nativeView.getLayout(), container, false);
   }
 

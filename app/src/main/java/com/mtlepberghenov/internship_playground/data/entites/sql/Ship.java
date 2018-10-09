@@ -1,4 +1,4 @@
-package com.mtlepberghenov.internship_playground.ui.list.entity;
+package com.mtlepberghenov.internship_playground.data.entites.sql;
 
 public class Ship extends Vehicle {
 

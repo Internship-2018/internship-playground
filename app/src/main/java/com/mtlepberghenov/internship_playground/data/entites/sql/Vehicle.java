@@ -1,6 +1,7 @@
-package com.mtlepberghenov.internship_playground.ui.list.entity;
+package com.mtlepberghenov.internship_playground.data.entites.sql;
 
 public abstract class Vehicle {
+  private long id;
   private String type;
   private String make;
   private String model;

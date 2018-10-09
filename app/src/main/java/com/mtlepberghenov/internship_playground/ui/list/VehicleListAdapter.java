@@ -10,7 +10,7 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.mtlepberghenov.internship_playground.R;
-import com.mtlepberghenov.internship_playground.ui.list.entity.Vehicle;
+import com.mtlepberghenov.internship_playground.data.entites.sql.Vehicle;
 import java.util.ArrayList;
 import java.util.List;
 

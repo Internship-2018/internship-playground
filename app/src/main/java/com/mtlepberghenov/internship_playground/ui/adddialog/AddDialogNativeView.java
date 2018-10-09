@@ -7,4 +7,6 @@ public interface AddDialogNativeView {
   int getLayout();
 
   void initView(FragmentActivity activity);
+
+  int getDialogTitle();
 }

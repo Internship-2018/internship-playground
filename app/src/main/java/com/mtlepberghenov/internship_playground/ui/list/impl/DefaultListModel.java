@@ -1,7 +1,7 @@
 package com.mtlepberghenov.internship_playground.ui.list.impl;
 
 import com.mtlepberghenov.internship_playground.data.SingletonCarList;
-import com.mtlepberghenov.internship_playground.ui.list.entity.Vehicle;
+import com.mtlepberghenov.internship_playground.data.entites.sql.Vehicle;
 import com.mtlepberghenov.internship_playground.ui.list.ListModel;
 import io.reactivex.Observable;
 import io.reactivex.Single;

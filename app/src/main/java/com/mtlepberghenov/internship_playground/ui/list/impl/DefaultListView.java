@@ -10,7 +10,7 @@ import com.mtlepberghenov.internship_playground.R;
 import com.mtlepberghenov.internship_playground.ui.list.VehicleListAdapter;
 import com.mtlepberghenov.internship_playground.ui.list.ListNativeView;
 import com.mtlepberghenov.internship_playground.ui.list.ListView;
-import com.mtlepberghenov.internship_playground.ui.list.entity.Vehicle;
+import com.mtlepberghenov.internship_playground.data.entites.sql.Vehicle;
 import java.util.List;
 
 public class DefaultListView implements ListNativeView, ListView {

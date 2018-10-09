@@ -1,6 +1,6 @@
 package com.mtlepberghenov.internship_playground.ui.list;
 
-import com.mtlepberghenov.internship_playground.ui.list.entity.Vehicle;
+import com.mtlepberghenov.internship_playground.data.entites.sql.Vehicle;
 import java.util.List;
 
 public interface ListView {
