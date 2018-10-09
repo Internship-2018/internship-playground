@@ -33,8 +33,9 @@ public class StateUpdaterService extends Service {
             @Override
             public void run() {
                 for (DBAnimal animal : db.getAllAnimals()) {
-                    updateAnimalState(animal);
-                    db.updateAnimalState(animal);
+                    if(updateAnimalState(animal)) {
+                        db.updateAnimalState(animal);
+                    }
                 }
                 Intent intent = new Intent(BROADCAST_ACTION);
                 sendBroadcast(intent);
@@ -45,8 +46,8 @@ public class StateUpdaterService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
-    void updateAnimalState(DBAnimal animal) {
-        Date lastUpdated = new Date(animal.getTimestamp());
+    boolean updateAnimalState(DBAnimal animal) {
+        Date lastUpdated = new Date(animal.getTimestamp()+animal.getStateTransitionTime());
         if (new Date().after(lastUpdated)) {
             switch (animal.getOverallState()) {
                 case GREEN:
@@ -59,7 +60,10 @@ public class StateUpdaterService extends Service {
                     animal.setOverallState(State.BLACK);
                     break;
             }
+            animal.setTimestamp(System.currentTimeMillis());
+            return true;
         }
+        return false;
     }
 
     //@androidx.annotation.Nullable

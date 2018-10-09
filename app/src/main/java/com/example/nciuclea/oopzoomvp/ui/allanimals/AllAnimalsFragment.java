@@ -46,6 +46,9 @@ public class AllAnimalsFragment extends Fragment {
         allAnimalsNativeView = view;
         allAnimalsPresenter = new DefaultAllAnimalsPresenter(view, new DefaultAllAnimalsModel(db), new DefaultAllAnimalsWireFrame(this));
 
+        Intent intent = new Intent(getContext(), StateUpdaterService.class).putExtra(StateUpdaterService.UPDATE_INTERVAL, 1000L);
+        getActivity().startService(intent);
+
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {

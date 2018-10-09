@@ -17,8 +17,6 @@ public class App extends Application {
         Log.d("APP_CLASS", "App class onCreate()");
         instance = this;
         db = new DatabaseHelper(getApplicationContext());
-        Intent intent = new Intent(this, StateUpdaterService.class).putExtra(StateUpdaterService.UPDATE_INTERVAL, 1000);
-        startService(intent);
     }
 
     public static App getInstance() {

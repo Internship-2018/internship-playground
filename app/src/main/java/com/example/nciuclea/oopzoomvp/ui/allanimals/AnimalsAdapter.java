@@ -46,6 +46,7 @@ public class AnimalsAdapter extends RecyclerView.Adapter<AnimalsAdapter.AnimalVi
 
     public void updateData(List<DBAnimal> animalList) {
         this.animalsList.clear();
+        //BAM
         this.animalsList.addAll(animalList);
         notifyDataSetChanged();
     }

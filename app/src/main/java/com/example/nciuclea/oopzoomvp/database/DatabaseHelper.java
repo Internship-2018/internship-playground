@@ -15,7 +15,7 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 4;
+    public static final int DATABASE_VERSION = 5;
 
     public static final String DATABASE_NAME = "animals_db";
 
@@ -29,15 +29,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(DBAnimal.CREATE_TABLE);
 
         ArrayList<DBAnimal> initialAnimalList = new ArrayList<DBAnimal>() {{
-            add(new DBAnimal("Tiger", State.GREEN, System.currentTimeMillis()));
-            add(new DBAnimal("Owl", State.RED, System.currentTimeMillis()));
-            add(new DBAnimal("Cat", State.YELLOW, System.currentTimeMillis()));
+            add(new DBAnimal("Tiger", State.GREEN, 3000L, System.currentTimeMillis()));
+            add(new DBAnimal("Owl", State.RED, 10000L, System.currentTimeMillis()));
+            add(new DBAnimal("Cat", State.YELLOW, 5000L, System.currentTimeMillis()));
         }};
 
         for(DBAnimal animal: initialAnimalList) {
             ContentValues values = new ContentValues();
             values.put(DBAnimal.COLUMN_TYPE, animal.getType());
             values.put(DBAnimal.COLUMN_OVERALL_STATE, animal.getOverallState().name());
+            values.put(DBAnimal.COLUMN_STATE_TRANSITION_TIME, animal.getStateTransitionTime());
             values.put(DBAnimal.COLUMN_TIMESTAMP, System.currentTimeMillis());
             db.insert(DBAnimal.TABLE_NAME, null, values);
         }
@@ -55,6 +56,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(DBAnimal.COLUMN_TYPE, animal.getType());
         values.put(DBAnimal.COLUMN_OVERALL_STATE, animal.getOverallState().name());
+        values.put(DBAnimal.COLUMN_STATE_TRANSITION_TIME, animal.getStateTransitionTime());
         values.put(DBAnimal.COLUMN_TIMESTAMP, System.currentTimeMillis());
         long id = db.insert(DBAnimal.TABLE_NAME, null, values);
         db.close();
@@ -76,6 +78,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 cursor.getInt(cursor.getColumnIndex(DBAnimal.COLUMN_ID)),
                 cursor.getString(cursor.getColumnIndex(DBAnimal.COLUMN_TYPE)),
                 State.valueOf(cursor.getString(cursor.getColumnIndex(DBAnimal.COLUMN_OVERALL_STATE))),
+                cursor.getLong(cursor.getColumnIndex(DBAnimal.COLUMN_STATE_TRANSITION_TIME)),
                 cursor.getLong(cursor.getColumnIndex(DBAnimal.COLUMN_TIMESTAMP))
         );
 
@@ -98,6 +101,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         cursor.getInt(cursor.getColumnIndex(DBAnimal.COLUMN_ID)),
                         cursor.getString(cursor.getColumnIndex(DBAnimal.COLUMN_TYPE)),
                         State.valueOf(cursor.getString(cursor.getColumnIndex(DBAnimal.COLUMN_OVERALL_STATE))),
+                        cursor.getLong(cursor.getColumnIndex(DBAnimal.COLUMN_STATE_TRANSITION_TIME)),
                         cursor.getLong(cursor.getColumnIndex(DBAnimal.COLUMN_TIMESTAMP))
                 );
 
