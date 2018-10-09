@@ -2,7 +2,8 @@ package com.mtlepberghenov.internship_playground.ui.adddialog.impl;
 
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.FragmentActivity;
-import android.widget.Button;
+import android.view.View;
+import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -11,6 +12,7 @@ import com.mtlepberghenov.internship_playground.data.SqlVehicle;
 import com.mtlepberghenov.internship_playground.ui.adddialog.AddDialogClickHandler;
 import com.mtlepberghenov.internship_playground.ui.adddialog.AddDialogNativeView;
 import com.mtlepberghenov.internship_playground.ui.adddialog.AddDialogView;
+import io.reactivex.annotations.NonNull;
 
 public class DefaultAddDialogView implements AddDialogNativeView, AddDialogView {
 
@@ -18,10 +20,13 @@ public class DefaultAddDialogView implements AddDialogNativeView, AddDialogView 
   @BindView(R.id.dialog_edit_text_model) TextInputEditText modelEditText;
   @BindView(R.id.dialog_edit_text_color) TextInputEditText colorEditText;
   @BindView(R.id.dialog_edit_text_year) TextInputEditText yearEditText;
-  @BindView(R.id.dialog_btn_ok) Button buttonOk;
-  private AddDialogClickHandler clickHandler;
 
-  // TODO: 10/8/2018 init views using butterKnife
+  private AddDialogClickHandler clickHandler;
+  private FragmentActivity activity;
+
+  public DefaultAddDialogView(FragmentActivity activity) {
+    this.activity = activity;
+  }
 
   @Override public int getLayout() {
     return R.layout.fragment_add_dialog;
@@ -31,29 +36,34 @@ public class DefaultAddDialogView implements AddDialogNativeView, AddDialogView 
     return R.string.dialog_title;
   }
 
-  @Override public void initView(FragmentActivity activity) {
-    ButterKnife.bind(activity);
+  @Override public void initView(View v) {
+    ButterKnife.bind(this, v);
   }
 
   @Override public void setOnAddDialogHandler(AddDialogClickHandler clickHandler) {
     this.clickHandler = clickHandler;
   }
 
-  @OnClick(R.id.dialog_btn_ok) void onOkBtnClick() {
-    SqlVehicle sqlVehicle = new SqlVehicle(typeEditText.getText(),
+  @Override public void showMessage(int stringRes) {
+    Toast.makeText(activity.getApplicationContext(), stringRes, Toast.LENGTH_LONG).show();
+  }
+
+  @OnClick(R.id.dialog_btn_add) void onClickAddBtn() {
+    SqlVehicle sqlVehicle = new SqlVehicle(
+        typeEditText.getText(),
         modelEditText.getText(),
         colorEditText.getText(),
         yearEditText.getText());
-    onOkBtnClicked(sqlVehicle);
+    onAddBtnClicked(sqlVehicle);
   }
 
-  @OnClick(R.id.dialog_btn_cancel) void onCancelBtnClick() {
+  @OnClick(R.id.dialog_btn_cancel) void onClickCancelBtn() {
     onCancelBtnClicked();
   }
 
-  private void onOkBtnClicked(SqlVehicle sqlVehicle) {
+  private void onAddBtnClicked(@NonNull SqlVehicle sqlVehicle) {
     if (clickHandler != null) {
-      clickHandler.onOkBtnClicked(sqlVehicle);
+      clickHandler.onAddBtnClicked(sqlVehicle);
     }
   }
 

@@ -1,6 +1,7 @@
 package com.mtlepberghenov.internship_playground.ui.welcome.impl;
 
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.mtlepberghenov.internship_playground.R;
@@ -16,8 +17,8 @@ public class DefaultWelcomeView implements WelcomeNativeView, WelcomeView {
     return R.layout.fragment_welocme;
   }
 
-  @Override public void initView(FragmentActivity fragmentActivity) {
-    ButterKnife.bind(this, fragmentActivity);
+  @Override public void initView(View v) {
+    ButterKnife.bind(this, v);
   }
 
   @Override public void setOnWelcomeHandler(WelcomeClickHandler clickHandler) {

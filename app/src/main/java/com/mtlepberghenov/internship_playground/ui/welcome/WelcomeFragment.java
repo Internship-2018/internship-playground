@@ -33,7 +33,7 @@ public class WelcomeFragment extends Fragment {
   }
 
   @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-    welcomeNativeView.initView(getActivity());
+    welcomeNativeView.initView(view);
     welcomePresenter.onViewInitialised();
   }
 }

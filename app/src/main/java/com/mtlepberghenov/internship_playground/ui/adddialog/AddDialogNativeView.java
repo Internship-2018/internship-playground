@@ -1,12 +1,12 @@
 package com.mtlepberghenov.internship_playground.ui.adddialog;
 
-import android.support.v4.app.FragmentActivity;
+import android.view.View;
 
 public interface AddDialogNativeView {
 
   int getLayout();
 
-  void initView(FragmentActivity activity);
+  void initView(View v);
 
   int getDialogTitle();
 }

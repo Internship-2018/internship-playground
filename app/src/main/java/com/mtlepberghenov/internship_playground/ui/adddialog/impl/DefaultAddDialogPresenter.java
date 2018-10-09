@@ -1,11 +1,14 @@
 package com.mtlepberghenov.internship_playground.ui.adddialog.impl;
 
+import android.support.annotation.NonNull;
+import android.util.Log;
+import com.mtlepberghenov.internship_playground.App;
 import com.mtlepberghenov.internship_playground.data.SqlVehicle;
 import com.mtlepberghenov.internship_playground.ui.adddialog.AddDialogModel;
 import com.mtlepberghenov.internship_playground.ui.adddialog.AddDialogPresenter;
 import com.mtlepberghenov.internship_playground.ui.adddialog.AddDialogView;
 import com.mtlepberghenov.internship_playground.ui.adddialog.AddDialogWireframe;
-import io.reactivex.functions.Consumer;
+import io.reactivex.Observable;
 
 public class DefaultAddDialogPresenter implements AddDialogPresenter {
 
@@ -24,9 +27,9 @@ public class DefaultAddDialogPresenter implements AddDialogPresenter {
     view.setOnAddDialogHandler(this);
   }
 
-  @Override public void onOkBtnClicked(SqlVehicle sqlVehicle) {
-    // TODO: 09.10.2018 check data there or v pojo
-    model.onWriteData(sqlVehicle);
+  @Override public void onAddBtnClicked(@NonNull SqlVehicle sqlVehicle) {
+    Observable<SqlVehicle> observable = Observable.just(sqlVehicle);
+    model.onWriteData(observable);
   }
 
   @Override public void onCancelBtnClicked() {
