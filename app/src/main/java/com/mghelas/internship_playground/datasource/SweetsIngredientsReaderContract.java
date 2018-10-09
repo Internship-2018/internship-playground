@@ -3,7 +3,7 @@ package com.mghelas.internship_playground.datasource;
 import android.provider.BaseColumns;
 
 public final class SweetsIngredientsReaderContract {
-    public SweetsIngredientsReaderContract() {
+    private SweetsIngredientsReaderContract() {
     }
 
     public static class SweetsIngredientsEntry implements BaseColumns {

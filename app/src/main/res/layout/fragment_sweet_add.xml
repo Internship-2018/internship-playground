@@ -56,7 +56,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Weight"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_add" />
 
@@ -93,7 +93,7 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="Price"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.413"
         app:layout_constraintStart_toEndOf="@+id/title_add"
@@ -111,48 +111,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sugar_add"
-        app:layout_constraintVertical_bias="0.283" />
-
-    <Switch
-        android:id="@+id/milk_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Milk"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/price_per_kg_add" />
 
-    <Switch
-        android:id="@+id/sugar_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="8dp"
-        android:text="Sugar"
-        app:layout_constraintStart_toEndOf="@+id/milk_add"
-        app:layout_constraintTop_toBottomOf="@+id/price_per_kg_add" />
-
-    <Switch
-        android:id="@+id/cocoa_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="8dp"
-        android:text="Cocoa"
-        app:layout_constraintStart_toEndOf="@+id/sugar_add"
-        app:layout_constraintTop_toBottomOf="@+id/price_per_kg_add" />
-
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/switch_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/milk_add">
+        app:layout_constraintTop_toBottomOf="@+id/price_per_kg_add"
+        android:orientation="horizontal">
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

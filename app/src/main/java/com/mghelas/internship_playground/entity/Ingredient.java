@@ -7,6 +7,10 @@ public class Ingredient {
     public Ingredient() {
     }
 
+    public Ingredient(String title) {
+        this.title = title;
+    }
+
     public Ingredient(Integer id, String title) {
         this.id = id;
         this.title = title;
@@ -30,10 +34,7 @@ public class Ingredient {
 
     @Override
     public String toString() {
-        return "Ingredient{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                '}';
+        return title;
     }
 }
 

@@ -6,7 +6,7 @@ public final class SweetReaderContract {
     // To prevent someone from accidentally instantiating the contract class,
     // make the constructor private.
 
-    public SweetReaderContract() {
+   private SweetReaderContract() {
     }
 
     /* Inner class that defines the table contents */
