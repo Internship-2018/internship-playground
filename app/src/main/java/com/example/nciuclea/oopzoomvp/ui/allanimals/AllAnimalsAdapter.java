@@ -44,7 +44,7 @@ public class AllAnimalsAdapter extends RecyclerView.Adapter<AllAnimalsAdapter.An
         return animalsList.size();
     }
 
-    public void updateData(List<DBAnimal> animalList) {
+    synchronized public void updateData(List<DBAnimal> animalList) {
         this.animalsList.clear();
         //BAM
         this.animalsList.addAll(animalList);
