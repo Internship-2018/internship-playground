@@ -1,15 +1,15 @@
 package com.mtlepberghenov.internship_playground.ui.list.impl;
 
-import com.mtlepberghenov.internship_playground.storage.loader.DataFetcher;
-import com.mtlepberghenov.internship_playground.storage.loader.DataLoadCallBack;
-import com.mtlepberghenov.internship_playground.storage.loader.impl.DefaultDbLoaderCallback;
+import com.mtlepberghenov.internship_playground.ui.list.loader.DataFetcher;
+import com.mtlepberghenov.internship_playground.ui.list.loader.DataDbLoadCallBack;
+import com.mtlepberghenov.internship_playground.ui.list.loader.impl.DefaultDbLoaderCallback;
 import com.mtlepberghenov.internship_playground.storage.model.SqlVehicle;
 import com.mtlepberghenov.internship_playground.ui.list.ListModel;
+import java.util.List;
 
-public class DefaultListModel implements ListModel, DataLoadCallBack<SqlVehicle> {
+public class DefaultListModel implements ListModel, DataDbLoadCallBack<List<SqlVehicle>> {
 
   private final DataFetcher dataFetcher;
-  private DefaultDbLoaderCallback dbLoaderCallback;
 
   public DefaultListModel(DataFetcher dataFetcher) {
     this.dataFetcher = dataFetcher;
@@ -17,10 +17,9 @@ public class DefaultListModel implements ListModel, DataLoadCallBack<SqlVehicle>
 
   @Override public void getData() {
     dataFetcher.fetchData();
-    dbLoaderCallback = new DefaultDbLoaderCallback()
   }
 
-  @Override public void onDataLoaded(SqlVehicle data) {
+  @Override public void onDataLoaded(List<SqlVehicle> data) {
 
   }
 }

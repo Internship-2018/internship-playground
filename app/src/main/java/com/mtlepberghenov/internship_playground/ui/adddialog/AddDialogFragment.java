@@ -21,7 +21,7 @@ public class AddDialogFragment extends DialogFragment {
     super.onCreate(savedInstanceState);
     DefaultAddDialogView view = new DefaultAddDialogView(getActivity());
     nativeView = view;
-    presenter = new DefaultAddDialogPresenter(view, new DefaultAddDialogModel(dataFetcher),
+    presenter = new DefaultAddDialogPresenter(view, new DefaultAddDialogModel(),
         new DefaultAddDialogWireframe(getActivity()));
   }
 
