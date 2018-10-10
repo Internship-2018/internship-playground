@@ -1,8 +1,12 @@
 package com.mtlepberghenov.internship_playground.storage.sql;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import com.mtlepberghenov.internship_playground.App;
+import com.mtlepberghenov.internship_playground.storage.model.SqlVehicle;
 
 public class DbHelper extends SQLiteOpenHelper {
 
@@ -19,5 +23,16 @@ public class DbHelper extends SQLiteOpenHelper {
 
   @Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+  }
+
+  public void insert(SqlVehicle vehicle) {
+    SQLiteDatabase db = getWritableDatabase();
+    ContentValues cv = new ContentValues();
+    cv.put(Tables.COLUMN_TYPE, vehicle.getType().toString());
+    cv.put(Tables.COLUMN_MODEL, vehicle.getModel().toString());
+    cv.put(Tables.COLUMN_COLOR, vehicle.getModel().toString());
+    cv.put(Tables.COLUMN_YEAR, vehicle.getYear().toString());
+    db.insert(Tables.TABLE_NAME, null, cv);
+    db.close();
   }
 }
