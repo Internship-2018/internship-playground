@@ -15,6 +15,6 @@ public class DefaultListPresenter implements ListPresenter {
   }
 
   @Override public void onViewInitialised() {
-    model.getData();
+    model.getData(view::setData);
   }
 }
