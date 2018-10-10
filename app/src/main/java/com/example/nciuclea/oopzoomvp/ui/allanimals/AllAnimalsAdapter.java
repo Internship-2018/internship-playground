@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.nciuclea.oopzoomvp.R;
 import com.example.nciuclea.oopzoomvp.database.model.DBAnimal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AllAnimalsAdapter extends RecyclerView.Adapter<AllAnimalsAdapter.AnimalViewHolder>{
@@ -44,10 +45,8 @@ public class AllAnimalsAdapter extends RecyclerView.Adapter<AllAnimalsAdapter.An
         return animalsList.size();
     }
 
-    synchronized public void updateData(List<DBAnimal> animalList) {
-        this.animalsList.clear();
-        //BAM
-        this.animalsList.addAll(animalList);
+    public void updateData(List<DBAnimal> animalList) {
+        this.animalsList = new ArrayList<>(animalList);
         notifyDataSetChanged();
     }
 
@@ -71,7 +70,7 @@ public class AllAnimalsAdapter extends RecyclerView.Adapter<AllAnimalsAdapter.An
             animalOverallStateButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    clickHandler.onClick(v, animalsList.get(getAdapterPosition()).getId());
+                    clickHandler.onClick(v, animalsList.get(getLayoutPosition()).getId());
                 }
             });
         }

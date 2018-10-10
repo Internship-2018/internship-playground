@@ -27,7 +27,7 @@ public class DefaultAllAnimalsModel implements AllAnimalsModel {
 
     @Override
     public List<DBAnimal> getAnimalsList() {
-        return animalsList;
+        return new ArrayList<>(animalsList);
     }
 
     @Override
