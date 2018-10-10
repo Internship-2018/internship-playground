@@ -19,4 +19,5 @@
   <string name="dialog_title">Add vehicle</string>
   <string name="empty_field_message">Some field is empty</string>
   <string name="done">Done</string>
+  <string name="maker">Maker</string>
 </resources>

@@ -7,7 +7,6 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import butterknife.ButterKnife;
 import com.mtlepberghenov.internship_playground.ui.adddialog.impl.DefaultAddDialogModel;
 import com.mtlepberghenov.internship_playground.ui.adddialog.impl.DefaultAddDialogPresenter;
 import com.mtlepberghenov.internship_playground.ui.adddialog.impl.DefaultAddDialogView;
@@ -22,7 +21,7 @@ public class AddDialogFragment extends DialogFragment {
     super.onCreate(savedInstanceState);
     DefaultAddDialogView view = new DefaultAddDialogView(getActivity());
     nativeView = view;
-    presenter = new DefaultAddDialogPresenter(view, new DefaultAddDialogModel(),
+    presenter = new DefaultAddDialogPresenter(view, new DefaultAddDialogModel(dataFetcher),
         new DefaultAddDialogWireframe(getActivity()));
   }
 

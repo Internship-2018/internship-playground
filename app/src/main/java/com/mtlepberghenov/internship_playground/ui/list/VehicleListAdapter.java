@@ -10,8 +10,13 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.mtlepberghenov.internship_playground.R;
+import com.mtlepberghenov.internship_playground.storage.model.SqlVehicle;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.MyViewHolder> {
+
+  private List<SqlVehicle> vehicleList = new ArrayList<>();
 
   @NonNull
   @Override
@@ -25,17 +30,17 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
 
   @Override
   public void onBindViewHolder(@NonNull VehicleListAdapter.MyViewHolder holder, int i) {
-    holder.bindData();
+    holder.bindData(vehicleList.get(i));
   }
 
   @Override public int getItemCount() {
-    return 0;
+    return vehicleList.size();
   }
 
-  public void setData() {
-    //this.vehicleList.clear();
-   // this.vehicleList.addAll(null);
-    //notifyDataSetChanged();
+  public void setData(List<SqlVehicle> vehicleList) {
+    this.vehicleList.clear();
+    this.vehicleList.addAll(vehicleList);
+    notifyDataSetChanged();
   }
 
   class MyViewHolder extends RecyclerView.ViewHolder {
@@ -48,19 +53,19 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
       ButterKnife.bind(this, v);
     }
 
-    void bindData() {
-      //StringBuilder sb = new StringBuilder();
-      //
-      ///* Note: text = "Type: %s\nMake: %s\nModel: %s\nColor: %s\nYear: %s" */
-      //sb.append(String.format(text,
-      //                              vehicle.getType(),
-      //                              vehicle.getMake(),
-      //                              vehicle.getModel(),
-      //                              vehicle.getColor(),
-      //                              vehicle.getYear()));
-      //
-      //textView.setText(sb.toString());
-      //sb.setLength(0);
+    void bindData(SqlVehicle vehicle) {
+      StringBuilder sb = new StringBuilder();
+
+      /* Note: text = "Type: %s\nMake: %s\nModel: %s\nColor: %s\nYear: %s" */
+      sb.append(String.format(text,
+                                    vehicle.getType(),
+                                    vehicle.getMaker(),
+                                    vehicle.getModel(),
+                                    vehicle.getColor(),
+                                    vehicle.getYear()));
+
+      textView.setText(sb.toString());
+      sb.setLength(0);
     }
   }
 }

@@ -6,12 +6,12 @@ import com.mtlepberghenov.internship_playground.ui.list.ListView;
 
 public class DefaultListPresenter implements ListPresenter {
 
-  private final ListView listView;
-  private final ListModel listModel;
+  private final ListView view;
+  private final ListModel model;
 
-  public DefaultListPresenter(ListView listView, ListModel listModel) {
-    this.listView = listView;
-    this.listModel = listModel;
+  public DefaultListPresenter(ListView view, ListModel model) {
+    this.view = view;
+    this.model = model;
   }
 
   @Override public void onViewInitialised() {

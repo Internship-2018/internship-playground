@@ -17,6 +17,7 @@ import io.reactivex.annotations.NonNull;
 public class DefaultAddDialogView implements AddDialogNativeView, AddDialogView {
 
   @BindView(R.id.dialog_edit_text_type) TextInputEditText typeEditText;
+  @BindView(R.id.dialog_edit_text_maker) TextInputEditText makerEditText;
   @BindView(R.id.dialog_edit_text_model) TextInputEditText modelEditText;
   @BindView(R.id.dialog_edit_text_color) TextInputEditText colorEditText;
   @BindView(R.id.dialog_edit_text_year) TextInputEditText yearEditText;
@@ -55,6 +56,7 @@ public class DefaultAddDialogView implements AddDialogNativeView, AddDialogView 
   @OnClick(R.id.dialog_btn_add) void onClickAddBtn() {
     SqlVehicle sqlVehicle = new SqlVehicle(
         typeEditText.getText(),
+        makerEditText.getText(),
         modelEditText.getText(),
         colorEditText.getText(),
         yearEditText.getText());
