@@ -60,14 +60,6 @@ public class AllAnimalsFragment extends Fragment {
         //Starting Service and registering Broadcast Receiver
         Intent intent = new Intent(getContext(), StateUpdaterService.class).putExtra(StateUpdaterService.UPDATE_INTERVAL, 1000L);
         getActivity().startService(intent);
-        broadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                allAnimalsPresenter.onDBUpdateReceive();
-            }
-        };
-        IntentFilter intentFilter = new IntentFilter(StateUpdaterService.BROADCAST_ACTION);
-        getActivity().registerReceiver(broadcastReceiver, intentFilter);
     }
 
 
@@ -80,14 +72,23 @@ public class AllAnimalsFragment extends Fragment {
         allAnimalsNativeView.initView(view);
         allAnimalsNativeView.setOnClickHandler(allAnimalsPresenter);
         allAnimalsPresenter.onViewInitialized();
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                allAnimalsPresenter.onDBUpdateReceive();
+            }
+        };
+        IntentFilter intentFilter = new IntentFilter(StateUpdaterService.BROADCAST_ACTION);
+        getActivity().registerReceiver(broadcastReceiver, intentFilter);
         return view;
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-
+    public void onDestroyView() {
+        super.onDestroyView();
+        
         getActivity().unregisterReceiver(broadcastReceiver);
+        getActivity().stopService(new Intent(getContext(), StateUpdaterService.class));
     }
 
 }

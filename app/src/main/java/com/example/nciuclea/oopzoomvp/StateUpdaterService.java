@@ -10,6 +10,8 @@ import com.example.nciuclea.oopzoomvp.database.DatabaseHelper;
 import com.example.nciuclea.oopzoomvp.database.model.DBAnimal;
 
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class StateUpdaterService extends Service {
 
@@ -19,6 +21,18 @@ public class StateUpdaterService extends Service {
     public final static String UPDATE_INTERVAL = "UPDATE_INTERVAL";
     private long updateInterval;
 
+    class UpdateDBTimerTask extends TimerTask {
+        @Override
+        public void run() {
+            for (DBAnimal animal : db.getAllAnimals()) {
+                if(updateAnimalState(animal)) {
+                    db.updateAnimalState(animal);
+                }
+            }
+            Intent intent = new Intent(BROADCAST_ACTION);
+            sendBroadcast(intent);
+        }
+    }
     @Override
     public void onCreate() {
         super.onCreate();
@@ -27,22 +41,8 @@ public class StateUpdaterService extends Service {
 
     public int onStartCommand(Intent intent, int flags, int startId) {
         updateInterval = intent.getLongExtra(UPDATE_INTERVAL, 1000);
-        if (refreshHandler != null) refreshHandler.removeCallbacksAndMessages(null);
-        refreshHandler = new Handler();
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                for (DBAnimal animal : db.getAllAnimals()) {
-                    if(updateAnimalState(animal)) {
-                        db.updateAnimalState(animal);
-                    }
-                }
-                Intent intent = new Intent(BROADCAST_ACTION);
-                sendBroadcast(intent);
-                refreshHandler.postDelayed(this, updateInterval);
-            }
-        };
-        refreshHandler.postDelayed(runnable, updateInterval);
+        Timer updateBDTimer = new Timer();
+        updateBDTimer.schedule(new UpdateDBTimerTask(), updateInterval, updateInterval);
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -64,6 +64,11 @@ public class StateUpdaterService extends Service {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onDestroy() {
+
     }
 
     //@androidx.annotation.Nullable
