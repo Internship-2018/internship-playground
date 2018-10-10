@@ -1,44 +1,60 @@
 package com.example.nciuclea.oopzoomvp.ui.allanimals.impl;
 
+import android.graphics.ColorSpace;
+
+import com.example.nciuclea.oopzoomvp.App;
 import com.example.nciuclea.oopzoomvp.animal.state.State;
 import com.example.nciuclea.oopzoomvp.database.DatabaseHelper;
 import com.example.nciuclea.oopzoomvp.database.model.DBAnimal;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsModel;
+import com.example.nciuclea.oopzoomvp.ui.allanimals.DataFetcher;
+import com.example.nciuclea.oopzoomvp.ui.allanimals.DataLoadCallback;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.ModelUpdatedCallback;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DefaultAllAnimalsModel implements AllAnimalsModel {
+public class DefaultAllAnimalsModel implements AllAnimalsModel, DataLoadCallback<List<DBAnimal>> {
     private ArrayList<DBAnimal> animalsList = new ArrayList<>();
-    private DatabaseHelper db;
+    private final DataFetcher dataFetcher;
+    private ModelUpdatedCallback<List<DBAnimal>> modelUpdatedCallback;
 
-    public DefaultAllAnimalsModel(DatabaseHelper db) {
-        this.db = db;
+    public DefaultAllAnimalsModel(DataFetcher dataFetcher) {
+        this.dataFetcher = dataFetcher;
     }
 
     @Override
-    public void pullFromDB(ModelUpdatedCallback callback) {
-        List<DBAnimal> newAnimalsList = db.getAllAnimals(); //Async
-        animalsList.clear();
-        animalsList.addAll(newAnimalsList);
-        callback.onModelUpdated();
+    public void pullFromDB() {
+        dataFetcher.fetchData(); //Async done
     }
 
     @Override
-    public List<DBAnimal> getAnimalsList() {
-        return new ArrayList<>(animalsList);
-    }
-
-    @Override
-    public void updateAnimalState(int id, ModelUpdatedCallback callback) {
-        for(DBAnimal animal: animalsList) {
+    public void updateAnimalState(int id) {
+        modelUpdatedCallback.onModelUpdated(new ArrayList<>(animalsList));
+        for(final DBAnimal animal: animalsList) {
             if(animal.getId() == id) {
                 animal.setOverallState(State.GREEN);
                 animal.setTimestamp(System.currentTimeMillis());
-                db.updateAnimalState(animal); //Async
+                //db.updateAnimalState(animal); //Async
+                Thread dbWriteThread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        App.getInstance().getDatabaseHelper().updateAnimalState(animal);
+                    }
+                });
+                dbWriteThread.start();
             }
         }
-        callback.onModelUpdated();
+    }
+
+    @Override
+    public void setModelUpdatedCallback(ModelUpdatedCallback<List<DBAnimal>> modelUpdatedCallback) {
+        this.modelUpdatedCallback = modelUpdatedCallback;
+    }
+
+    @Override
+    public void onDataLoaded(List<DBAnimal> data) {
+        animalsList = new ArrayList<>(data);
+        modelUpdatedCallback.onModelUpdated(new ArrayList<>(animalsList));
     }
 }

@@ -5,9 +5,9 @@ import com.example.nciuclea.oopzoomvp.database.model.DBAnimal;
 import java.util.List;
 
 public interface AllAnimalsModel {
-    void pullFromDB(ModelUpdatedCallback callback);
+    void pullFromDB();
 
-    List<DBAnimal> getAnimalsList();
+    void updateAnimalState(int id);
 
-    void updateAnimalState(int id, ModelUpdatedCallback callback);
+    void setModelUpdatedCallback(ModelUpdatedCallback<List<DBAnimal>> modelUpdatedCallback);
 }

@@ -2,13 +2,16 @@ package com.example.nciuclea.oopzoomvp.ui.allanimals.impl;
 
 import android.view.View;
 
+import com.example.nciuclea.oopzoomvp.database.model.DBAnimal;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsModel;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsPresenter;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsView;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsWireframe;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.ModelUpdatedCallback;
 
-public class DefaultAllAnimalsPresenter implements AllAnimalsPresenter, ModelUpdatedCallback {
+import java.util.List;
+
+public class DefaultAllAnimalsPresenter implements AllAnimalsPresenter, ModelUpdatedCallback<List<DBAnimal>> {
     private final AllAnimalsView allAnimalsView;
     private final AllAnimalsModel allAnimalsModel;
     private final AllAnimalsWireframe allAnimalsWireframe;
@@ -19,24 +22,23 @@ public class DefaultAllAnimalsPresenter implements AllAnimalsPresenter, ModelUpd
         this.allAnimalsWireframe = wireframe;
     }
 
-    //ModelUpdatedCallback
-    @Override
-    public void onModelUpdated() {
-        allAnimalsView.updateData(allAnimalsModel.getAnimalsList());
-    }
-
     @Override
     public void onViewInitialized() {
-        allAnimalsModel.pullFromDB(this);
+        allAnimalsModel.pullFromDB();
     }
 
     @Override
     public void onClick(View v, int id) {
-        allAnimalsModel.updateAnimalState(id, this);
+        allAnimalsModel.updateAnimalState(id);
     }
 
     @Override
     public void onDBUpdateReceive() {
-        allAnimalsModel.pullFromDB(this);
+        allAnimalsModel.pullFromDB();
+    }
+
+    @Override
+    public void onModelUpdated(List<DBAnimal> data) {
+        allAnimalsView.updateData(data);
     }
 }
