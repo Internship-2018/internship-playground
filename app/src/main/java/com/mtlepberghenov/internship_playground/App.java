@@ -1,7 +1,7 @@
 package com.mtlepberghenov.internship_playground;
 
 import android.app.Application;
-import com.mtlepberghenov.internship_playground.data.repositories.sqlite.DbHelper;
+import com.mtlepberghenov.internship_playground.storage.sql.DbHelper;
 import com.mtlepberghenov.internship_playground.utils.TextWrapper;
 
 public class App extends Application {

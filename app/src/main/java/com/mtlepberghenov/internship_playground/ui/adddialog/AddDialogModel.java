@@ -1,6 +1,6 @@
 package com.mtlepberghenov.internship_playground.ui.adddialog;
 
-import com.mtlepberghenov.internship_playground.data.SqlVehicle;
+import com.mtlepberghenov.internship_playground.storage.model.SqlVehicle;
 import com.mtlepberghenov.internship_playground.ui.adddialog.impl.CallBack;
 import io.reactivex.Single;
 

@@ -1,4 +1,4 @@
-package com.mtlepberghenov.internship_playground.data.repositories.sqlite;
+package com.mtlepberghenov.internship_playground.storage.sql;
 
 public class Tables {
 

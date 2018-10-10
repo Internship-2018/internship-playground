@@ -9,6 +9,7 @@ import com.mtlepberghenov.internship_playground.ui.welcome.WelcomeWireFrame;
 
 public class DefaultWelcomeWireFrame implements WelcomeWireFrame {
 
+  public static final String TAG = "dialog_add";
   private final FragmentActivity activity;
   private NavController navController;
 
@@ -22,6 +23,6 @@ public class DefaultWelcomeWireFrame implements WelcomeWireFrame {
   }
 
   @Override public void showAddContent() {
-    new AddDialogFragment().show(activity.getSupportFragmentManager(), "add");
+    new AddDialogFragment().show(activity.getSupportFragmentManager(), TAG);
   }
 }

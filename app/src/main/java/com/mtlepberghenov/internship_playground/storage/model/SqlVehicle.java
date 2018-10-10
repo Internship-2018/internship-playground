@@ -1,4 +1,4 @@
-package com.mtlepberghenov.internship_playground.data;
+package com.mtlepberghenov.internship_playground.storage.model;
 
 import android.text.Editable;
 

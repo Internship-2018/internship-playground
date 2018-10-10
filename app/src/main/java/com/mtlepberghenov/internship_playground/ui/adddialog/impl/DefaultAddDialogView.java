@@ -8,7 +8,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.mtlepberghenov.internship_playground.R;
-import com.mtlepberghenov.internship_playground.data.SqlVehicle;
+import com.mtlepberghenov.internship_playground.storage.model.SqlVehicle;
 import com.mtlepberghenov.internship_playground.ui.adddialog.AddDialogClickHandler;
 import com.mtlepberghenov.internship_playground.ui.adddialog.AddDialogNativeView;
 import com.mtlepberghenov.internship_playground.ui.adddialog.AddDialogView;
