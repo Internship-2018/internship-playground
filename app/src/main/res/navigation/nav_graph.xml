@@ -33,7 +33,8 @@
         tools:layout="@layout/fragment_sweet_detailed" >
         <action
             android:id="@+id/action_sweetDetailedFragment_to_sweetListFragment"
-            app:destination="@id/sweetListFragment" />
+            app:destination="@id/sweetListFragment"
+            app:popUpTo="@+id/startFragment" />
     </fragment>
     <fragment
         android:id="@+id/sweetAddFragment"
@@ -42,6 +43,6 @@
         tools:layout="@layout/fragment_sweet_add" >
         <action
             android:id="@+id/action_sweetAddFragment_to_sweetListFragment"
-            app:destination="@id/sweetListFragment" />
+            app:destination="@id/sweetListFragment" app:popUpTo="@id/startFragment"/>
     </fragment>
 </navigation>
