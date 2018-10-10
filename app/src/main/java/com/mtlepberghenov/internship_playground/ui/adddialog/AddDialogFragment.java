@@ -14,8 +14,9 @@ import com.mtlepberghenov.internship_playground.ui.adddialog.impl.DefaultAddDial
 
 public class AddDialogFragment extends DialogFragment {
 
-  AddDialogNativeView nativeView;
-  AddDialogPresenter presenter;
+  private AddDialogNativeView nativeView;
+  private AddDialogPresenter presenter;
+  private AddDialogModelCallBack modelHandler;
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);

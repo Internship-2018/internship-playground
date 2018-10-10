@@ -8,5 +8,5 @@ public interface AddDialogView {
 
   void showMessage(@StringRes int stringRes);
 
-  void close();
+  void clear();
 }

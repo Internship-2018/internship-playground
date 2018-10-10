@@ -6,7 +6,7 @@ public class Tables {
   public static final String TABLE_NAME = "vehicle";
   public static final String COLUMN_ID = "id";
   public static final String COLUMN_TYPE = "type";
-  public static final String COLUMN_MAKER = "type";
+  public static final String COLUMN_MAKER = "maker";
   public static final String COLUMN_MODEL = "model";
   public static final String COLUMN_COLOR = "color";
   public static final String COLUMN_YEAR = "year";

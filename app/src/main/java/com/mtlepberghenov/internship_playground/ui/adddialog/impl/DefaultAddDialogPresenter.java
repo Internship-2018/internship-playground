@@ -6,6 +6,7 @@ import com.mtlepberghenov.internship_playground.ui.adddialog.AddDialogModel;
 import com.mtlepberghenov.internship_playground.ui.adddialog.AddDialogPresenter;
 import com.mtlepberghenov.internship_playground.ui.adddialog.AddDialogView;
 import com.mtlepberghenov.internship_playground.ui.adddialog.AddDialogWireframe;
+import com.mtlepberghenov.internship_playground.utils.TextWrapper;
 
 public class DefaultAddDialogPresenter implements AddDialogPresenter {
 
@@ -17,7 +18,7 @@ public class DefaultAddDialogPresenter implements AddDialogPresenter {
       AddDialogWireframe defaultAddDialogWireframe) {
     this.view = view;
     this.model = model;
-    wireframe = defaultAddDialogWireframe;
+    this.wireframe = defaultAddDialogWireframe;
   }
 
   @Override public void onViewInitialised() {
@@ -25,7 +26,10 @@ public class DefaultAddDialogPresenter implements AddDialogPresenter {
   }
 
   @Override public void onAddBtnClicked(@NonNull SqlVehicle sqlVehicle) {
-    wireframe.onClose();
+    model.insertData(sqlVehicle, () -> {
+      view.clear();
+      view.showMessage(TextWrapper.getDoneMessage());
+    });
   }
 
   @Override public void onCancelBtnClicked() {
