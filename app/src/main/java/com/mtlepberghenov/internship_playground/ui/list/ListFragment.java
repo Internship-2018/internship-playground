@@ -21,7 +21,7 @@ public class ListFragment extends Fragment {
 
     DefaultListView view = new DefaultListView();
     listNativeView = view;
-    listPresenter = new DefaultListPresenter(view, new DefaultListModel());
+    listPresenter = new DefaultListPresenter(view, new DefaultListModel(dataFetcher));
   }
 
   @Nullable @Override

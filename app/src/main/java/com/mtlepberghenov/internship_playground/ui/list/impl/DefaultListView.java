@@ -7,9 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.mtlepberghenov.internship_playground.R;
+import com.mtlepberghenov.internship_playground.storage.model.SqlVehicle;
 import com.mtlepberghenov.internship_playground.ui.list.ListNativeView;
 import com.mtlepberghenov.internship_playground.ui.list.ListView;
 import com.mtlepberghenov.internship_playground.ui.list.VehicleListAdapter;
+import java.util.List;
 
 public class DefaultListView implements ListNativeView, ListView {
 
@@ -32,5 +34,9 @@ public class DefaultListView implements ListNativeView, ListView {
 
     adapter = new VehicleListAdapter();
     recyclerView.setAdapter(adapter);
+  }
+
+  @Override public void setData(List<SqlVehicle> vehicleList) {
+    adapter.setData(vehicleList);
   }
 }
