@@ -20,6 +20,7 @@ public class StateUpdaterService extends Service {
     public final static String BROADCAST_ACTION = "com.example.nciuclea.oopzoomvp.bdupdatedbroadcast";
     public final static String UPDATE_INTERVAL = "UPDATE_INTERVAL";
     private long updateInterval;
+    Timer updateBDTimer;
 
     class UpdateDBTimerTask extends TimerTask {
         @Override
@@ -41,7 +42,7 @@ public class StateUpdaterService extends Service {
 
     public int onStartCommand(Intent intent, int flags, int startId) {
         updateInterval = intent.getLongExtra(UPDATE_INTERVAL, 1000);
-        Timer updateBDTimer = new Timer();
+        updateBDTimer = new Timer();
         updateBDTimer.schedule(new UpdateDBTimerTask(), updateInterval, updateInterval);
         return super.onStartCommand(intent, flags, startId);
     }
@@ -68,7 +69,10 @@ public class StateUpdaterService extends Service {
 
     @Override
     public void onDestroy() {
-
+        if (updateBDTimer != null) {
+            updateBDTimer.cancel();
+            updateBDTimer = null;
+        }
     }
 
     //@androidx.annotation.Nullable
