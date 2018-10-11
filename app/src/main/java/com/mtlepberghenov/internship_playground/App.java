@@ -3,6 +3,7 @@ package com.mtlepberghenov.internship_playground;
 import android.app.Application;
 import com.mtlepberghenov.internship_playground.storage.sql.DbHelper;
 import com.mtlepberghenov.internship_playground.utils.TextWrapper;
+import timber.log.Timber;
 
 public class App extends Application {
 
@@ -13,6 +14,7 @@ public class App extends Application {
   @Override public void onCreate() {
     super.onCreate();
     instance = this;
+    Timber.plant(new Timber.DebugTree());
   }
 
   public static App getInstance() {

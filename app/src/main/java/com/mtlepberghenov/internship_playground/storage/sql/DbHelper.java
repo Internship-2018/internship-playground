@@ -4,8 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-import com.mtlepberghenov.internship_playground.App;
 import com.mtlepberghenov.internship_playground.storage.model.SqlVehicle;
 import com.mtlepberghenov.internship_playground.ui.adddialog.AddDialogModelCallBack;
 
@@ -34,7 +32,7 @@ public class DbHelper extends SQLiteOpenHelper {
     cv.put(Tables.COLUMN_MODEL, vehicle.getModel().toString());
     cv.put(Tables.COLUMN_COLOR, vehicle.getModel().toString());
     cv.put(Tables.COLUMN_YEAR, vehicle.getYear().toString());
-    db.insert(Tables.TABLE_NAME, null, cv);
+    db.insert(Tables.TABLE_NAME_VEHICLE, null, cv);
     db.close();
     callBack.onDataInserted();
   }

@@ -1,48 +1,59 @@
 package com.mtlepberghenov.internship_playground.storage.model;
 
-import android.text.Editable;
-
 public class SqlVehicle {
 
   private long id;
-  private Editable type;
-  private Editable maker;
-  private Editable model;
-  private Editable color;
-  private Editable year;
+  private String type;
+  private String maker;
+  private String model;
+  private String color;
+  private String year;
 
-
-  public SqlVehicle(Editable type, Editable maker, Editable model, Editable color, Editable year) {
-    this.type = type;
-    this.maker = maker;
-    this.model = model;
-    this.color = color;
-    this.year = year;
+  public long getId() {
+    return id;
   }
 
   public void setId(long id) {
     this.id = id;
   }
 
-  public long getId() {
-    return id;
-  }
-
-  public Editable getType() {
+  public String getType() {
     return type;
   }
 
-  public Editable getMaker() {return maker;}
+  public void setType(String type) {
+    this.type = type;
+  }
 
-  public Editable getModel() {
+  public String getMaker() {
+    return maker;
+  }
+
+  public void setMaker(String maker) {
+    this.maker = maker;
+  }
+
+  public String getModel() {
     return model;
   }
 
-  public Editable getColor() {
+  public void setModel(String model) {
+    this.model = model;
+  }
+
+  public String getColor() {
     return color;
   }
 
-  public Editable getYear() {
+  public void setColor(String color) {
+    this.color = color;
+  }
+
+  public String getYear() {
     return year;
+  }
+
+  public void setYear(String year) {
+    this.year = year;
   }
 }

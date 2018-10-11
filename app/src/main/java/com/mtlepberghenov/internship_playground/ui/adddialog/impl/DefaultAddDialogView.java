@@ -58,12 +58,12 @@ public class DefaultAddDialogView implements AddDialogNativeView, AddDialogView 
   }
 
   @OnClick(R.id.dialog_btn_add) void onClickAddBtn() {
-    SqlVehicle sqlVehicle = new SqlVehicle(
-        typeEditText.getText(),
-        makerEditText.getText(),
-        modelEditText.getText(),
-        colorEditText.getText(),
-        yearEditText.getText());
+    SqlVehicle sqlVehicle = new SqlVehicle();
+    sqlVehicle.setType(typeEditText.getText().toString());
+    sqlVehicle.setMaker(makerEditText.getText().toString());
+    sqlVehicle.setModel(modelEditText.getText().toString());
+    sqlVehicle.setColor(colorEditText.getText().toString());
+    sqlVehicle.setYear(yearEditText.getText().toString());
     onAddBtnClicked(sqlVehicle);
   }
 
