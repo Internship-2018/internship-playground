@@ -24,7 +24,7 @@ public class App extends Application {
     }
 
     public DatabaseHelper getDatabaseHelper() {
-        if (db == null) { db = new DatabaseHelper(getApplicationContext()); }
+//        if (db == null) { db = new DatabaseHelper(getApplicationContext()); }
         return db;
     }
 }
