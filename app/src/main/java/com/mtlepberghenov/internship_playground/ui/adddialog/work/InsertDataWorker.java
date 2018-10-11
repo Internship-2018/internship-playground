@@ -22,7 +22,7 @@ public class InsertDataWorker extends Worker {
     sqlVehicle.setModel(getInputData().getString(DefaultWorkRequest.MODEL));
     sqlVehicle.setColor(getInputData().getString(DefaultWorkRequest.COLOR));
     sqlVehicle.setYear(getInputData().getString(DefaultWorkRequest.YEAR));
-    App.getInstance().getDbHelper().insert(sqlVehicle, null);
+    App.getInstance().getDbHelper().insert(sqlVehicle);
     return Result.SUCCESS;
   }
 
