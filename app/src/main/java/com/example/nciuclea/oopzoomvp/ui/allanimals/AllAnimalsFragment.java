@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,9 +58,7 @@ public class AllAnimalsFragment extends Fragment {
                 view, defaultAllAnimalsModel, new DefaultAllAnimalsWireFrame(this));
         allAnimalsPresenter = defaultAllAnimalsPresenter;
         defaultAllAnimalsModel.setModelUpdatedCallback(defaultAllAnimalsPresenter);
-        //Starting Service and registering Broadcast Receiver
-        Intent intent = new Intent(getContext(), StateUpdaterService.class).putExtra(StateUpdaterService.UPDATE_INTERVAL, 1000L);
-        getActivity().startService(intent);
+
     }
 
 
@@ -71,13 +70,18 @@ public class AllAnimalsFragment extends Fragment {
         View view = inflater.inflate(allAnimalsNativeView.getLayout(), container, false);
         allAnimalsNativeView.initView(view);
         allAnimalsNativeView.setOnClickHandler(allAnimalsPresenter);
+        Log.d("PROF_LOG", "before presenter.onViewInit");
         allAnimalsPresenter.onViewInitialized();
+        Log.d("PROF_LOG", "after presenter.onViewInit");
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 allAnimalsPresenter.onDBUpdateReceive();
             }
         };
+        //Starting Service and registering Broadcast Receiver
+        Intent intent = new Intent(getContext(), StateUpdaterService.class).putExtra(StateUpdaterService.UPDATE_INTERVAL, 1000L);
+        getActivity().startService(intent);
         IntentFilter intentFilter = new IntentFilter(StateUpdaterService.BROADCAST_ACTION);
         getActivity().registerReceiver(broadcastReceiver, intentFilter);
         return view;
@@ -86,7 +90,8 @@ public class AllAnimalsFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        
+
+        Log.d("FRGMNT_LIFE", "onDesctroyView called");
         getActivity().unregisterReceiver(broadcastReceiver);
         getActivity().stopService(new Intent(getContext(), StateUpdaterService.class));
     }

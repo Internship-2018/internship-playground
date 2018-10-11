@@ -1,5 +1,6 @@
 package com.example.nciuclea.oopzoomvp.ui.allanimals.impl;
 
+import android.util.Log;
 import android.view.View;
 
 import com.example.nciuclea.oopzoomvp.database.model.DBAnimal;
@@ -24,6 +25,7 @@ public class DefaultAllAnimalsPresenter implements AllAnimalsPresenter, ModelUpd
 
     @Override
     public void onViewInitialized() {
+        Log.d("PROF_LOG", "requested data from model");
         allAnimalsModel.pullFromDB();
     }
 
@@ -39,6 +41,8 @@ public class DefaultAllAnimalsPresenter implements AllAnimalsPresenter, ModelUpd
 
     @Override
     public void onModelUpdated(List<DBAnimal> data) {
+        Log.d("PROF_LOG", "got data from model");
+
         allAnimalsView.updateData(data);
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
+import android.util.Log;
 
 import com.example.nciuclea.oopzoomvp.App;
 import com.example.nciuclea.oopzoomvp.database.DatabaseHelper;
@@ -22,7 +23,9 @@ public class DBDataLoader extends AsyncTaskLoader<List<DBAnimal>> implements Dat
     @Nullable
     @Override
     public List<DBAnimal> loadInBackground() {
+        Log.d("PROF_LOG", "LoadInBackground called");
         DatabaseHelper db = App.getInstance().getDatabaseHelper();
+        Log.d("PROF_LOG", "db instance received in LoadInBackground");
         return new ArrayList<>(db.getAllAnimals());
     }
 

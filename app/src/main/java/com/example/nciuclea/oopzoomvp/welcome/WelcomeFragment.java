@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +66,7 @@ public class WelcomeFragment extends Fragment implements WelcomeView {
 
     @Override
     public void startZooView() {
+        Log.d("PROF_LOG", "StartZooView called");
         Navigation.findNavController(getView()).navigate(R.id.action_welcomeFragment_to_allAnimalsFragment);
     }
 
