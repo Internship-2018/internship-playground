@@ -25,12 +25,12 @@ public class DBDataLoader extends AsyncTaskLoader<List<DBAnimal>> implements Dat
     public List<DBAnimal> loadInBackground() {
         Log.d("PROF_LOG", "LoadInBackground called");
         DatabaseHelper db = App.getInstance().getDatabaseHelper();
-        Log.d("PROF_LOG", "db instance received in LoadInBackground");
         return new ArrayList<>(db.getAllAnimals());
     }
 
     @Override
     public void fetchData() {
+        Log.d("PROF_LOG", "fetchData() called");
         onContentChanged();
     }
 }

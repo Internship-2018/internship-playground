@@ -1,6 +1,7 @@
 package com.example.nciuclea.oopzoomvp.ui.allanimals.impl;
 
 import android.graphics.ColorSpace;
+import android.util.Log;
 
 import com.example.nciuclea.oopzoomvp.App;
 import com.example.nciuclea.oopzoomvp.animal.state.State;
@@ -25,6 +26,7 @@ public class DefaultAllAnimalsModel implements AllAnimalsModel, DataLoadCallback
 
     @Override
     public void pullFromDB() {
+        Log.d("PROF_LOG", "before Model calls dataFetcher.fetchData()");
         dataFetcher.fetchData(); //Async done
     }
 

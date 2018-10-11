@@ -25,7 +25,7 @@ public class DefaultAllAnimalsPresenter implements AllAnimalsPresenter, ModelUpd
 
     @Override
     public void onViewInitialized() {
-        Log.d("PROF_LOG", "requested data from model");
+        Log.d("PROF_LOG", "requested data from model in presenter / onViewInitialized");
         allAnimalsModel.pullFromDB();
     }
 

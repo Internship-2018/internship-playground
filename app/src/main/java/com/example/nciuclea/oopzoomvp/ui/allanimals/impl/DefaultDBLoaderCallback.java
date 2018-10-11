@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.util.Log;
 
 import com.example.nciuclea.oopzoomvp.database.model.DBAnimal;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.DataLoadCallback;
@@ -25,6 +26,7 @@ public class DefaultDBLoaderCallback implements LoaderManager.LoaderCallbacks<Li
     @NonNull
     @Override
     public Loader<List<DBAnimal>> onCreateLoader(int i, @Nullable Bundle bundle) {
+        Log.d("PROF_LOG", "onCreateLoader from LoaderManager callbacks is called");
         return dbDataLoader;
     }
 

@@ -34,7 +34,6 @@ public class AllAnimalsFragment extends Fragment {
     private AllAnimalsNativeView allAnimalsNativeView;
     private AllAnimalsPresenter allAnimalsPresenter;
     private BroadcastReceiver broadcastReceiver;
-    private Loader<List<DBAnimal>> listLoader;
     protected LoaderManager.LoaderCallbacks<List<DBAnimal>> listLoaderCallbacks;
 
     public AllAnimalsFragment() {
@@ -47,12 +46,11 @@ public class AllAnimalsFragment extends Fragment {
         //creating View
         DefaultAllAnimalsView view = new DefaultAllAnimalsView(getContext());
         allAnimalsNativeView = view;
-        //
+        //Creating Loader and initing it in LoaderManager
         DBDataLoader dbDataLoader = new DBDataLoader(getContext());
-        listLoader = dbDataLoader;
         DefaultAllAnimalsModel defaultAllAnimalsModel = new DefaultAllAnimalsModel(dbDataLoader);
         listLoaderCallbacks = new DefaultDBLoaderCallback(dbDataLoader, defaultAllAnimalsModel);
-        LoaderManager.getInstance(this).initLoader(LOADER_ID, null, listLoaderCallbacks);
+        LoaderManager.getInstance(this).initLoader(LOADER_ID, null, listLoaderCallbacks); //forceload()
         //creating Presenter (with Model and WireFrame inside)
         DefaultAllAnimalsPresenter defaultAllAnimalsPresenter = new DefaultAllAnimalsPresenter(
                 view, defaultAllAnimalsModel, new DefaultAllAnimalsWireFrame(this));
@@ -70,9 +68,7 @@ public class AllAnimalsFragment extends Fragment {
         View view = inflater.inflate(allAnimalsNativeView.getLayout(), container, false);
         allAnimalsNativeView.initView(view);
         allAnimalsNativeView.setOnClickHandler(allAnimalsPresenter);
-        Log.d("PROF_LOG", "before presenter.onViewInit");
         allAnimalsPresenter.onViewInitialized();
-        Log.d("PROF_LOG", "after presenter.onViewInit");
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
