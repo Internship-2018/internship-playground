@@ -1,6 +1,7 @@
 package com.mghelas.internship_playground.sweetscreen.list.impl;
 
 import com.mghelas.internship_playground.entity.Sweet;
+import com.mghelas.internship_playground.sweetscreen.list.SweetListCallback;
 import com.mghelas.internship_playground.sweetscreen.list.SweetListModel;
 import com.mghelas.internship_playground.sweetscreen.list.SweetListPresenter;
 import com.mghelas.internship_playground.sweetscreen.list.SweetListView;
@@ -23,6 +24,7 @@ public class SweetListPresenterImpl implements SweetListPresenter {
     @Override
     public void onViewInitialised() {
         sweetListView.setOnItemClickHandler(this);
+        sweetModel.getAll();
     }
 
     @Override
@@ -31,9 +33,13 @@ public class SweetListPresenterImpl implements SweetListPresenter {
     }
 
     @Override
-    public List<Sweet> getAllSweets() {
-        return sweetModel.getAll();
+    public void getAllSweets() {
+        sweetModel.getAll();
     }
 
 
+    @Override
+    public void onListLoaded(List<Sweet> sweets) {
+        sweetListView.bindData(sweets);
+    }
 }

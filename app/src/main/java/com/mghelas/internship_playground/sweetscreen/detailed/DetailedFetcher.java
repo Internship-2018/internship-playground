@@ -1,5 +1,5 @@
 package com.mghelas.internship_playground.sweetscreen.detailed;
 
-public interface MixClickHandler {
-    void onMixClicked();
+public interface DetailedFetcher {
+    void fetchData(int id);
 }

@@ -5,35 +5,45 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.content.AsyncTaskLoader;
-import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mghelas.internship_playground.entity.Sweet;
+import com.mghelas.internship_playground.sweetscreen.list.impl.DbListLoaderCallbackImpl;
 import com.mghelas.internship_playground.sweetscreen.list.impl.SweetListModelImpl;
 import com.mghelas.internship_playground.sweetscreen.list.impl.SweetListPresenterImpl;
 import com.mghelas.internship_playground.sweetscreen.list.impl.SweetListViewImpl;
 import com.mghelas.internship_playground.sweetscreen.list.impl.SweetListWireframeImpl;
+import com.mghelas.internship_playground.sweetscreen.list.loader.DbListLoader;
+
+import java.util.List;
 
 public class SweetListFragment extends Fragment {
 
-    public static final int OPERATION_SEARCH_LOADER = 22;
-    public static final String OPERATION_URL_EXTRA = "url_that_return_json_data";
+    private static final int LOADER_ID = 1000;
 
     SweetListNativeView sweetListNativeView;
     SweetListPresenter sweetListPresenter;
     SweetListWireframe sweetListWireframe;
-    SweetListModel sweetListModel;
+    SweetListModelImpl sweetListModel;
+    SweetListCallback sweetListCallback;
+
+    protected LoaderManager.LoaderCallbacks<List<Sweet>> listLoaderCallbacks;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final SweetListViewImpl view = new SweetListViewImpl();
-        sweetListModel = new SweetListModelImpl();
+        final DbListLoader dbDataLoader = new DbListLoader(getContext());
+        sweetListModel = new SweetListModelImpl(dbDataLoader);
         sweetListWireframe = new SweetListWireframeImpl(this);
-        sweetListNativeView = view;
         sweetListPresenter = new SweetListPresenterImpl(view, sweetListWireframe, sweetListModel);
+        sweetListCallback = sweetListPresenter;
+        sweetListNativeView = view;
+        sweetListModel.setSweetListCallback(sweetListCallback);
+        listLoaderCallbacks = new DbListLoaderCallbackImpl(dbDataLoader, sweetListModel);
+        LoaderManager.getInstance(this).initLoader(LOADER_ID, null, listLoaderCallbacks);
     }
 
     @Nullable
@@ -49,4 +59,5 @@ public class SweetListFragment extends Fragment {
         sweetListNativeView.initView(this, sweetListPresenter);
         sweetListPresenter.onViewInitialised();
     }
+
 }

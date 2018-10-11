@@ -11,6 +11,8 @@ import com.mghelas.internship_playground.entity.Chocolate;
 import com.mghelas.internship_playground.entity.Lollipop;
 import com.mghelas.internship_playground.entity.Sweet;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.List;
 
 public class SweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

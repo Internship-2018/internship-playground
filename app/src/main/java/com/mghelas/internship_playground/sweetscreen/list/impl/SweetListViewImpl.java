@@ -6,12 +6,16 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.mghelas.internship_playground.R;
+import com.mghelas.internship_playground.entity.Sweet;
 import com.mghelas.internship_playground.sweetscreen.list.ItemClickHandler;
 import com.mghelas.internship_playground.sweetscreen.list.SweetAdapter;
 import com.mghelas.internship_playground.sweetscreen.list.SweetListFragment;
 import com.mghelas.internship_playground.sweetscreen.list.SweetListNativeView;
 import com.mghelas.internship_playground.sweetscreen.list.SweetListPresenter;
 import com.mghelas.internship_playground.sweetscreen.list.SweetListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SweetListViewImpl implements SweetListView, SweetListNativeView {
 
@@ -30,11 +34,8 @@ public class SweetListViewImpl implements SweetListView, SweetListNativeView {
     public void initView(SweetListFragment sweetListFragment, SweetListPresenter sweetListPresenter) {
         recyclerView = sweetListFragment.getView().findViewById(R.id.fragment_sweet_list);
         emptyText = sweetListFragment.getView().findViewById(R.id.empty_view);
-        if (sweetListPresenter.getAllSweets().isEmpty()) {
-            showEmpty();
-        } else {
-            populateView(sweetListFragment, sweetListPresenter);
-        }
+        bindData(new ArrayList<Sweet>());
+        populateView(sweetListFragment, sweetListPresenter);
     }
 
     private void populateView(SweetListFragment sweetListFragment, SweetListPresenter sweetListPresenter) {
@@ -43,12 +44,21 @@ public class SweetListViewImpl implements SweetListView, SweetListNativeView {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(sweetListFragment.getView().getContext());
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(new SweetAdapter(sweetListPresenter.getAllSweets(), new ItemClickHandler() {
-            @Override
-            public void onItemClicked(int id) {
-                onItemClick(id);
-            }
-        }));
+        recyclerView.setAdapter(new SweetAdapter(new ArrayList<Sweet>(), null));
+    }
+
+
+    public void bindData(List<Sweet> sweets) {
+        if (sweets.isEmpty()) {
+            showEmpty();
+        } else {
+            recyclerView.setAdapter(new SweetAdapter(sweets, new ItemClickHandler() {
+                @Override
+                public void onItemClicked(int id) {
+                    onItemClick(id);
+                }
+            }));
+        }
     }
 
     private void showEmpty() {

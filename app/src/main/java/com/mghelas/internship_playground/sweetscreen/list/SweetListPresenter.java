@@ -4,8 +4,8 @@ import com.mghelas.internship_playground.entity.Sweet;
 
 import java.util.List;
 
-public interface SweetListPresenter extends ItemClickHandler {
+public interface SweetListPresenter extends ItemClickHandler, SweetListCallback {
     void onViewInitialised();
 
-    List<Sweet> getAllSweets();
+    void getAllSweets();
 }

@@ -23,6 +23,15 @@ public class SweetDetailedViewImpl implements SweetDetailedView, SweetDetailedNa
     RemoveClickHandler removeClickHandler;
     SweetDetailedFragment sweetDetailedFragment;
 
+    TextView title;
+    TextView price;
+    TextView weight;
+    TextView flavour;
+    TextView flavourLabel;
+    Button mixButton;
+    Button removeButton;
+    ImageView imageView;
+
     @Override
     public int getLayout() {
         return R.layout.fragment_sweet_detailed;
@@ -32,28 +41,17 @@ public class SweetDetailedViewImpl implements SweetDetailedView, SweetDetailedNa
     public void initView(SweetDetailedFragment sweetDetailedFragment, SweetDetailedPresenter sweetDetailedPresenter) {
         this.sweetDetailedFragment = sweetDetailedFragment;
 
-        TextView title = sweetDetailedFragment.getView().findViewById(R.id.titleDetailed);
-        TextView price = sweetDetailedFragment.getView().findViewById(R.id.priceDetailed);
-        TextView weight = sweetDetailedFragment.getView().findViewById(R.id.weightDetailed);
-        TextView flavour = sweetDetailedFragment.getView().findViewById(R.id.flavourDetailed);
-        TextView flavourLabel = sweetDetailedFragment.getView().findViewById(R.id.flavourLabel);
-        Button mixButton = sweetDetailedFragment.getView().findViewById(R.id.mixButton);
-        Button removeButton = sweetDetailedFragment.getView().findViewById(R.id.removeButton);
-        ImageView imageView = sweetDetailedFragment.getView().findViewById(R.id.imageView);
+        title = sweetDetailedFragment.getView().findViewById(R.id.titleDetailed);
+        price = sweetDetailedFragment.getView().findViewById(R.id.priceDetailed);
+        weight = sweetDetailedFragment.getView().findViewById(R.id.weightDetailed);
+        flavour = sweetDetailedFragment.getView().findViewById(R.id.flavourDetailed);
+        flavourLabel = sweetDetailedFragment.getView().findViewById(R.id.flavourLabel);
+        mixButton = sweetDetailedFragment.getView().findViewById(R.id.mixButton);
+        removeButton = sweetDetailedFragment.getView().findViewById(R.id.removeButton);
+        imageView = sweetDetailedFragment.getView().findViewById(R.id.imageView);
 
-        Sweet sweet = sweetDetailedPresenter.findById(sweetDetailedFragment.getArguments().getInt("id"));
-        title.setText(sweet.getTitle());
-        price.setText(sweet.getPrice() + "");
-        weight.setText(sweet.getWeight() + "");
-        if (sweet instanceof Chocolate) {
-            imageView.setBackgroundResource(R.drawable.ic_chocolate);
-            flavourLabel.setText("Percentage");
+        sweetDetailedPresenter.findById(sweetDetailedFragment.getArguments().getInt("id"));
 
-            flavour.setText(((Chocolate) sweet).getPercentage() + "");
-        } else {
-            imageView.setBackgroundResource(R.drawable.ic_lollipop);
-            flavour.setText(((Lollipop) sweet).getFlavour());
-        }
 
         mixButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +78,7 @@ public class SweetDetailedViewImpl implements SweetDetailedView, SweetDetailedNa
 
     private void onMixClicked() {
         if (mixClickHandler != null) {
-            mixClickHandler.onMixClicked(sweetDetailedFragment.getArguments().getInt("id"));
+            mixClickHandler.onMixClicked();
         }
     }
 
@@ -100,6 +98,22 @@ public class SweetDetailedViewImpl implements SweetDetailedView, SweetDetailedNa
                 message,
                 Toast.LENGTH_SHORT);
         toast.show();
+    }
+
+    @Override
+    public void bindData(Sweet sweet) {
+        title.setText(sweet.getTitle());
+        price.setText(sweet.getPrice() + "");
+        weight.setText(sweet.getWeight() + "");
+        if (sweet instanceof Chocolate) {
+            imageView.setBackgroundResource(R.drawable.ic_chocolate);
+            flavourLabel.setText("Percentage");
+
+            flavour.setText(((Chocolate) sweet).getPercentage() + "");
+        } else {
+            imageView.setBackgroundResource(R.drawable.ic_lollipop);
+            flavour.setText(((Lollipop) sweet).getFlavour());
+        }
     }
 
 }

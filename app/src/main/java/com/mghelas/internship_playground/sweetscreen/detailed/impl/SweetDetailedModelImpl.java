@@ -1,77 +1,48 @@
 package com.mghelas.internship_playground.sweetscreen.detailed.impl;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-
 import com.mghelas.internship_playground.App;
-import com.mghelas.internship_playground.datasource.DbHelper;
-import com.mghelas.internship_playground.datasource.SweetReaderContract;
-import com.mghelas.internship_playground.entity.Chocolate;
-import com.mghelas.internship_playground.entity.Ingredient;
-import com.mghelas.internship_playground.entity.Lollipop;
 import com.mghelas.internship_playground.entity.Sweet;
+import com.mghelas.internship_playground.sweetscreen.detailed.DetailedFetcher;
+import com.mghelas.internship_playground.sweetscreen.detailed.DetailedLoadCallback;
+import com.mghelas.internship_playground.sweetscreen.detailed.SweetDetailedCallback;
 import com.mghelas.internship_playground.sweetscreen.detailed.SweetDetailedModel;
+import com.mghelas.internship_playground.sweetscreen.detailed.SweetRemovedCallback;
+import com.mghelas.internship_playground.sweetscreen.detailed.SweetRemover;
 
-import java.util.ArrayList;
-import java.util.List;
+public class SweetDetailedModelImpl implements SweetDetailedModel, DetailedLoadCallback<Sweet>, SweetRemovedCallback<Integer> {
 
-public class SweetDetailedModelImpl implements SweetDetailedModel {
+    private DetailedFetcher detailedFetcher;
+    private SweetRemover sweetRemover;
+    private SweetDetailedCallback sweetDetailedCallback;
 
-    private DbHelper dbHelper;
-
-    public SweetDetailedModelImpl() {
-        this.dbHelper = App.getInstance().getDbHelper();
+    public SweetDetailedModelImpl(DetailedFetcher detailedFetcher, SweetRemover sweetRemover) {
+        this.detailedFetcher = detailedFetcher;
+        this.sweetRemover = sweetRemover;
     }
 
     @Override
-    public Sweet findById(int id) {
-        String query = "SELECT sweets.*, ingredients.title as ingredient_title" +
-                " FROM sweets" +
-                " JOIN sweets_ingredients" +
-                " ON sweets._id = sweets_ingredients.sweet_id" +
-                " AND sweets_ingredients.sweet_id = ?" +
-                " JOIN ingredients" +
-                " ON ingredients._id = sweets_ingredients.ingredient_id";
+    public void findById(int id) {
+        detailedFetcher.fetchData(id);
 
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-
-
-        String[] selectionArgs = {Integer.toString(id)};
-        Cursor cursor = db.rawQuery(query, selectionArgs);
-
-
-        Sweet sweet = new Chocolate();
-        List<Ingredient> ingredients = new ArrayList<>();
-        while (cursor.moveToNext()) {
-
-            String title = cursor.getString(cursor.getColumnIndexOrThrow(SweetReaderContract.SweetEntry.COLUMN_NAME_TITLE));
-            Double price = cursor.getDouble(cursor.getColumnIndexOrThrow(SweetReaderContract.SweetEntry.COLUMN_NAME_PRICE));
-            Double weight = cursor.getDouble(cursor.getColumnIndexOrThrow(SweetReaderContract.SweetEntry.COLUMN_NAME_WEIGHT));
-            boolean pricePerKg = cursor.getInt(cursor.getColumnIndexOrThrow(SweetReaderContract.SweetEntry.COLUMN_NAME_PRICE_PER_KG)) != 0;
-            Integer percentage = cursor.getInt(cursor.getColumnIndexOrThrow(SweetReaderContract.SweetEntry.COLUMN_NAME_PERCENTAGE));
-            String flavour = cursor.getString(cursor.getColumnIndexOrThrow(SweetReaderContract.SweetEntry.COLUMN_NAME_FLAVOUR));
-            String ingredientTitle = cursor.getString(cursor.getColumnIndexOrThrow("ingredient_title"));
-            if (percentage != 0) {
-                sweet = new Chocolate(title, price, weight, pricePerKg, percentage);
-            } else {
-                sweet = new Lollipop(title, price, weight, pricePerKg, flavour);
-            }
-            ingredients.add(new Ingredient(ingredientTitle));
-        }
-        cursor.close();
-        sweet.setIngredients(ingredients);
-
-        return sweet;
     }
 
     @Override
     public void remove(int id) {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        sweetRemover.removeSweet(id);
+    }
 
-        String selection = SweetReaderContract.SweetEntry._ID + " = ?";
+    @Override
+    public void setSweetDetailedCallback(SweetDetailedCallback sweetDetailedCallback) {
+        this.sweetDetailedCallback = sweetDetailedCallback;
+    }
 
-        String[] selectionArgs = {Integer.toString(id)};
+    @Override
+    public void onDataLoaded(Sweet sweet) {
+        sweetDetailedCallback.onDetailedLoaded(sweet);
+    }
 
-        db.delete(SweetReaderContract.SweetEntry.TABLE_NAME, selection, selectionArgs);
+    @Override
+    public void onDataRemoved(Integer id) {
+        sweetDetailedCallback.onSweetRemoved(id);
     }
 }

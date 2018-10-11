@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mghelas.internship_playground.App;
 import com.mghelas.internship_playground.startscreen.impl.StartPresenterImpl;
 import com.mghelas.internship_playground.startscreen.impl.StartViewImpl;
 import com.mghelas.internship_playground.startscreen.impl.StartWireframeImpl;
