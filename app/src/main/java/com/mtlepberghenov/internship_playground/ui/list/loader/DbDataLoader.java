@@ -51,7 +51,11 @@ public class DbDataLoader extends AsyncTaskLoader<List<SqlVehicle>> implements D
   }
 
   @Override public void fetchData() {
-    onContentChanged();
+    if (isStarted()) {
+      onContentChanged();
+    } else {
+      forceLoad();
+    }
   }
 
 

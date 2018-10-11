@@ -26,10 +26,8 @@ public class DefaultAddDialogPresenter implements AddDialogPresenter {
   }
 
   @Override public void onAddBtnClicked(@NonNull SqlVehicle sqlVehicle) {
-    model.insertData(sqlVehicle, () -> {
-      view.clear();
-      view.showMessage(TextWrapper.getDoneMessage());
-    });
+    model.insertDataAsync(sqlVehicle);
+    view.clear();
   }
 
   @Override public void onCancelBtnClicked() {

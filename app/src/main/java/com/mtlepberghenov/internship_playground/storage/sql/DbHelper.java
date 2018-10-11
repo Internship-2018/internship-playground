@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.mtlepberghenov.internship_playground.storage.model.SqlVehicle;
-import com.mtlepberghenov.internship_playground.ui.adddialog.AddDialogModelCallBack;
 
 public class DbHelper extends SQLiteOpenHelper {
 
@@ -24,16 +23,15 @@ public class DbHelper extends SQLiteOpenHelper {
 
   }
 
-  public void insert(SqlVehicle vehicle, AddDialogModelCallBack callBack) {
+  public void insert(SqlVehicle vehicle) {
     SQLiteDatabase db = getWritableDatabase();
     ContentValues cv = new ContentValues();
-    cv.put(Tables.COLUMN_TYPE, vehicle.getType().toString());
-    cv.put(Tables.COLUMN_MAKER, vehicle.getMaker().toString());
-    cv.put(Tables.COLUMN_MODEL, vehicle.getModel().toString());
-    cv.put(Tables.COLUMN_COLOR, vehicle.getModel().toString());
-    cv.put(Tables.COLUMN_YEAR, vehicle.getYear().toString());
+    cv.put(Tables.COLUMN_TYPE, vehicle.getType());
+    cv.put(Tables.COLUMN_MAKER, vehicle.getMaker());
+    cv.put(Tables.COLUMN_MODEL, vehicle.getModel());
+    cv.put(Tables.COLUMN_COLOR, vehicle.getModel());
+    cv.put(Tables.COLUMN_YEAR, vehicle.getYear());
     db.insert(Tables.TABLE_NAME_VEHICLE, null, cv);
     db.close();
-    callBack.onDataInserted();
   }
 }

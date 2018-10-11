@@ -1,17 +1,18 @@
 package com.mtlepberghenov.internship_playground.ui.adddialog.impl;
 
-import com.mtlepberghenov.internship_playground.App;
 import com.mtlepberghenov.internship_playground.storage.model.SqlVehicle;
-import com.mtlepberghenov.internship_playground.ui.adddialog.AddDialogModelCallBack;
 import com.mtlepberghenov.internship_playground.ui.adddialog.AddDialogModel;
+import com.mtlepberghenov.internship_playground.ui.adddialog.work.WorkRequest;
 
 public class DefaultAddDialogModel implements AddDialogModel {
 
-  private AddDialogModelCallBack modelHandler;
+  private WorkRequest workRequest;
 
-  @Override public void insertData(SqlVehicle sqlVehicle, AddDialogModelCallBack callBack) {
-    App.getInstance().getDbHelper().insert(sqlVehicle, callBack);
+  public DefaultAddDialogModel(WorkRequest workRequest) {
+    this.workRequest = workRequest;
   }
 
-
+  @Override public void insertDataAsync(SqlVehicle sqlVehicle) {
+    workRequest.doRequest(sqlVehicle);
+  }
 }

@@ -11,19 +11,22 @@ import com.mtlepberghenov.internship_playground.ui.adddialog.impl.DefaultAddDial
 import com.mtlepberghenov.internship_playground.ui.adddialog.impl.DefaultAddDialogPresenter;
 import com.mtlepberghenov.internship_playground.ui.adddialog.impl.DefaultAddDialogView;
 import com.mtlepberghenov.internship_playground.ui.adddialog.impl.DefaultAddDialogWireframe;
+import com.mtlepberghenov.internship_playground.ui.adddialog.work.WorkRequest;
+import com.mtlepberghenov.internship_playground.ui.adddialog.work.impl.DefaultWorkRequest;
 
 public class AddDialogFragment extends DialogFragment {
 
   private AddDialogNativeView nativeView;
   private AddDialogPresenter presenter;
-  private AddDialogModelCallBack modelHandler;
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    DefaultAddDialogView view = new DefaultAddDialogView(getActivity());
+    final DefaultAddDialogView view = new DefaultAddDialogView(getActivity());
+    final WorkRequest workRequest = new DefaultWorkRequest();
+    final AddDialogModel model = new DefaultAddDialogModel(workRequest);
     nativeView = view;
-    presenter = new DefaultAddDialogPresenter(view, new DefaultAddDialogModel(),
-        new DefaultAddDialogWireframe(getActivity()));
+    presenter =
+        new DefaultAddDialogPresenter(view, model, new DefaultAddDialogWireframe(getActivity()));
   }
 
   @Nullable @Override

@@ -33,9 +33,8 @@ public class ListFragment extends Fragment {
     loaderCallbacks = new DefaultDbLoaderCallback(dbDataLoader, model);
     listNativeView = view;
     listPresenter = new DefaultListPresenter(view, model);
-    LoaderManager.getInstance(this).initLoader(LOADER_ID, null, loaderCallbacks).forceLoad();
+    LoaderManager.getInstance(this).initLoader(LOADER_ID, null, loaderCallbacks);
   }
-
   @Nullable @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {

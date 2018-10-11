@@ -35,6 +35,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    packagingOptions {
+        exclude 'META-INF/proguard/androidx-annotations.pro'
+    }
 }
 
 dependencies {
@@ -64,7 +67,10 @@ dependencies {
     }
 
     //Jetpack
+        //Navigation
     implementation 'android.arch.navigation:navigation-fragment:1.0.0-alpha06'
+        //WorkManager
+    implementation 'android.arch.work:work-runtime:1.0.0-alpha09'
 
     //RxJava
     implementation "io.reactivex.rxjava2:rxjava:2.2.2"

@@ -36,4 +36,9 @@ public class WelcomeFragment extends Fragment {
     welcomeNativeView.initView(view);
     welcomePresenter.onViewInitialised();
   }
+
+  @Override public void onPause() {
+    super.onPause();
+
+  }
 }

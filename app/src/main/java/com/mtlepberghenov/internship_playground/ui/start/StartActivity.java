@@ -10,8 +10,8 @@ public class StartActivity extends AppCompatActivity {
 
   private NavController navController;
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
+  @Override protected void onCreate(Bundle bundle) {
+    super.onCreate(bundle);
     setContentView(R.layout.activity_start);
 
     navController = Navigation.findNavController(this, R.id.nav_host_fragment);
