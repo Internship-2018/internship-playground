@@ -50,6 +50,59 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public long updateAnimalState(DBAnimal animal) {
+        Log.d("MULTITHREADING_D", "Started updating" + animal.getType());
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(DBAnimal.COLUMN_OVERALL_STATE, animal.getOverallState().name());
+        values.put(DBAnimal.COLUMN_TIMESTAMP, animal.getTimestamp());
+
+        long id = db.update(DBAnimal.TABLE_NAME, values, DBAnimal.COLUMN_ID + " = ?",
+                new String[]{String.valueOf(animal.getId())});
+
+        Log.d("DB_HELPER", String.valueOf(animal.getTimestamp()));
+
+        //Causes crash
+        db.close();
+        Log.d("MULTITHREADING_D", "Finished updating" + animal.getType());
+        return id;
+    }
+
+    public List<DBAnimal> getAllAnimals() {
+        Log.d("MULTITHREADING_D", "Started getAllAnimals()");
+        List<DBAnimal> dbAnimals = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM " + DBAnimal.TABLE_NAME + " ORDER BY " + DBAnimal.COLUMN_ID + " ASC";
+
+        SQLiteDatabase db = this.getReadableDatabase(); //getWritabale in example
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                DBAnimal dbAnimal = new DBAnimal(
+                        cursor.getInt(cursor.getColumnIndex(DBAnimal.COLUMN_ID)),
+                        cursor.getString(cursor.getColumnIndex(DBAnimal.COLUMN_TYPE)),
+                        State.valueOf(cursor.getString(cursor.getColumnIndex(DBAnimal.COLUMN_OVERALL_STATE))),
+                        cursor.getLong(cursor.getColumnIndex(DBAnimal.COLUMN_STATE_TRANSITION_TIME)),
+                        cursor.getLong(cursor.getColumnIndex(DBAnimal.COLUMN_TIMESTAMP))
+                );
+
+                dbAnimals.add(dbAnimal);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+
+        //Causes crash
+        db.close();
+
+        Log.d("MULTITHREADING_D", "Finished getAllAnimals()");
+
+
+        return dbAnimals;
+    }
+
     public long addAnimal(DBAnimal animal) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -87,34 +140,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return dbAnimal;
     }
 
-    public List<DBAnimal> getAllAnimals() {
-        List<DBAnimal> dbAnimals = new ArrayList<>();
-
-        String selectQuery = "SELECT * FROM " + DBAnimal.TABLE_NAME + " ORDER BY " + DBAnimal.COLUMN_ID + " ASC";
-
-        SQLiteDatabase db = this.getReadableDatabase(); //getWritabale in example
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                DBAnimal dbAnimal = new DBAnimal(
-                        cursor.getInt(cursor.getColumnIndex(DBAnimal.COLUMN_ID)),
-                        cursor.getString(cursor.getColumnIndex(DBAnimal.COLUMN_TYPE)),
-                        State.valueOf(cursor.getString(cursor.getColumnIndex(DBAnimal.COLUMN_OVERALL_STATE))),
-                        cursor.getLong(cursor.getColumnIndex(DBAnimal.COLUMN_STATE_TRANSITION_TIME)),
-                        cursor.getLong(cursor.getColumnIndex(DBAnimal.COLUMN_TIMESTAMP))
-                );
-
-                dbAnimals.add(dbAnimal);
-            } while (cursor.moveToNext());
-        }
-
-        //cursor.close(); Causes the bug
-        //db.close(); Causes the bug
-
-        return dbAnimals;
-    }
-
     public int getAnimalsCount() {
         String countQuery = "SELECT * FROM " + DBAnimal.TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -126,23 +151,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
 
         return count;
-    }
-
-    public long updateAnimalState(DBAnimal animal) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(DBAnimal.COLUMN_OVERALL_STATE, animal.getOverallState().name());
-        values.put(DBAnimal.COLUMN_TIMESTAMP, animal.getTimestamp());
-
-        long id = db.update(DBAnimal.TABLE_NAME, values, DBAnimal.COLUMN_ID + " = ?",
-                new String[]{String.valueOf(animal.getId())});
-
-        Log.d("DB_HELPER", String.valueOf(animal.getTimestamp()));
-
-        //db.close(); causes crash
-
-        return id;
     }
 
     public void deleteAnimal(DBAnimal animal) {
