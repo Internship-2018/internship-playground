@@ -64,7 +64,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.d("DB_HELPER", String.valueOf(animal.getTimestamp()));
 
         //Causes crash
-        db.close();
+        //db.close();
         Log.d("MULTITHREADING_D", "Finished updating" + animal.getType());
         return id;
     }
@@ -95,7 +95,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
 
         //Causes crash
-        db.close();
+        //db.close();
 
         Log.d("MULTITHREADING_D", "Finished getAllAnimals()");
 
