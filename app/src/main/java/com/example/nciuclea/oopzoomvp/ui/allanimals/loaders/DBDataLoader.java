@@ -31,6 +31,10 @@ public class DBDataLoader extends AsyncTaskLoader<List<DBAnimal>> implements Dat
     @Override
     public void fetchData() {
         Log.d("PROF_LOG", "fetchData() called");
-        onContentChanged();
+        if (isStarted()) {
+            onContentChanged();
+        } else {
+            forceLoad();
+        }
     }
 }
