@@ -50,23 +50,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long updateAnimalState(DBAnimal animal) {
-        Log.d("MULTITHREADING_D", "Started updating" + animal.getType());
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(DBAnimal.COLUMN_OVERALL_STATE, animal.getOverallState().name());
-        values.put(DBAnimal.COLUMN_TIMESTAMP, animal.getTimestamp());
-
-        long id = db.update(DBAnimal.TABLE_NAME, values, DBAnimal.COLUMN_ID + " = ?",
-                new String[]{String.valueOf(animal.getId())});
-
-        Log.d("DB_HELPER", String.valueOf(animal.getTimestamp()));
-
-        //Causes crash
-        //db.close();
-        Log.d("MULTITHREADING_D", "Finished updating" + animal.getType());
-        return id;
+    public void updateAnimalState(DBAnimal animal) {
+        AnimalUpdateTask animalUpdateTask = new AnimalUpdateTask(this, animal);
+        AnimalUpdatesManager.getAnimalUpdatesManager().runAnimalUpdate(animalUpdateTask);
     }
 
     public List<DBAnimal> getAllAnimals() {
