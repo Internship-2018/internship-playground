@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.example.nciuclea.oopzoomvp.animal.state.State;
 import com.example.nciuclea.oopzoomvp.database.model.DBAnimal;
+import com.example.nciuclea.oopzoomvp.ui.allanimals.DataLoadCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public List<DBAnimal> getAllAnimals() {
+
+        //AnimalUpdateTask animalUpdateTask = new AnimalUpdateTask(this, animal);
+        //AnimalUpdatesManager.getAnimalUpdatesManager().runAnimalUpdate(animalUpdateTask);
+
+        List<DBAnimal> dbAnimals = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM " + DBAnimal.TABLE_NAME + " ORDER BY " + DBAnimal.COLUMN_ID + " ASC";
+
+        SQLiteDatabase db = this.getReadableDatabase(); //getWritabale in example
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                DBAnimal dbAnimal = new DBAnimal(
+                        cursor.getInt(cursor.getColumnIndex(DBAnimal.COLUMN_ID)),
+                        cursor.getString(cursor.getColumnIndex(DBAnimal.COLUMN_TYPE)),
+                        State.valueOf(cursor.getString(cursor.getColumnIndex(DBAnimal.COLUMN_OVERALL_STATE))),
+                        cursor.getLong(cursor.getColumnIndex(DBAnimal.COLUMN_STATE_TRANSITION_TIME)),
+                        cursor.getLong(cursor.getColumnIndex(DBAnimal.COLUMN_TIMESTAMP))
+                );
+
+                dbAnimals.add(dbAnimal);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return dbAnimals;
+    }
+
+    public void updateAnimalState(DBAnimal animal) {
+        //one task at a time, wait in queue please
+        AnimalUpdateTask animalUpdateTask = new AnimalUpdateTask(this, animal);
+        AnimalUpdatesManager.getAnimalUpdatesManager().runAnimalUpdate(animalUpdateTask);
+    }
+
     public long addAnimal(DBAnimal animal) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -87,34 +126,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return dbAnimal;
     }
 
-    public List<DBAnimal> getAllAnimals() {
-        List<DBAnimal> dbAnimals = new ArrayList<>();
-
-        String selectQuery = "SELECT * FROM " + DBAnimal.TABLE_NAME + " ORDER BY " + DBAnimal.COLUMN_ID + " ASC";
-
-        SQLiteDatabase db = this.getReadableDatabase(); //getWritabale in example
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                DBAnimal dbAnimal = new DBAnimal(
-                        cursor.getInt(cursor.getColumnIndex(DBAnimal.COLUMN_ID)),
-                        cursor.getString(cursor.getColumnIndex(DBAnimal.COLUMN_TYPE)),
-                        State.valueOf(cursor.getString(cursor.getColumnIndex(DBAnimal.COLUMN_OVERALL_STATE))),
-                        cursor.getLong(cursor.getColumnIndex(DBAnimal.COLUMN_STATE_TRANSITION_TIME)),
-                        cursor.getLong(cursor.getColumnIndex(DBAnimal.COLUMN_TIMESTAMP))
-                );
-
-                dbAnimals.add(dbAnimal);
-            } while (cursor.moveToNext());
-        }
-
-        //cursor.close(); Causes the bug
-        //db.close(); Causes the bug
-
-        return dbAnimals;
-    }
-
     public int getAnimalsCount() {
         String countQuery = "SELECT * FROM " + DBAnimal.TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -126,23 +137,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
 
         return count;
-    }
-
-    public long updateAnimalState(DBAnimal animal) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(DBAnimal.COLUMN_OVERALL_STATE, animal.getOverallState().name());
-        values.put(DBAnimal.COLUMN_TIMESTAMP, animal.getTimestamp());
-
-        long id = db.update(DBAnimal.TABLE_NAME, values, DBAnimal.COLUMN_ID + " = ?",
-                new String[]{String.valueOf(animal.getId())});
-
-        Log.d("DB_HELPER", String.valueOf(animal.getTimestamp()));
-
-        //db.close(); causes crash
-
-        return id;
     }
 
     public void deleteAnimal(DBAnimal animal) {

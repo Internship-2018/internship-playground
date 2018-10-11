@@ -5,6 +5,8 @@ import android.util.Log;
 
 import com.example.nciuclea.oopzoomvp.App;
 import com.example.nciuclea.oopzoomvp.animal.state.State;
+import com.example.nciuclea.oopzoomvp.database.AnimalUpdatesManager;
+import com.example.nciuclea.oopzoomvp.database.AnimalsGetterTask;
 import com.example.nciuclea.oopzoomvp.database.DatabaseHelper;
 import com.example.nciuclea.oopzoomvp.database.model.DBAnimal;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsModel;
@@ -15,7 +17,7 @@ import com.example.nciuclea.oopzoomvp.ui.allanimals.ModelUpdatedCallback;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DefaultAllAnimalsModel implements AllAnimalsModel, DataLoadCallback<List<DBAnimal>> {
+public class DefaultAllAnimalsModel implements AllAnimalsModel, DataLoadCallback<ArrayList<DBAnimal>> {
     private ArrayList<DBAnimal> animalsList = new ArrayList<>();
     private final DataFetcher dataFetcher;
     private ModelUpdatedCallback<List<DBAnimal>> modelUpdatedCallback;
@@ -28,6 +30,8 @@ public class DefaultAllAnimalsModel implements AllAnimalsModel, DataLoadCallback
     public void pullFromDB() {
         Log.d("PROF_LOG", "before Model calls dataFetcher.fetchData()");
         dataFetcher.fetchData(); //Async done
+        //AnimalsGetterTask animalGetterTask = new AnimalsGetterTask(App.getInstance().getDatabaseHelper(), this);
+        //AnimalUpdatesManager.getAnimalUpdatesManager().runAnimalUpdate(animalGetterTask);
     }
 
     @Override
@@ -55,7 +59,7 @@ public class DefaultAllAnimalsModel implements AllAnimalsModel, DataLoadCallback
     }
 
     @Override
-    public void onDataLoaded(List<DBAnimal> data) {
+    public void onDataLoaded(ArrayList<DBAnimal> data) {
         animalsList = new ArrayList<>(data);
         modelUpdatedCallback.onModelUpdated(new ArrayList<>(animalsList));
     }
