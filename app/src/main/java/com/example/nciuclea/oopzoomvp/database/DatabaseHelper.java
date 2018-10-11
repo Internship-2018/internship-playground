@@ -140,7 +140,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         Log.d("DB_HELPER", String.valueOf(animal.getTimestamp()));
 
-        db.close();
+        //db.close(); causes crash
 
         return id;
     }
