@@ -50,7 +50,7 @@ public class AllAnimalsFragment extends Fragment {
         DBDataLoader dbDataLoader = new DBDataLoader(getContext());
         DefaultAllAnimalsModel defaultAllAnimalsModel = new DefaultAllAnimalsModel(dbDataLoader);
         listLoaderCallbacks = new DefaultDBLoaderCallback(dbDataLoader, defaultAllAnimalsModel);
-        LoaderManager.getInstance(this).initLoader(LOADER_ID, null, listLoaderCallbacks); //forceload()
+        LoaderManager.getInstance(this).initLoader(LOADER_ID, null, listLoaderCallbacks).forceLoad(); //forceload()
         //creating Presenter (with Model and WireFrame inside)
         DefaultAllAnimalsPresenter defaultAllAnimalsPresenter = new DefaultAllAnimalsPresenter(
                 view, defaultAllAnimalsModel, new DefaultAllAnimalsWireFrame(this));

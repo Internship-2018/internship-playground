@@ -110,7 +110,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         //cursor.close(); Causes the bug
-        db.close();
+        //db.close(); Causes the bug
 
         return dbAnimals;
     }
