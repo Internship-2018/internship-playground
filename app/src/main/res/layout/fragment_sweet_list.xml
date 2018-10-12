@@ -14,7 +14,7 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".sweetscreen.list.SweetListFragment" >
+    tools:context=".ui.sweetscreen.list.SweetListFragment" >
 </android.support.v7.widget.RecyclerView>
 
     <TextView

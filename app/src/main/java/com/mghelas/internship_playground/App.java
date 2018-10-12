@@ -2,8 +2,6 @@ package com.mghelas.internship_playground;
 
 import android.app.Application;
 
-import com.mghelas.internship_playground.datasource.DbHelper;
-
 public class App extends Application {
     private static App instance;
 

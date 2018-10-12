@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/startFragment"
-        android:name="com.mghelas.internship_playground.startscreen.StartFragment"
+        android:name="com.mghelas.internship_playground.ui.startscreen.StartFragment"
         android:label="fragment_start"
         tools:layout="@layout/fragment_start">
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/sweetListFragment"
-        android:name="com.mghelas.internship_playground.sweetscreen.list.SweetListFragment"
+        android:name="com.mghelas.internship_playground.ui.sweetscreen.list.SweetListFragment"
         android:label="fragment_sweet_list"
         tools:layout="@layout/fragment_sweet_list" >
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/sweetDetailedFragment"
-        android:name="com.mghelas.internship_playground.sweetscreen.detailed.SweetDetailedFragment"
+        android:name="com.mghelas.internship_playground.ui.sweetscreen.detailed.SweetDetailedFragment"
         android:label="fragment_sweet_detailed"
         tools:layout="@layout/fragment_sweet_detailed" >
         <action
@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/sweetAddFragment"
-        android:name="com.mghelas.internship_playground.sweetscreen.add.SweetAddFragment"
+        android:name="com.mghelas.internship_playground.ui.sweetscreen.add.SweetAddFragment"
         android:label="fragment_sweet_add"
         tools:layout="@layout/fragment_sweet_add" >
         <action
