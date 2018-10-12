@@ -43,11 +43,12 @@ public class AllAnimalsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("FRAGMENT_LIFECYCLE", "onCreate()");
         //creating View
         DefaultAllAnimalsView view = new DefaultAllAnimalsView(getContext());
         allAnimalsNativeView = view;
         //Creating Loader and initing it in LoaderManager
-        DBDataLoader dbDataLoader = new DBDataLoader(getContext());
+        DBDataLoader dbDataLoader = new DBDataLoader(getContext()); //TODO After screen rotation model looses loader callback
         DefaultAllAnimalsModel defaultAllAnimalsModel = new DefaultAllAnimalsModel(dbDataLoader);
         listLoaderCallbacks = new DefaultDBLoaderCallback(dbDataLoader, defaultAllAnimalsModel);
         LoaderManager.getInstance(this).initLoader(LOADER_ID, null, listLoaderCallbacks).forceLoad(); //forceload()
@@ -64,6 +65,7 @@ public class AllAnimalsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d("FRAGMENT_LIFECYCLE", "onCreateView()");
         // Inflate the layout for this fragment
         View view = inflater.inflate(allAnimalsNativeView.getLayout(), container, false);
         allAnimalsNativeView.initView(view);
@@ -76,7 +78,7 @@ public class AllAnimalsFragment extends Fragment {
             }
         };
         //Starting Service and registering Broadcast Receiver
-        Intent intent = new Intent(getContext(), StateUpdaterService.class).putExtra(StateUpdaterService.UPDATE_INTERVAL, 1000L);
+        Intent intent = new Intent(getContext(), StateUpdaterService.class).putExtra(StateUpdaterService.UPDATE_INTERVAL, 5000L);
         getActivity().startService(intent);
         IntentFilter intentFilter = new IntentFilter(StateUpdaterService.BROADCAST_ACTION);
         getActivity().registerReceiver(broadcastReceiver, intentFilter);
@@ -84,8 +86,16 @@ public class AllAnimalsFragment extends Fragment {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.d("FRAGMENT_LIFECYCLE", "onSaveInstanceState()");
+    }
+
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
+        Log.d("FRAGMENT_LIFECYCLE", "onDestroyView()");
 
         Log.d("FRGMNT_LIFE", "onDesctroyView called");
         getActivity().unregisterReceiver(broadcastReceiver);

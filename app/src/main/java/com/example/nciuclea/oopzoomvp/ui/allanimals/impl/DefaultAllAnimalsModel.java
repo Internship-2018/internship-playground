@@ -1,6 +1,7 @@
 package com.example.nciuclea.oopzoomvp.ui.allanimals.impl;
 
 import android.graphics.ColorSpace;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.nciuclea.oopzoomvp.App;
@@ -37,14 +38,12 @@ public class DefaultAllAnimalsModel implements AllAnimalsModel, DataLoadCallback
             if(animal.getId() == id) {
                 animal.setOverallState(State.GREEN);
                 animal.setTimestamp(System.currentTimeMillis());
-                //db.updateAnimalState(animal); //Async
-                Thread dbWriteThread = new Thread(new Runnable() {
+                AsyncTask.execute(new Runnable() {
                     @Override
                     public void run() {
                         App.getInstance().getDatabaseHelper().updateAnimalState(animal);
                     }
                 });
-                dbWriteThread.start();
             }
         }
     }
