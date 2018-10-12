@@ -30,6 +30,7 @@ public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView {
     private SweetTypeRadioHandler sweetTypeRadioHandler;
     EditText flavour;
     LinearLayout switchContainer;
+    SweetAddFragment sweetAddFragment;
 
     @Override
     public int getLayout() {
@@ -38,6 +39,7 @@ public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView {
 
     @Override
     public void initView(final SweetAddFragment sweetAddFragment, SweetAddPresenter sweetAddPresenter) {
+        this.sweetAddFragment = sweetAddFragment;
         final Button addBtn = sweetAddFragment.getView().findViewById(R.id.create_sweet_btn);
         final RadioGroup sweetType = sweetAddFragment.getView().findViewById(R.id.sweet_type);
         final RadioButton isChocolate = sweetAddFragment.getView().findViewById(R.id.is_chocolate);
@@ -48,12 +50,8 @@ public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView {
         final Switch pricePerKg = sweetAddFragment.getView().findViewById(R.id.price_per_kg_add);
         flavour = sweetAddFragment.getView().findViewById(R.id.flavour_add);
         switchContainer = sweetAddFragment.getView().findViewById(R.id.switch_container);
-        for (Ingredient ingredient : sweetAddPresenter.getAllIngredients()) {
-            Switch aSwitch = new Switch(sweetAddFragment.getContext());
-            aSwitch.setId(ingredient.getId());
-            aSwitch.setText(ingredient.getTitle());
-            switchContainer.addView(aSwitch);
-        }
+        sweetAddPresenter.getAllIngredients();
+
 
         sweetType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -94,6 +92,7 @@ public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView {
 
     @NonNull
     private List<Ingredient> getIngredients(LinearLayout switchContainer) {
+
         List<Ingredient> ingredients = new ArrayList<>();
 
         for (int i = 0; i < switchContainer.getChildCount(); i++) {
@@ -131,5 +130,15 @@ public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView {
     @Override
     public void changeSweetType(String type) {
         flavour.setHint(type);
+    }
+
+    @Override
+    public void bindData(List<Ingredient> ingredients) {
+        for (Ingredient ingredient : ingredients) {
+            Switch aSwitch = new Switch(sweetAddFragment.getContext());
+            aSwitch.setId(ingredient.getId());
+            aSwitch.setText(ingredient.getTitle());
+            switchContainer.addView(aSwitch);
+        }
     }
 }

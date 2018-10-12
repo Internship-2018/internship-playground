@@ -6,7 +6,6 @@ import com.mghelas.internship_playground.datasource.DbHelper;
 
 public class App extends Application {
     private static App instance;
-    private DbHelper dbHelper;
 
     @Override
     public void onCreate() {
@@ -18,11 +17,5 @@ public class App extends Application {
         return instance;
     }
 
-    public DbHelper getDbHelper() {
-        if (dbHelper == null) {
-            dbHelper = new DbHelper(getApplicationContext());
-        }
-        return dbHelper;
-    }
 }
 

@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
 
 import com.mghelas.internship_playground.App;
+import com.mghelas.internship_playground.datasource.DbHelper;
 import com.mghelas.internship_playground.entity.Sweet;
 import com.mghelas.internship_playground.sweetscreen.detailed.DetailedFetcher;
 
@@ -29,6 +30,6 @@ public class DbDetailedLoader extends AsyncTaskLoader<Sweet> implements Detailed
     @Nullable
     @Override
     public Sweet loadInBackground() {
-        return App.getInstance().getDbHelper().findSweetById(id);
+        return DbHelper.getInstance(getContext()).findSweetById(id);
     }
 }

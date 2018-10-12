@@ -1,92 +1,56 @@
 package com.mghelas.internship_playground.sweetscreen.add.impl;
 
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.provider.BaseColumns;
-
-import com.mghelas.internship_playground.App;
-import com.mghelas.internship_playground.datasource.IngredientsReaderContract;
-import com.mghelas.internship_playground.datasource.SweetReaderContract;
-import com.mghelas.internship_playground.datasource.DbHelper;
-import com.mghelas.internship_playground.datasource.SweetsIngredientsReaderContract;
-import com.mghelas.internship_playground.entity.Chocolate;
 import com.mghelas.internship_playground.entity.Ingredient;
-import com.mghelas.internship_playground.entity.Lollipop;
 import com.mghelas.internship_playground.entity.Sweet;
 import com.mghelas.internship_playground.sweetscreen.add.SweetAddModel;
+import com.mghelas.internship_playground.sweetscreen.add.asynctask.SweetAdd;
+import com.mghelas.internship_playground.sweetscreen.add.asynctask.SweetAddCallback;
+import com.mghelas.internship_playground.sweetscreen.add.asynctask.SweetAddReturnCallback;
+import com.mghelas.internship_playground.sweetscreen.add.asynctask.impl.SweetAddImpl;
+import com.mghelas.internship_playground.sweetscreen.add.loader.IngredientsFetcher;
+import com.mghelas.internship_playground.sweetscreen.add.loader.IngredientsListCallback;
+import com.mghelas.internship_playground.sweetscreen.add.loader.IngredientsLoadCallback;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class SweetAddModelImpl implements SweetAddModel {
+public class SweetAddModelImpl implements SweetAddModel, SweetAddCallback, IngredientsLoadCallback {
 
-    private DbHelper dbHelper;
+    private SweetAddReturnCallback sweetAddReturnCallback;
+    private IngredientsListCallback ingredientsListCallback;
+    private IngredientsFetcher ingredientsFetcher;
 
-    public SweetAddModelImpl() {
-        this.dbHelper = App.getInstance().getDbHelper();
+    public SweetAddModelImpl(IngredientsFetcher ingredientsFetcher) {
+        this.ingredientsFetcher = ingredientsFetcher;
     }
 
     @Override
-    public long add(Sweet sweet) {
-        long newRowId = 0;
-
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        values.put(SweetReaderContract.SweetEntry.COLUMN_NAME_TITLE, sweet.getTitle());
-        values.put(SweetReaderContract.SweetEntry.COLUMN_NAME_PRICE, sweet.getPrice());
-        values.put(SweetReaderContract.SweetEntry.COLUMN_NAME_WEIGHT, sweet.getWeight());
-        values.put(SweetReaderContract.SweetEntry.COLUMN_NAME_PRICE_PER_KG, sweet.getPricePerKg());
-
-        if (sweet instanceof Chocolate) {
-            values.put(SweetReaderContract.SweetEntry.COLUMN_NAME_PERCENTAGE, ((Chocolate) sweet).getPercentage());
-        } else {
-            values.put(SweetReaderContract.SweetEntry.COLUMN_NAME_FLAVOUR, ((Lollipop) sweet).getFlavour());
-        }
-        newRowId = db.insert(SweetReaderContract.SweetEntry.TABLE_NAME, null, values);
-
-        ContentValues foreignValues = new ContentValues();
-        for (Ingredient ingredient : sweet.getIngredients()) {
-            foreignValues.put(SweetsIngredientsReaderContract.SweetsIngredientsEntry.COLUMN_NAME_SWEET_ID, newRowId);
-            foreignValues.put(SweetsIngredientsReaderContract.SweetsIngredientsEntry.COLUMN_NAME_INGREDIENT_ID, ingredient.getId());
-            db.insert(SweetsIngredientsReaderContract.SweetsIngredientsEntry.TABLE_NAME, null, foreignValues);
-        }
-
-        return newRowId;
+    public void add(Sweet sweet) {
+        SweetAdd sweetAdd = new SweetAddImpl(this);
+        sweetAdd.add(sweet);
     }
 
     @Override
-    public List<Ingredient> getAllIngredients() {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        List<Ingredient> items = new ArrayList<>();
+    public void getAllIngredients() {
+        ingredientsFetcher.fetchIngredients();
+    }
 
-        String[] projection = {
-                BaseColumns._ID,
-                IngredientsReaderContract.IngredientEntry.COLUMN_NAME_TITLE,
-        };
 
-        Cursor cursor = db.query(
-                IngredientsReaderContract.IngredientEntry.TABLE_NAME,   // The table to query
-                projection,             // The array of columns to return (pass null to get all)
-                null,              // The columns for the WHERE clause
-                null,          // The values for the WHERE clause
-                null,                   // don't group the rows
-                null,                   // don't filter by row groups
-                null               // The sort order
-        );
-        while (cursor.moveToNext()) {
-            Integer id = cursor.getInt(
-                    cursor.getColumnIndexOrThrow(IngredientsReaderContract.IngredientEntry._ID));
-            String title = cursor.getString(
-                    cursor.getColumnIndexOrThrow(IngredientsReaderContract.IngredientEntry.COLUMN_NAME_TITLE));
+    @Override
+    public void onSweetAdded() {
+        sweetAddReturnCallback.goToList();
+    }
 
-            Ingredient ingredient = new Ingredient(id, title);
-            items.add(ingredient);
-        }
-        cursor.close();
+    @Override
+    public void setOnSweetAddReturnCallback(SweetAddReturnCallback sweetAddReturnCallback) {
+        this.sweetAddReturnCallback = sweetAddReturnCallback;
+    }
 
-        return items;
+    public void setIngredientsListCallback(IngredientsListCallback ingredientsListCallback) {
+        this.ingredientsListCallback = ingredientsListCallback;
+    }
+
+    @Override
+    public void onIngredientsLoaded(List<Ingredient> ingredients) {
+        ingredientsListCallback.onIngredientsLoaded(ingredients);
     }
 }

@@ -16,9 +16,9 @@ public class SweetAddPresenterImpl implements SweetAddPresenter {
     SweetAddWireframe sweetAddWireframe;
 
     public SweetAddPresenterImpl(SweetAddView sweetAddView, SweetAddModel sweetAddModel, SweetAddWireframe sweetAddWireframe) {
-    this.sweetAddView = sweetAddView;
-    this.sweetAddModel = sweetAddModel;
-    this.sweetAddWireframe = sweetAddWireframe;
+        this.sweetAddView = sweetAddView;
+        this.sweetAddModel = sweetAddModel;
+        this.sweetAddWireframe = sweetAddWireframe;
     }
 
     @Override
@@ -33,18 +33,27 @@ public class SweetAddPresenterImpl implements SweetAddPresenter {
     }
 
     @Override
-    public List<Ingredient> getAllIngredients() {
-        return sweetAddModel.getAllIngredients();
+    public void getAllIngredients() {
+        sweetAddModel.getAllIngredients();
     }
 
     @Override
     public void onAddClicked(Sweet sweet) {
         sweetAddModel.add(sweet);
-        sweetAddWireframe.showListContent();
     }
 
     @Override
     public void onRadioChanged(String type) {
         sweetAddView.changeSweetType(type);
+    }
+
+    @Override
+    public void goToList() {
+        sweetAddWireframe.showListContent();
+    }
+
+    @Override
+    public void onIngredientsLoaded(List<Ingredient> ingredients) {
+        sweetAddView.bindData(ingredients);
     }
 }

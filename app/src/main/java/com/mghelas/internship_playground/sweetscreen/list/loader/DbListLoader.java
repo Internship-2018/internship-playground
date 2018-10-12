@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
 
 import com.mghelas.internship_playground.App;
+import com.mghelas.internship_playground.datasource.DbHelper;
 import com.mghelas.internship_playground.entity.Sweet;
 import com.mghelas.internship_playground.sweetscreen.list.ListFetcher;
 
@@ -20,7 +21,7 @@ public class DbListLoader extends AsyncTaskLoader<List<Sweet>> implements ListFe
     @Nullable
     @Override
     public List<Sweet> loadInBackground() {
-        return App.getInstance().getDbHelper().getAllSweets();
+        return DbHelper.getInstance(getContext()).getAllSweets();
     }
 
 

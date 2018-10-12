@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
 
 import com.mghelas.internship_playground.App;
+import com.mghelas.internship_playground.datasource.DbHelper;
 import com.mghelas.internship_playground.sweetscreen.detailed.SweetRemover;
 
 public class RemoveSweetLoader extends AsyncTaskLoader<Integer> implements SweetRemover {
@@ -18,7 +19,7 @@ public class RemoveSweetLoader extends AsyncTaskLoader<Integer> implements Sweet
     @Nullable
     @Override
     public Integer loadInBackground() {
-        return App.getInstance().getDbHelper().remove(id);
+        return DbHelper.getInstance(getContext()).remove(id);
     }
 
     @Override

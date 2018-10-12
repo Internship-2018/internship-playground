@@ -1,7 +1,7 @@
 package com.mghelas.internship_playground.sweetscreen.detailed.impl;
 
-import com.mghelas.internship_playground.App;
 import com.mghelas.internship_playground.entity.Sweet;
+import com.mghelas.internship_playground.sweetscreen.add.asynctask.SweetAddCallback;
 import com.mghelas.internship_playground.sweetscreen.detailed.DetailedFetcher;
 import com.mghelas.internship_playground.sweetscreen.detailed.DetailedLoadCallback;
 import com.mghelas.internship_playground.sweetscreen.detailed.SweetDetailedCallback;
@@ -14,6 +14,7 @@ public class SweetDetailedModelImpl implements SweetDetailedModel, DetailedLoadC
     private DetailedFetcher detailedFetcher;
     private SweetRemover sweetRemover;
     private SweetDetailedCallback sweetDetailedCallback;
+    private SweetAddCallback addSweetCallback;
 
     public SweetDetailedModelImpl(DetailedFetcher detailedFetcher, SweetRemover sweetRemover) {
         this.detailedFetcher = detailedFetcher;

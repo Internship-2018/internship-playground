@@ -21,7 +21,6 @@ public class SweetListModelImpl implements SweetListModel, ListLoadCallback<List
 
     @Override
     public void getAll() {
-        Log.d("getAllLOADER_D", "model getall called");
         dataFetcher.fetchData();
 
     }
