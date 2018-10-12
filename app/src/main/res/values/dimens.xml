@@ -7,4 +7,6 @@
     <dimen name="small_text_size">4pt</dimen>
   <dimen name="large_padding">32dp</dimen>
   <dimen name="width_button_welcome">120dp</dimen>
+  <dimen name="margin_fab">16dp</dimen>
+  <dimen name="padding_med">16dp</dimen>
 </resources>
