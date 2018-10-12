@@ -1,7 +1,11 @@
 package com.mtlepberghenov.internship_playground.storage.dao;
 
-public interface Dao {
-  void insert(String data);
+import com.mtlepberghenov.internship_playground.storage.model.Data;
+import java.util.List;
 
-  String  select(String param);
+public interface Dao {
+
+  void insert(Data data);
+
+  List<Data> selectAll();
 }

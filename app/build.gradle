@@ -69,7 +69,7 @@ dependencies {
       //Navigation
       implementation 'android.arch.navigation:navigation-fragment:1.0.0-alpha06'
       //WorkManager
-      implementation 'android.arch.work:work-runtime:1.0.0-alpha09'
+      implementation 'android.arch.work:work-runtime:1.0.0-alpha10'
 
   //RxJava
   implementation 'io.reactivex.rxjava2:rxjava:2.2.2'

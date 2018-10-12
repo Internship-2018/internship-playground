@@ -1,12 +1,13 @@
 package com.mtlepberghenov.internship_playground.ui.dashboard.impl;
 
 import com.mtlepberghenov.internship_playground.networking.state.NetworkChecker;
+import com.mtlepberghenov.internship_playground.networking.state.NetworkState;
 import com.mtlepberghenov.internship_playground.ui.dashboard.DashboardAdapter;
 import com.mtlepberghenov.internship_playground.ui.dashboard.DashboardModel;
 import com.mtlepberghenov.internship_playground.ui.dashboard.DashboardPresenter;
 import com.mtlepberghenov.internship_playground.ui.dashboard.DashboardView;
 
-public class DefaultDashboardPresenter implements DashboardPresenter {
+public class DefaultDashboardPresenter implements DashboardPresenter, NetworkState {
 
   private DashboardView view;
   private DashboardModel model;
@@ -27,14 +28,15 @@ public class DefaultDashboardPresenter implements DashboardPresenter {
   }
 
   private void checkNetworkState() {
-    networkChecker.check();
+    networkChecker.check(this);
   }
 
-  private void offLineState(){
+  @Override public void offLineState(){
+    model.getData();
     //todo load data from the db
   }
 
-  private void onLineState() {
+  @Override public void onLineState() {
     //todo do a request
     //todo load data from the db
   }

@@ -25,8 +25,7 @@ public class DashboardFragment extends Fragment {
     final DefaultDashboardView view = new DefaultDashboardView();
     nativeView = view;
     final DashboardAdapter adapter = new DefaultDashboardAdapter();
-    final DbHelper dbHelper = DefaultDbHelper.getInstance(getActivity());
-    final DashboardModel model = new DefaultDashboardModel(dbHelper);
+    final DashboardModel model = new DefaultDashboardModel();
     final NetworkChecker networkChecker = new DefaultNetworkChecker();
     presenter = new DefaultDashboardPresenter(view, model, adapter, networkChecker);
   }
