@@ -14,16 +14,15 @@ import com.mtlepberghenov.internship_playground.ui.dashboard.impl.DefaultDashboa
 public class DashboardFragment extends Fragment {
 
   private DashboardNativeView nativeView;
-  private DashboardAdapter adapter;
   private DashboardPresenter presenter;
-  private DashboardModel model;
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     final DefaultDashboardView view = new DefaultDashboardView();
     nativeView = view;
-    model = new DefaultDashboatdModel();
-    presenter = new DefaultDashboardPresenter(view, model);
+    final DashboardAdapter adapter = new DefaultDashboardAdapter();
+    final DashboardModel model = new DefaultDashboatdModel();
+    presenter = new DefaultDashboardPresenter(view, model, adapter);
   }
 
   @Nullable @Override
