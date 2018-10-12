@@ -15,6 +15,9 @@ public class StartActivity extends AppCompatActivity {
     super.onCreate(bundle);
     setContentView(R.layout.activity_start);
     ButterKnife.bind(this);
+
+    NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+    navController.setGraph(R.navigation.main_graph);
   }
 
   @OnClick(R.id.fab)
