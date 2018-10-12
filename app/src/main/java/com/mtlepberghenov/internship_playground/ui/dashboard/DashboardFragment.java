@@ -7,9 +7,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.mtlepberghenov.internship_playground.networking.state.DefaultNetworkChecker;
+import com.mtlepberghenov.internship_playground.networking.state.NetworkChecker;
+import com.mtlepberghenov.internship_playground.storage.datasource.DbHelper;
+import com.mtlepberghenov.internship_playground.storage.datasource.impl.DefaultDbHelper;
 import com.mtlepberghenov.internship_playground.ui.dashboard.impl.DefaultDashboardPresenter;
 import com.mtlepberghenov.internship_playground.ui.dashboard.impl.DefaultDashboardView;
-import com.mtlepberghenov.internship_playground.ui.dashboard.impl.DefaultDashboatdModel;
+import com.mtlepberghenov.internship_playground.ui.dashboard.impl.DefaultDashboardModel;
 
 public class DashboardFragment extends Fragment {
 
@@ -21,8 +25,10 @@ public class DashboardFragment extends Fragment {
     final DefaultDashboardView view = new DefaultDashboardView();
     nativeView = view;
     final DashboardAdapter adapter = new DefaultDashboardAdapter();
-    final DashboardModel model = new DefaultDashboatdModel();
-    presenter = new DefaultDashboardPresenter(view, model, adapter);
+    final DbHelper dbHelper = DefaultDbHelper.getInstance(getActivity());
+    final DashboardModel model = new DefaultDashboardModel(dbHelper);
+    final NetworkChecker networkChecker = new DefaultNetworkChecker();
+    presenter = new DefaultDashboardPresenter(view, model, adapter, networkChecker);
   }
 
   @Nullable @Override
