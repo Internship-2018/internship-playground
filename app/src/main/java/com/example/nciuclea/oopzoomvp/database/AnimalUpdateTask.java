@@ -19,14 +19,14 @@ public class AnimalUpdateTask implements Runnable {
 
     @Override
     public void run() {
-        Log.d("ANIMAL_UPDATE_TASK", "AnimalUpdateTask started");
+        Log.d("ANIMAL_UPDATE_TASK", "AnimalUpdateTask #" + this + " started");
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DBAnimal.COLUMN_OVERALL_STATE, animal.getOverallState().name());
         values.put(DBAnimal.COLUMN_TIMESTAMP, animal.getTimestamp());
-
+        
         db.update(DBAnimal.TABLE_NAME, values, DBAnimal.COLUMN_ID + " = ?",
                 new String[]{String.valueOf(animal.getId())});
-        Log.d("ANIMAL_UPDATE_TASK", "AnimalUpdateTask finished");
+        Log.d("ANIMAL_UPDATE_TASK", "AnimalUpdateTask  #" + this + " finished");
     }
 }
