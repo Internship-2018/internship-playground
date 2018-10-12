@@ -7,10 +7,12 @@ import android.support.v7.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.mtlepberghenov.internship_playground.R;
+import com.mtlepberghenov.internship_playground.storage.model.Data;
 import com.mtlepberghenov.internship_playground.ui.dashboard.DashboardAdapter;
 import com.mtlepberghenov.internship_playground.ui.dashboard.DashboardNativeView;
 import com.mtlepberghenov.internship_playground.ui.dashboard.DashboardView;
 import com.mtlepberghenov.internship_playground.ui.dashboard.DefaultDashboardAdapter;
+import java.util.List;
 
 public class DefaultDashboardView implements DashboardNativeView, DashboardView {
 
@@ -35,5 +37,9 @@ public class DefaultDashboardView implements DashboardNativeView, DashboardView 
   @Override public void setAdapter(DashboardAdapter adapter) {
     this.adapter = adapter;
     recyclerView.setAdapter((DefaultDashboardAdapter)adapter);
+  }
+
+  @Override public void updateData(List<Data> list) {
+    adapter.updateData(list);
   }
 }

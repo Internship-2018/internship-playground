@@ -9,8 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.mtlepberghenov.internship_playground.networking.state.DefaultNetworkChecker;
 import com.mtlepberghenov.internship_playground.networking.state.NetworkChecker;
-import com.mtlepberghenov.internship_playground.storage.datasource.DbHelper;
-import com.mtlepberghenov.internship_playground.storage.datasource.impl.DefaultDbHelper;
 import com.mtlepberghenov.internship_playground.ui.dashboard.impl.DefaultDashboardPresenter;
 import com.mtlepberghenov.internship_playground.ui.dashboard.impl.DefaultDashboardView;
 import com.mtlepberghenov.internship_playground.ui.dashboard.impl.DefaultDashboardModel;
@@ -26,7 +24,7 @@ public class DashboardFragment extends Fragment {
     nativeView = view;
     final DashboardAdapter adapter = new DefaultDashboardAdapter();
     final DashboardModel model = new DefaultDashboardModel();
-    final NetworkChecker networkChecker = new DefaultNetworkChecker();
+    final NetworkChecker networkChecker = new DefaultNetworkChecker(getContext());
     presenter = new DefaultDashboardPresenter(view, model, adapter, networkChecker);
   }
 
