@@ -14,7 +14,6 @@ public class SweetDetailedModelImpl implements SweetDetailedModel, DetailedLoadC
     private DetailedFetcher detailedFetcher;
     private SweetRemover sweetRemover;
     private SweetDetailedCallback sweetDetailedCallback;
-    private SweetAddCallback addSweetCallback;
 
     public SweetDetailedModelImpl(DetailedFetcher detailedFetcher, SweetRemover sweetRemover) {
         this.detailedFetcher = detailedFetcher;

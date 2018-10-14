@@ -5,21 +5,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Switch;
 
 import com.mghelas.internship_playground.R;
-import com.mghelas.internship_playground.storage.entity.Chocolate;
 import com.mghelas.internship_playground.storage.entity.Ingredient;
-import com.mghelas.internship_playground.storage.entity.Lollipop;
 import com.mghelas.internship_playground.storage.entity.Sweet;
 import com.mghelas.internship_playground.ui.sweetscreen.add.AddClickHandler;
 import com.mghelas.internship_playground.ui.sweetscreen.add.SweetAddFragment;
 import com.mghelas.internship_playground.ui.sweetscreen.add.SweetAddNativeView;
 import com.mghelas.internship_playground.ui.sweetscreen.add.SweetAddPresenter;
 import com.mghelas.internship_playground.ui.sweetscreen.add.SweetAddView;
-import com.mghelas.internship_playground.ui.sweetscreen.add.SweetTypeRadioHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +22,8 @@ import java.util.List;
 public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView {
 
     private AddClickHandler addClickHandler;
-    private SweetTypeRadioHandler sweetTypeRadioHandler;
-    EditText flavour;
-    LinearLayout switchContainer;
-    SweetAddFragment sweetAddFragment;
+    private LinearLayout switchContainer;
+    private SweetAddFragment sweetAddFragment;
 
     @Override
     public int getLayout() {
@@ -41,50 +34,25 @@ public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView {
     public void initView(final SweetAddFragment sweetAddFragment, SweetAddPresenter sweetAddPresenter) {
         this.sweetAddFragment = sweetAddFragment;
         final Button addBtn = sweetAddFragment.getView().findViewById(R.id.create_sweet_btn);
-        final RadioGroup sweetType = sweetAddFragment.getView().findViewById(R.id.sweet_type);
-        final RadioButton isChocolate = sweetAddFragment.getView().findViewById(R.id.is_chocolate);
-        final RadioButton isLollipop = sweetAddFragment.getView().findViewById(R.id.is_lollipop);
         final EditText title = sweetAddFragment.getView().findViewById(R.id.title_add);
         final EditText price = sweetAddFragment.getView().findViewById(R.id.price_add);
         final EditText weight = sweetAddFragment.getView().findViewById(R.id.weight_add);
         final Switch pricePerKg = sweetAddFragment.getView().findViewById(R.id.price_per_kg_add);
-        flavour = sweetAddFragment.getView().findViewById(R.id.flavour_add);
         switchContainer = sweetAddFragment.getView().findViewById(R.id.switch_container);
         sweetAddPresenter.getAllIngredients();
 
 
-        sweetType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.is_chocolate) {
-                    onRadioChanged("Percentage");
-                } else {
-                    onRadioChanged("Flavour");
-                }
-
-            }
-        });
-
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Sweet sweet;
-                if (isChocolate.isChecked()) {
-                    sweet = new Chocolate(title.getText().toString(),
-                            Double.parseDouble(price.getText().toString()),
-                            Double.parseDouble(weight.getText().toString()),
-                            pricePerKg.isChecked(), Integer.parseInt(flavour.getText().toString()));
-                    List<Ingredient> ingredients = getIngredients(switchContainer);
-                    sweet.setIngredients(ingredients);
+                Sweet sweet = new Sweet(title.getText().toString(),
+                        Double.parseDouble(price.getText().toString()),
+                        Double.parseDouble(weight.getText().toString()),
+                        pricePerKg.isChecked());
+                List<Ingredient> ingredients = getIngredients(switchContainer);
+                sweet.setIngredients(ingredients);
 
-                } else {
-                    sweet = new Lollipop(title.getText().toString(),
-                            Double.parseDouble(price.getText().toString()),
-                            Double.parseDouble(weight.getText().toString()),
-                            pricePerKg.isChecked(), flavour.getText().toString());
-                    List<Ingredient> ingredients = getIngredients(switchContainer);
-                    sweet.setIngredients(ingredients);
-                }
+
                 onAddClicked(sweet);
             }
         });
@@ -111,25 +79,9 @@ public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView {
         }
     }
 
-    private void onRadioChanged(String type) {
-        if (sweetTypeRadioHandler != null) {
-            sweetTypeRadioHandler.onRadioChanged(type);
-        }
-    }
-
     @Override
     public void setOnAddClickHandler(AddClickHandler addClickHandler) {
         this.addClickHandler = addClickHandler;
-    }
-
-    @Override
-    public void setOnTypeChangeHandler(SweetTypeRadioHandler sweetTypeRadioHandler) {
-        this.sweetTypeRadioHandler = sweetTypeRadioHandler;
-    }
-
-    @Override
-    public void changeSweetType(String type) {
-        flavour.setHint(type);
     }
 
     @Override

@@ -24,7 +24,6 @@ public class SweetAddPresenterImpl implements SweetAddPresenter {
     @Override
     public void viewInitialized() {
         sweetAddView.setOnAddClickHandler(this);
-        sweetAddView.setOnTypeChangeHandler(this);
     }
 
     @Override
@@ -40,11 +39,6 @@ public class SweetAddPresenterImpl implements SweetAddPresenter {
     @Override
     public void onAddClicked(Sweet sweet) {
         sweetAddModel.add(sweet);
-    }
-
-    @Override
-    public void onRadioChanged(String type) {
-        sweetAddView.changeSweetType(type);
     }
 
     @Override

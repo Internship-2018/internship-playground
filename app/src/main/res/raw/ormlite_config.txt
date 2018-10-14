@@ -1,48 +1,17 @@
 #
-# generated on 2018/10/12 04:18:30
+# generated on 2018/10/14 02:31:34
 #
 # --table-start--
-dataClass=com.mghelas.internship_playground.storage.entity.Chocolate
-tableName=chocolate
+dataClass=com.mghelas.internship_playground.storage.entity.Ingredient
+tableName=ingredients
 # --table-fields-start--
 # --field-start--
 fieldName=id
-id=true
+columnName=id
+generatedId=true
 # --field-end--
 # --field-start--
 fieldName=title
-# --field-end--
-# --field-start--
-fieldName=price
-# --field-end--
-# --field-start--
-fieldName=weight
-# --field-end--
-# --field-start--
-fieldName=pricePerKg
-# --field-end--
-# --table-fields-end--
-# --table-end--
-#################################
-# --table-start--
-dataClass=com.mghelas.internship_playground.storage.entity.Lollipop
-tableName=lollipop
-# --table-fields-start--
-# --field-start--
-fieldName=id
-id=true
-# --field-end--
-# --field-start--
-fieldName=title
-# --field-end--
-# --field-start--
-fieldName=price
-# --field-end--
-# --field-start--
-fieldName=weight
-# --field-end--
-# --field-start--
-fieldName=pricePerKg
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -66,6 +35,27 @@ fieldName=weight
 # --field-end--
 # --field-start--
 fieldName=pricePerKg
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.mghelas.internship_playground.storage.entity.SweetIngredient
+tableName=sweet_ingredients
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=sweet
+columnName=sweet_id
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=ingredient
+columnName=ingredient_id
+foreign=true
 # --field-end--
 # --table-fields-end--
 # --table-end--

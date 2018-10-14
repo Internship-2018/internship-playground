@@ -89,4 +89,16 @@ public class Sweet {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         System.out.println("mix " + this.getIngredients().toString() + " on " + sdf.format(date));
     }
+
+    @Override
+    public String toString() {
+        return "Sweet{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", price=" + price +
+                ", weight=" + weight +
+                ", pricePerKg=" + pricePerKg +
+                ", ingredients=" + ingredients +
+                '}';
+    }
 }

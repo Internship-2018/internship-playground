@@ -6,7 +6,5 @@ import java.util.List;
 
 public interface SweetAddView {
     void setOnAddClickHandler(AddClickHandler addClickHandler);
-    void setOnTypeChangeHandler(SweetTypeRadioHandler sweetTypeRadioHandler);
-    void changeSweetType(String type);
     void bindData(List<Ingredient> ingredients);
 }

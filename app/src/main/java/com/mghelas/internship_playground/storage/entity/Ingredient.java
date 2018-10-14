@@ -1,7 +1,16 @@
 package com.mghelas.internship_playground.storage.entity;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+@DatabaseTable(tableName = "ingredients")
 public class Ingredient {
+
+    public final static String ID_FIELD_NAME = "id";
+
+    @DatabaseField(generatedId = true, columnName = ID_FIELD_NAME)
     private Integer id;
+    @DatabaseField
     private String title;
 
     public Ingredient() {

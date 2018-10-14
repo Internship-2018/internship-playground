@@ -2,13 +2,10 @@ package com.mghelas.internship_playground.ui.sweetscreen.detailed.impl;
 
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mghelas.internship_playground.R;
-import com.mghelas.internship_playground.storage.entity.Chocolate;
-import com.mghelas.internship_playground.storage.entity.Lollipop;
 import com.mghelas.internship_playground.storage.entity.Sweet;
 import com.mghelas.internship_playground.ui.sweetscreen.detailed.MixClickHandler;
 import com.mghelas.internship_playground.ui.sweetscreen.detailed.RemoveClickHandler;
@@ -19,18 +16,15 @@ import com.mghelas.internship_playground.ui.sweetscreen.detailed.SweetDetailedVi
 
 public class SweetDetailedViewImpl implements SweetDetailedView, SweetDetailedNativeView {
 
-    MixClickHandler mixClickHandler;
-    RemoveClickHandler removeClickHandler;
-    SweetDetailedFragment sweetDetailedFragment;
+    private MixClickHandler mixClickHandler;
+    private RemoveClickHandler removeClickHandler;
+    private SweetDetailedFragment sweetDetailedFragment;
 
-    TextView title;
-    TextView price;
-    TextView weight;
-    TextView flavour;
-    TextView flavourLabel;
-    Button mixButton;
-    Button removeButton;
-    ImageView imageView;
+    private TextView title;
+    private TextView price;
+    private TextView weight;
+    private Button mixButton;
+    private Button removeButton;
 
     @Override
     public int getLayout() {
@@ -44,11 +38,8 @@ public class SweetDetailedViewImpl implements SweetDetailedView, SweetDetailedNa
         title = sweetDetailedFragment.getView().findViewById(R.id.titleDetailed);
         price = sweetDetailedFragment.getView().findViewById(R.id.priceDetailed);
         weight = sweetDetailedFragment.getView().findViewById(R.id.weightDetailed);
-        flavour = sweetDetailedFragment.getView().findViewById(R.id.flavourDetailed);
-        flavourLabel = sweetDetailedFragment.getView().findViewById(R.id.flavourLabel);
         mixButton = sweetDetailedFragment.getView().findViewById(R.id.mixButton);
         removeButton = sweetDetailedFragment.getView().findViewById(R.id.removeButton);
-        imageView = sweetDetailedFragment.getView().findViewById(R.id.imageView);
 
         sweetDetailedPresenter.findById(sweetDetailedFragment.getArguments().getInt("id"));
 
@@ -105,15 +96,6 @@ public class SweetDetailedViewImpl implements SweetDetailedView, SweetDetailedNa
         title.setText(sweet.getTitle());
         price.setText(sweet.getPrice() + "");
         weight.setText(sweet.getWeight() + "");
-        if (sweet instanceof Chocolate) {
-            imageView.setBackgroundResource(R.drawable.ic_chocolate);
-            flavourLabel.setText("Percentage");
-
-            flavour.setText(((Chocolate) sweet).getPercentage() + "");
-        } else {
-            imageView.setBackgroundResource(R.drawable.ic_lollipop);
-            flavour.setText(((Lollipop) sweet).getFlavour());
-        }
     }
 
 }

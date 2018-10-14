@@ -6,17 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="256dp"
-        android:layout_height="183dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/titleLabel"
         android:layout_width="wrap_content"
@@ -25,7 +14,7 @@
         android:layout_marginTop="8dp"
         android:text="Title:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/titleDetailed"
@@ -35,7 +24,7 @@
         android:layout_marginTop="8dp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/titleLabel"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/priceLabel"
@@ -78,44 +67,24 @@
         app:layout_constraintStart_toEndOf="@+id/weightLabel"
         app:layout_constraintTop_toBottomOf="@+id/priceDetailed" />
 
-    <TextView
-        android:id="@+id/flavourLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="Flavour:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weightLabel" />
-
-    <TextView
-        android:id="@+id/flavourDetailed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="16dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/flavourLabel"
-        app:layout_constraintTop_toBottomOf="@+id/weightDetailed" />
-
     <Button
         android:id="@+id/mixButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="88dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="8dp"
         android:layout_weight="1"
         android:text="mix"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/flavourDetailed" />
+        app:layout_constraintTop_toBottomOf="@+id/weightDetailed" />
 
     <Button
         android:id="@+id/removeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="88dp"
         android:text="Remove"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/flavourDetailed" />
+        app:layout_constraintTop_toBottomOf="@+id/weightDetailed" />
 </android.support.constraint.ConstraintLayout>

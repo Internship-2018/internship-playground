@@ -11,8 +11,8 @@ import com.mghelas.internship_playground.ui.sweetscreen.detailed.loader.RemoveSw
 
 public class DbSweetRemoveLoaderCallbackImpl implements LoaderManager.LoaderCallbacks<Integer> {
 
-    RemoveSweetLoader removeSweetLoader;
-    SweetRemovedCallback sweetRemovedCallback;
+    private RemoveSweetLoader removeSweetLoader;
+    private SweetRemovedCallback sweetRemovedCallback;
 
     public DbSweetRemoveLoaderCallbackImpl(RemoveSweetLoader removeSweetLoader, SweetRemovedCallback sweetRemovedCallback) {
         this.removeSweetLoader = removeSweetLoader;

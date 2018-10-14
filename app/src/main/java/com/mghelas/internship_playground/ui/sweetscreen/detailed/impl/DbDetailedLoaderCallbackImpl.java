@@ -12,8 +12,8 @@ import com.mghelas.internship_playground.ui.sweetscreen.detailed.loader.DbDetail
 
 public class DbDetailedLoaderCallbackImpl implements LoaderManager.LoaderCallbacks<Sweet> {
 
-    DbDetailedLoader dbDetailedLoader;
-    DetailedLoadCallback detailedLoadCallback;
+    private DbDetailedLoader dbDetailedLoader;
+    private DetailedLoadCallback detailedLoadCallback;
 
     public DbDetailedLoaderCallbackImpl(DbDetailedLoader dbDetailedLoader, DetailedLoadCallback detailedLoadCallback) {
         this.dbDetailedLoader = dbDetailedLoader;
