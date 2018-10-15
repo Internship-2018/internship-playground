@@ -21,11 +21,16 @@ public class SweetIngredient {
     @DatabaseField(foreign = true, columnName = INGREDIENT_ID_FIELD_NAME)
     private Ingredient ingredient;
 
+    @DatabaseField
+    private Double quantity;
+
+
     public SweetIngredient() {
     }
 
-    public SweetIngredient(Sweet sweet, Ingredient ingredient) {
+    public SweetIngredient(Sweet sweet, Ingredient ingredient, Double quantity) {
         this.sweet = sweet;
         this.ingredient = ingredient;
+        this.quantity = quantity;
     }
 }

@@ -1,5 +1,5 @@
 #
-# generated on 2018/10/14 02:31:34
+# generated on 2018/10/15 12:37:08
 #
 # --table-start--
 dataClass=com.mghelas.internship_playground.storage.entity.Ingredient

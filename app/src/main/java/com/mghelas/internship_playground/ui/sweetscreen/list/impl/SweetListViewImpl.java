@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mghelas.internship_playground.R;
 import com.mghelas.internship_playground.storage.entity.Sweet;
@@ -24,6 +25,7 @@ public class SweetListViewImpl implements SweetListView, SweetListNativeView {
     private TextView emptyText;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
+    SweetListFragment sweetListFragment;
 
     @Override
     public int getLayout() {
@@ -32,6 +34,7 @@ public class SweetListViewImpl implements SweetListView, SweetListNativeView {
 
     @Override
     public void initView(SweetListFragment sweetListFragment, SweetListPresenter sweetListPresenter) {
+        this.sweetListFragment = sweetListFragment;
         recyclerView = sweetListFragment.getView().findViewById(R.id.fragment_sweet_list);
         emptyText = sweetListFragment.getView().findViewById(R.id.empty_view);
         bindData(new ArrayList<Sweet>());
@@ -59,6 +62,14 @@ public class SweetListViewImpl implements SweetListView, SweetListNativeView {
                 }
             }));
         }
+    }
+
+    @Override
+    public void showError(Throwable throwable) {
+        Toast toast = Toast.makeText(sweetListFragment.getContext(),
+                throwable.toString(),
+                Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     private void showEmpty() {

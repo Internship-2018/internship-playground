@@ -12,8 +12,8 @@ public class SweetIngredientDaoImpl extends GenericDaoImpl<SweetIngredient> impl
 
     private DbHelper dbHelper;
 
-    public SweetIngredientDaoImpl() {
-        super();
-        this.dbHelper = DbHelper.getInstance(App.getInstance());
+    public SweetIngredientDaoImpl(DbHelper dbHelper) {
+        super(dbHelper);
+        this.dbHelper = dbHelper;
     }
 }

@@ -45,15 +45,17 @@ public class SweetAdapter extends RecyclerView.Adapter<SweetAdapter.MyViewHolder
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView title;
-        TextView price;
-        TextView weight;
+        TextView name;
+        TextView type;
+        TextView expiryDate;
+        TextView confectionerName;
 
         MyViewHolder(View view) {
             super(view);
-            title = itemView.findViewById(R.id.titleDetailed);
-            price = itemView.findViewById(R.id.priceDetailed);
-            weight = itemView.findViewById(R.id.weightDetailed);
+            name = itemView.findViewById(R.id.nameDetailed);
+            type = itemView.findViewById(R.id.typeDetailed);
+            expiryDate = itemView.findViewById(R.id.expiryDateDetailed);
+            confectionerName = itemView.findViewById(R.id.confectionerNameDetailed);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -63,9 +65,10 @@ public class SweetAdapter extends RecyclerView.Adapter<SweetAdapter.MyViewHolder
         }
 
         void bindData(Sweet sweet) {
-            title.setText(sweet.getTitle());
-            price.setText(sweet.getPrice() + "");
-            weight.setText(sweet.getWeight() + "");
+            name.setText(sweet.getName());
+            type.setText(sweet.getType());
+            expiryDate.setText(sweet.getExpiryDate() + "");
+            confectionerName.setText(sweet.getConfectionerName());
         }
     }
 }

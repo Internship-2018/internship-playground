@@ -17,9 +17,9 @@ public class DbListLoader extends AsyncTaskLoader<List<Sweet>> implements ListFe
 
     SweetDao sweetDao;
 
-    public DbListLoader(@NonNull Context context) {
+    public DbListLoader(@NonNull Context context, SweetDao sweetDao) {
         super(context);
-        sweetDao = new SweetDaoImpl();
+        this.sweetDao = sweetDao;
     }
 
     @Nullable

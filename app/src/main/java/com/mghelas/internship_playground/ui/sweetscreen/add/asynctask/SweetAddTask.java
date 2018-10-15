@@ -22,9 +22,9 @@ public class SweetAddTask extends AsyncTask<Sweet, Void, Integer> {
 
     private SweetAddCallback addSweetCallback;
 
-    public SweetAddTask(SweetAddCallback addSweetCallback) {
+    public SweetAddTask(SweetAddCallback addSweetCallback, SweetDao sweetDao) {
         this.addSweetCallback = addSweetCallback;
-        sweetDao = new SweetDaoImpl();
+        this.sweetDao = sweetDao;
     }
 
     @Override

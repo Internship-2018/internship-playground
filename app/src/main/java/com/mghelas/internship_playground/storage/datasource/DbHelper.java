@@ -1,11 +1,8 @@
 package com.mghelas.internship_playground.storage.datasource;
 
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.provider.BaseColumns;
 import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
@@ -18,8 +15,6 @@ import com.mghelas.internship_playground.storage.entity.Sweet;
 import com.mghelas.internship_playground.storage.entity.SweetIngredient;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class DbHelper extends OrmLiteSqliteOpenHelper {
@@ -65,16 +60,6 @@ public class DbHelper extends OrmLiteSqliteOpenHelper {
         ingredientDao = getIngredientDao();
         sweetIngredientDao = getSweetIngredientDao();
         // create some entries in the onCreate
-        Sweet sweet = new Sweet("Meteorit", 15.0, 100.0, true);
-
-        int id = sweetDao.create(sweet);
-        sweet.setId(id);
-        Ingredient ingredient = new Ingredient("Sugar");
-        ingredientDao.create(ingredient);
-
-        SweetIngredient sweetIngredient = new SweetIngredient(sweet, ingredient);
-        sweetIngredientDao.create(sweetIngredient);
-
 
         Log.i(DbHelper.class.getName(), "created new entries in onCreate");
     }

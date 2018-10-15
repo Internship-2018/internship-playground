@@ -6,5 +6,8 @@ import java.util.List;
 
 public interface SweetListView {
     void setOnItemClickHandler(ItemClickHandler itemClickHandler);
+
     void bindData(List<Sweet> sweets);
+
+    void showError(Throwable throwable);
 }

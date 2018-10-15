@@ -31,14 +31,14 @@ public class SweetListPresenterImpl implements SweetListPresenter {
         sweetListWireframe.showDetailedContent(id);
     }
 
-    @Override
-    public void getAllSweets() {
-        sweetModel.getAll();
-    }
-
 
     @Override
     public void onListLoaded(List<Sweet> sweets) {
         sweetListView.bindData(sweets);
+    }
+
+    @Override
+    public void onApiFailure(Throwable throwable) {
+        sweetListView.showError(throwable);
     }
 }

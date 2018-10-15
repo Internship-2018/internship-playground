@@ -1,5 +1,7 @@
 package com.mghelas.internship_playground.ui.sweetscreen.list.impl;
 
+import com.mghelas.internship_playground.network.sweet.SweetServiceCall;
+import com.mghelas.internship_playground.storage.dao.intf.SweetDao;
 import com.mghelas.internship_playground.storage.entity.Sweet;
 import com.mghelas.internship_playground.ui.sweetscreen.list.ListFetcher;
 import com.mghelas.internship_playground.ui.sweetscreen.list.ListLoadCallback;
@@ -14,13 +16,11 @@ public class SweetListModelImpl implements SweetListModel, ListLoadCallback<List
 
     public SweetListModelImpl(ListFetcher dataFetcher) {
         this.dataFetcher = dataFetcher;
-
     }
 
     @Override
     public void getAll() {
         dataFetcher.fetchData();
-
     }
 
     @Override

@@ -13,9 +13,9 @@ public class IngredientDaoImpl extends GenericDaoImpl<Ingredient> implements Ing
 
     private DbHelper dbHelper;
 
-    public IngredientDaoImpl() {
-        super();
-        dbHelper = DbHelper.getInstance(App.getInstance());
+    public IngredientDaoImpl(DbHelper dbHelper) {
+        super(dbHelper);
+        this.dbHelper = dbHelper;
     }
 
 }

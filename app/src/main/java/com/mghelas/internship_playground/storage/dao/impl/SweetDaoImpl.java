@@ -1,5 +1,6 @@
 package com.mghelas.internship_playground.storage.dao.impl;
 
+import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.stmt.PreparedDelete;
 import com.j256.ormlite.stmt.PreparedQuery;
@@ -20,15 +21,16 @@ public class SweetDaoImpl extends GenericDaoImpl<Sweet> implements SweetDao {
 
     private DbHelper dbHelper;
 
-    public SweetDaoImpl() {
-        super();
-        dbHelper = DbHelper.getInstance(App.getInstance());
+    public SweetDaoImpl(DbHelper dbHelper) {
+        super(dbHelper);
+        this.dbHelper = dbHelper;
     }
 
     @Override
     public int save(Sweet entity) {
         int id = dbHelper.getSweetDao().create(entity);
-        entity.setId(id);
+        System.out.println(entity.getIngredients().toString());
+        System.out.println(entity.getId());
         for (Ingredient ingredient : entity.getIngredients()) {
             dbHelper.getSweetIngredientDao().create(new SweetIngredient(entity, ingredient));
         }
@@ -80,5 +82,17 @@ public class SweetDaoImpl extends GenericDaoImpl<Sweet> implements SweetDao {
             e.printStackTrace();
         }
         return dbHelper.getSweetDao().delete(entity);
+    }
+
+    @Override
+    public void deleteAll() {
+        DeleteBuilder<Sweet, Integer> db = dbHelper.getSweetDao().deleteBuilder();
+        DeleteBuilder<SweetIngredient, Integer> sweetIngredientIntegerDeleteBuilder = dbHelper.getSweetIngredientDao().deleteBuilder();
+        try {
+            db.delete();
+            sweetIngredientIntegerDeleteBuilder.delete();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

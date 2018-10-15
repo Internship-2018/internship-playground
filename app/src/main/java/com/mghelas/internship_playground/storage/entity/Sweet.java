@@ -9,43 +9,67 @@ import java.util.List;
 
 @DatabaseTable(tableName = "sweets")
 public class Sweet {
-    @DatabaseField(id = true)
+    @DatabaseField
     private Integer id;
     @DatabaseField
-    private String title;
+    private String type;
     @DatabaseField
-    private Double price;
+    private String name;
     @DatabaseField
-    private Double weight;
+    private Date expiryDate;
     @DatabaseField
-    private Boolean pricePerKg;
+    private String confectionerName;
 
     private List<Ingredient> ingredients;
 
     public Sweet() {
     }
 
-    public Sweet(String title, Double price, Double weight, Boolean pricePerKg) {
-        this.title = title;
-        this.price = price;
-        this.weight = weight;
-        this.pricePerKg = pricePerKg;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public Sweet(String type, String name, Date expiryDate, String confectionerName) {
+        this.type = type;
+        this.name = name;
+        this.expiryDate = expiryDate;
+        this.confectionerName = confectionerName;
     }
 
     public Integer getId() {
         return id;
     }
 
-    public Boolean getPricePerKg() {
-        return pricePerKg;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setPricePerKg(Boolean pricePerKg) {
-        this.pricePerKg = pricePerKg;
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Date getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(Date expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
+    public String getConfectionerName() {
+        return confectionerName;
+    }
+
+    public void setConfectionerName(String confectionerName) {
+        this.confectionerName = confectionerName;
     }
 
     public List<Ingredient> getIngredients() {
@@ -56,31 +80,6 @@ public class Sweet {
         this.ingredients = ingredients;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public Double getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Double weight) {
-        this.weight = weight;
-    }
-
-
     public String manufacture() {
         return "mix " + this.getIngredients().toString();
     }
@@ -90,15 +89,4 @@ public class Sweet {
         System.out.println("mix " + this.getIngredients().toString() + " on " + sdf.format(date));
     }
 
-    @Override
-    public String toString() {
-        return "Sweet{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", price=" + price +
-                ", weight=" + weight +
-                ", pricePerKg=" + pricePerKg +
-                ", ingredients=" + ingredients +
-                '}';
-    }
 }

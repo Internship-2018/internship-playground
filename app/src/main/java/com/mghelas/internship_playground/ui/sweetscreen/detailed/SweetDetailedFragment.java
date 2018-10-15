@@ -9,6 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mghelas.internship_playground.storage.dao.impl.SweetDaoImpl;
+import com.mghelas.internship_playground.storage.dao.intf.SweetDao;
+import com.mghelas.internship_playground.storage.datasource.DbHelper;
 import com.mghelas.internship_playground.storage.entity.Sweet;
 import com.mghelas.internship_playground.ui.sweetscreen.detailed.impl.DbDetailedLoaderCallbackImpl;
 import com.mghelas.internship_playground.ui.sweetscreen.detailed.impl.DbSweetRemoveLoaderCallbackImpl;
@@ -29,6 +32,8 @@ public class SweetDetailedFragment extends Fragment {
     SweetDetailedModelImpl sweetDetailedModel;
     SweetDetailedWireframe sweetDetailedWireframe;
     SweetDetailedCallback sweetDetailedCallback;
+    DbHelper dbHelper;
+    SweetDao sweetDao;
     LoaderManager.LoaderCallbacks<Sweet> detailedLoaderCallback;
     LoaderManager.LoaderCallbacks<Integer> sweetRemoverCallback;
 
@@ -36,9 +41,10 @@ public class SweetDetailedFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SweetDetailedViewImpl sweetDetailedView = new SweetDetailedViewImpl();
-
-        final DbDetailedLoader dbDetailedLoader = new DbDetailedLoader(getContext());
-        final RemoveSweetLoader removeSweetLoader = new RemoveSweetLoader(getContext());
+        dbHelper = DbHelper.getInstance(getContext());
+        sweetDao = new SweetDaoImpl(dbHelper);
+        final DbDetailedLoader dbDetailedLoader = new DbDetailedLoader(getContext(), sweetDao);
+        final RemoveSweetLoader removeSweetLoader = new RemoveSweetLoader(getContext(), sweetDao);
 
         sweetDetailedModel = new SweetDetailedModelImpl(dbDetailedLoader, removeSweetLoader);
 

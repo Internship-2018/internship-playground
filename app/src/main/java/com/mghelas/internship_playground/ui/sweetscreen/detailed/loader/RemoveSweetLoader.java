@@ -16,9 +16,9 @@ public class RemoveSweetLoader extends AsyncTaskLoader<Integer> implements Sweet
     private Sweet sweet;
     private SweetDao sweetDao;
 
-    public RemoveSweetLoader(@NonNull Context context) {
+    public RemoveSweetLoader(@NonNull Context context, SweetDao sweetDao) {
         super(context);
-        sweetDao = new SweetDaoImpl();
+        this.sweetDao = sweetDao;
     }
 
     @Nullable

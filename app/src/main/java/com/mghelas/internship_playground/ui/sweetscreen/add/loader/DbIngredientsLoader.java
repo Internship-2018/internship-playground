@@ -15,9 +15,9 @@ import java.util.List;
 public class DbIngredientsLoader extends AsyncTaskLoader<List<Ingredient>> implements IngredientsFetcher {
     private IngredientDao ingredientDao;
 
-    public DbIngredientsLoader(@NonNull Context context) {
+    public DbIngredientsLoader(@NonNull Context context, IngredientDao ingredientDao) {
         super(context);
-        ingredientDao = new IngredientDaoImpl();
+        this.ingredientDao = ingredientDao;
     }
 
     @Nullable

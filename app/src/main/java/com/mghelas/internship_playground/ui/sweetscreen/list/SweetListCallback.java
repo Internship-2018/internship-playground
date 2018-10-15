@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface SweetListCallback {
     void onListLoaded(List<Sweet> sweets);
+    void onApiFailure(Throwable throwable);
 }

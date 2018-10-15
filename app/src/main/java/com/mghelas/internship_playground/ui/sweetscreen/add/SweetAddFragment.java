@@ -9,6 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mghelas.internship_playground.storage.dao.impl.IngredientDaoImpl;
+import com.mghelas.internship_playground.storage.dao.impl.SweetDaoImpl;
+import com.mghelas.internship_playground.storage.dao.intf.IngredientDao;
+import com.mghelas.internship_playground.storage.dao.intf.SweetDao;
+import com.mghelas.internship_playground.storage.datasource.DbHelper;
 import com.mghelas.internship_playground.storage.entity.Ingredient;
 import com.mghelas.internship_playground.ui.sweetscreen.add.asynctask.SweetAddReturnCallback;
 import com.mghelas.internship_playground.ui.sweetscreen.add.impl.SweetAddModelImpl;
@@ -31,17 +36,23 @@ public class SweetAddFragment extends Fragment {
     SweetAddReturnCallback sweetAddReturnCallback;
     DbIngredientsLoader dbIngredientsLoader;
     IngredientsListCallback ingredientsListCallback;
+    DbHelper dbHelper;
+    SweetDao sweetDao;
+    IngredientDao ingredientDao;
 
     protected LoaderManager.LoaderCallbacks<List<Ingredient>> ingredientsLoaderCallbacks;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dbHelper = DbHelper.getInstance(getContext());
+        sweetDao = new SweetDaoImpl(dbHelper);
+        ingredientDao = new IngredientDaoImpl(dbHelper);
         SweetAddViewImpl sweetAddView = new SweetAddViewImpl();
         sweetAddNativeView = sweetAddView;
         sweetAddWireframe = new SweetAddWireframeImpl(this);
-        dbIngredientsLoader = new DbIngredientsLoader(getContext());
-        sweetAddModel = new SweetAddModelImpl(dbIngredientsLoader);
+        dbIngredientsLoader = new DbIngredientsLoader(getContext(), ingredientDao);
+        sweetAddModel = new SweetAddModelImpl(dbIngredientsLoader, sweetDao);
 
         sweetAddPresenter = new SweetAddPresenterImpl(sweetAddView, sweetAddModel, sweetAddWireframe);
         sweetAddReturnCallback = sweetAddPresenter;

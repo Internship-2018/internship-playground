@@ -35,9 +35,9 @@ public class SweetDetailedViewImpl implements SweetDetailedView, SweetDetailedNa
     public void initView(SweetDetailedFragment sweetDetailedFragment, SweetDetailedPresenter sweetDetailedPresenter) {
         this.sweetDetailedFragment = sweetDetailedFragment;
 
-        title = sweetDetailedFragment.getView().findViewById(R.id.titleDetailed);
-        price = sweetDetailedFragment.getView().findViewById(R.id.priceDetailed);
-        weight = sweetDetailedFragment.getView().findViewById(R.id.weightDetailed);
+        title = sweetDetailedFragment.getView().findViewById(R.id.nameDetailed);
+        price = sweetDetailedFragment.getView().findViewById(R.id.typeDetailed);
+        weight = sweetDetailedFragment.getView().findViewById(R.id.expiryDateDetailed);
         mixButton = sweetDetailedFragment.getView().findViewById(R.id.mixButton);
         removeButton = sweetDetailedFragment.getView().findViewById(R.id.removeButton);
 

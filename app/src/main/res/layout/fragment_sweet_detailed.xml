@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/titleLabel"
+        android:id="@+id/nameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -17,74 +17,94 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/titleDetailed"
+        android:id="@+id/nameDetailed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="264dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/titleLabel"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/priceLabel"
+        android:id="@+id/typeLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="Price:"
+        android:layout_marginTop="8dp"
+        android:text="Type:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/nameLabel" />
 
     <TextView
-        android:id="@+id/priceDetailed"
+        android:id="@+id/typeDetailed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/priceLabel"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="16dp"
+        android:layout_below="@id/typeLabel"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="264dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/priceLabel"
-        app:layout_constraintTop_toBottomOf="@+id/titleDetailed" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameDetailed" />
 
     <TextView
-        android:id="@+id/weightLabel"
+        android:id="@+id/expiryDateLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="Weight:"
+        android:layout_marginTop="8dp"
+        android:text="Expires:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/priceLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/typeLabel" />
 
     <TextView
-        android:id="@+id/weightDetailed"
+        android:id="@+id/expiryDateDetailed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="264dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/weightLabel"
-        app:layout_constraintTop_toBottomOf="@+id/priceDetailed" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/typeDetailed" />
+
+    <TextView
+        android:id="@+id/confectionerNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Confectioner:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/expiryDateLabel" />
+
+    <TextView
+        android:id="@+id/confectionerNameDetailed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="264dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/expiryDateDetailed" />
 
     <Button
         android:id="@+id/mixButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="70dp"
         android:layout_weight="1"
         android:text="mix"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weightDetailed" />
+        app:layout_constraintTop_toBottomOf="@+id/confectionerNameLabel" />
 
     <Button
         android:id="@+id/removeButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="88dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="70dp"
         android:text="Remove"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weightDetailed" />
+        app:layout_constraintTop_toBottomOf="@+id/confectionerNameDetailed" />
+
 </android.support.constraint.ConstraintLayout>

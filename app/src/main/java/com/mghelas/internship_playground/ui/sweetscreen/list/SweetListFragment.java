@@ -9,6 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mghelas.internship_playground.network.sweet.SweetServiceCall;
+import com.mghelas.internship_playground.network.sweet.SweetServiceCallImpl;
+import com.mghelas.internship_playground.storage.dao.impl.SweetDaoImpl;
+import com.mghelas.internship_playground.storage.dao.intf.SweetDao;
+import com.mghelas.internship_playground.storage.datasource.DbHelper;
 import com.mghelas.internship_playground.storage.entity.Sweet;
 import com.mghelas.internship_playground.ui.sweetscreen.list.impl.DbListLoaderCallbackImpl;
 import com.mghelas.internship_playground.ui.sweetscreen.list.impl.SweetListModelImpl;
@@ -28,14 +33,18 @@ public class SweetListFragment extends Fragment {
     SweetListWireframe sweetListWireframe;
     SweetListModelImpl sweetListModel;
     SweetListCallback sweetListCallback;
-
+    DbHelper dbHelper;
+    SweetDao sweetDao;
+    SweetServiceCall sweetServiceCall;
     protected LoaderManager.LoaderCallbacks<List<Sweet>> listLoaderCallbacks;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dbHelper = DbHelper.getInstance(getContext());
+        sweetDao = new SweetDaoImpl(dbHelper);
         final SweetListViewImpl view = new SweetListViewImpl();
-        final DbListLoader dbDataLoader = new DbListLoader(getContext());
+        final DbListLoader dbDataLoader = new DbListLoader(getContext(), sweetDao);
         sweetListModel = new SweetListModelImpl(dbDataLoader);
         sweetListWireframe = new SweetListWireframeImpl(this);
         sweetListPresenter = new SweetListPresenterImpl(view, sweetListWireframe, sweetListModel);
