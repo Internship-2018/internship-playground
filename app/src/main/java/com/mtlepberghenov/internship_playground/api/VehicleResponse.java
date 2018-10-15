@@ -2,9 +2,10 @@ package com.mtlepberghenov.internship_playground.api;
 
 import com.mtlepberghenov.internship_playground.storage.model.Vehicle;
 import java.util.List;
-import retrofit2.Call;
 
-public interface NetworkClient {
+public interface VehicleResponse {
 
-  Call<List<Vehicle>> getCallVehicles();
+  void onResponse(List<Vehicle> vehicles);
+
+  void onFailure();
 }

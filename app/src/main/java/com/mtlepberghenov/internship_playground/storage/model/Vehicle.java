@@ -1,17 +1,39 @@
 package com.mtlepberghenov.internship_playground.storage.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "vehicle")
 public class Vehicle {
 
-  @DatabaseField(generatedId = true) private int id;
-  @DatabaseField private String type;
-  @DatabaseField private String manufacturer;
-  @DatabaseField private String color;
-  @DatabaseField private String year;
-  @DatabaseField private String url;
+  @SerializedName("id")
+  @DatabaseField(generatedId = true)
+  private int id;
+
+  @SerializedName("type")
+  @DatabaseField
+  private String type;
+
+  @SerializedName("manufacturer")
+  @DatabaseField
+  private String manufacturer;
+
+  @SerializedName("model")
+  @DatabaseField
+  private String model;
+
+  @SerializedName("color")
+  @DatabaseField
+  private String color;
+
+  @SerializedName("year")
+  @DatabaseField
+  private String year;
+
+  @SerializedName("imageUrl")
+  @DatabaseField
+  private String imageUrl;
 
   public Vehicle() {
     // needed by ormlite
@@ -41,6 +63,14 @@ public class Vehicle {
     this.manufacturer = manufacturer;
   }
 
+  public String getModel() {
+    return model;
+  }
+
+  public void setModel(String model) {
+    this.model = model;
+  }
+
   public String getColor() {
     return color;
   }
@@ -57,11 +87,11 @@ public class Vehicle {
     this.year = year;
   }
 
-  public String getUrl() {
-    return url;
+  public String getImageUrl() {
+    return imageUrl;
   }
 
-  public void setUrl(String url) {
-    this.url = url;
+  public void setImageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
   }
 }
