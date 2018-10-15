@@ -1,4 +1,4 @@
-package com.example.nciuclea.oopzoomvp.welcome;
+package com.example.nciuclea.oopzoomvp.ui.welcome;
 
 interface WelcomeView {
     void onSetZooName(String zooNameText);

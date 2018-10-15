@@ -11,7 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.nciuclea.oopzoomvp.R;
-import com.example.nciuclea.oopzoomvp.database.model.DBAnimal;
+import com.example.nciuclea.oopzoomvp.storage.dao.Animal;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +20,10 @@ import java.util.List;
 public class AllAnimalsAdapter extends RecyclerView.Adapter<AllAnimalsAdapter.AnimalViewHolder>{
 
     private Context context;
-    private List<DBAnimal> animalsList;
+    private List<Animal> animalsList;
     private AllAnimalsClickHandler clickHandler;
 
-    public AllAnimalsAdapter(Context context, List<DBAnimal> animalsList) {
+    public AllAnimalsAdapter(Context context, List<Animal> animalsList) {
         this.context = context;
         this.animalsList = animalsList;
     }
@@ -30,7 +31,7 @@ public class AllAnimalsAdapter extends RecyclerView.Adapter<AllAnimalsAdapter.An
     @NonNull
     @Override
     public AllAnimalsAdapter.AnimalViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View animalView = LayoutInflater.from(viewGroup.getContext())
+        final View animalView = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.item_all_animals_animal, viewGroup, false);
         return new AnimalViewHolder(animalView);
     }
@@ -45,7 +46,7 @@ public class AllAnimalsAdapter extends RecyclerView.Adapter<AllAnimalsAdapter.An
         return animalsList.size();
     }
 
-    public void updateData(List<DBAnimal> animalList) {
+    public void updateData(List<Animal> animalList) {
         this.animalsList = new ArrayList<>(animalList);
         notifyDataSetChanged();
     }
@@ -59,29 +60,23 @@ public class AllAnimalsAdapter extends RecyclerView.Adapter<AllAnimalsAdapter.An
 
         ImageView animalImageView;
         TextView animalTextView;
-        Button animalOverallStateButton;
 
-        AnimalViewHolder(@NonNull View itemView) {
+        AnimalViewHolder(@NonNull final View itemView) {
             super(itemView);
-
-            animalImageView = itemView.findViewById(R.id.animalImageView);
-            animalTextView = itemView.findViewById(R.id.animalTextView);
-            animalOverallStateButton = itemView.findViewById(R.id.overallStateButton);
-            animalOverallStateButton.setOnClickListener(new View.OnClickListener() {
+            animalImageView = itemView.findViewById(R.id.allanimals_animalImageView);
+            animalTextView = itemView.findViewById(R.id.allanimals_animalNameTextView);
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    clickHandler.onClick(v, animalsList.get(getLayoutPosition()).getId());
+                    clickHandler.onClick(itemView, animalsList.get(getLayoutPosition()).getId());
                 }
             });
+
         }
 
-        void updateItemUI(DBAnimal animal) {
-            animalTextView.setText(animal.getType());
-            animalOverallStateButton.setText(animal.getOverallState().getText());
-            animalOverallStateButton.setTextColor(context.getResources()
-                    .getColor(animal.getOverallState().getColor()));
-            animalImageView.setImageDrawable(context.getResources()
-                    .getDrawable(animal.getImageID()));
+        void updateItemUI(Animal animal) {
+            Picasso.get().load(animal.getImageUrl()).into(animalImageView);
+            animalTextView.setText(animal.getName());
         }
     }
 }

@@ -45,8 +45,18 @@ dependencies {
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.5@aar') {
         transitive = true;
     }
-    def nav_version = "1.0.0-alpha06"
 
+    def nav_version = "1.0.0-alpha06"
     implementation "android.arch.navigation:navigation-fragment:$nav_version" // use -ktx for Kotlin
     implementation "android.arch.navigation:navigation-ui:$nav_version" // use -ktx for Kotlin
+
+    // https://mvnrepository.com/artifact/com.j256.ormlite/ormlite-core
+    implementation group: 'com.j256.ormlite', name: 'ormlite-core', version: '5.1'
+
+    // https://mvnrepository.com/artifact/com.j256.ormlite/ormlite-android
+    implementation group: 'com.j256.ormlite', name: 'ormlite-android', version: '5.1'
+
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+
 }

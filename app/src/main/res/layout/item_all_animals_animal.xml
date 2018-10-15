@@ -4,41 +4,36 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <ImageView
-        android:id="@+id/animalImageView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:id="@+id/allanimals_animalImageView"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:contentDescription="Animal Image"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/tiger" />
+        tools:src="@drawable/kinkajou" />
 
     <TextView
-        android:id="@+id/animalTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/allanimals_animalNameTextView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:textSize="30sp"
-        app:layout_constraintStart_toEndOf="@+id/animalImageView"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Tiger" />
-
-    <Button
-        android:id="@+id/overallStateButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="@string/actionButtonText"
+        android:layout_marginBottom="8dp"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/allanimals_animalImageView"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="GOOD"
-        tools:textColor="@color/green"/>
+        tools:text="Kinkajou" />
+
 
 </android.support.constraint.ConstraintLayout>

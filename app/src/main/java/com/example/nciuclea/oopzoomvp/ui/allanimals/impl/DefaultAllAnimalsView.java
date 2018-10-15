@@ -6,8 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.example.nciuclea.oopzoomvp.R;
-import com.example.nciuclea.oopzoomvp.database.model.DBAnimal;
-import com.example.nciuclea.oopzoomvp.ui.allanimals.*;
+import com.example.nciuclea.oopzoomvp.storage.dao.Animal;
+import com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsAdapter;
+import com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsClickHandler;
+import com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsNativeView;
+import com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +38,7 @@ public class DefaultAllAnimalsView implements AllAnimalsView, AllAnimalsNativeVi
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new AllAnimalsAdapter(context, new ArrayList<DBAnimal>());
+        adapter = new AllAnimalsAdapter(context, new ArrayList<Animal>());
         recyclerView.setAdapter(adapter);
     }
 
@@ -47,7 +50,7 @@ public class DefaultAllAnimalsView implements AllAnimalsView, AllAnimalsNativeVi
     }
 
     @Override
-    public void updateData(List<DBAnimal> animalList) {
+    public void updateData(List<Animal> animalList) {
         adapter.updateData(animalList);
     }
 }

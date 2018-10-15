@@ -20,7 +20,6 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="ce8cfccac9b850064b1e23f585eed97c20fcd370" />
-        <service android:name=".StateUpdaterService" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

@@ -7,24 +7,21 @@
 
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="com.example.nciuclea.oopzoomvp.welcome.WelcomeFragment"
+        android:name="com.example.nciuclea.oopzoomvp.ui.welcome.WelcomeFragment"
         android:label="fragment_welcome"
         tools:layout="@layout/fragment_welcome" >
-        <action
-            android:id="@+id/action_welcomeFragment_to_zooFragment"
-            app:destination="@id/zooFragment" />
         <action
             android:id="@+id/action_welcomeFragment_to_allAnimalsFragment"
             app:destination="@id/allAnimalsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/zooFragment"
-        android:name="com.example.nciuclea.oopzoomvp.zoo.ZooFragment"
-        android:label="fragment_zoo"
-        tools:layout="@layout/fragment_zoo" />
-    <fragment
         android:id="@+id/allAnimalsFragment"
         android:name="com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsFragment"
         android:label="fragment_all_animals"
         tools:layout="@layout/fragment_all_animals" />
+    <fragment
+        android:id="@+id/animalDescriptionFragment"
+        android:name="com.example.nciuclea.oopzoomvp.ui.animaldescription.AnimalDescriptionFragment"
+        android:label="fragment_animal_description"
+        tools:layout="@layout/fragment_animal_description" />
 </navigation>

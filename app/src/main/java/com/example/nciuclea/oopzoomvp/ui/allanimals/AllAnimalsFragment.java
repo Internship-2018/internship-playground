@@ -1,10 +1,6 @@
 package com.example.nciuclea.oopzoomvp.ui.allanimals;
 
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -13,8 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.nciuclea.oopzoomvp.StateUpdaterService;
-import com.example.nciuclea.oopzoomvp.database.model.DBAnimal;
+import com.example.nciuclea.oopzoomvp.storage.dao.Animal;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.impl.DefaultAllAnimalsModel;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.impl.DefaultAllAnimalsPresenter;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.impl.DefaultAllAnimalsView;
@@ -33,8 +28,7 @@ public class AllAnimalsFragment extends Fragment {
     private static final int LOADER_ID = 13337;
     private AllAnimalsNativeView allAnimalsNativeView;
     private AllAnimalsPresenter allAnimalsPresenter;
-    private BroadcastReceiver broadcastReceiver;
-    protected LoaderManager.LoaderCallbacks<List<DBAnimal>> listLoaderCallbacks;
+    protected LoaderManager.LoaderCallbacks<List<Animal>> listLoaderCallbacks;
 
     public AllAnimalsFragment() {
         // Required empty public constructor
@@ -44,20 +38,22 @@ public class AllAnimalsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("FRAGMENT_LIFECYCLE", "onCreate()");
+
         //creating View
         DefaultAllAnimalsView view = new DefaultAllAnimalsView(getContext());
         allAnimalsNativeView = view;
+
         //Creating Loader and initing it in LoaderManager
         DBDataLoader dbDataLoader = new DBDataLoader(getContext()); //TODO After screen rotation model looses loader callback
         DefaultAllAnimalsModel defaultAllAnimalsModel = new DefaultAllAnimalsModel(dbDataLoader);
         listLoaderCallbacks = new DefaultDBLoaderCallback(dbDataLoader, defaultAllAnimalsModel);
-        LoaderManager.getInstance(this).initLoader(LOADER_ID, null, listLoaderCallbacks).forceLoad(); //forceload()
+        LoaderManager.getInstance(this).initLoader(LOADER_ID, null, listLoaderCallbacks);
+
         //creating Presenter (with Model and WireFrame inside)
         DefaultAllAnimalsPresenter defaultAllAnimalsPresenter = new DefaultAllAnimalsPresenter(
                 view, defaultAllAnimalsModel, new DefaultAllAnimalsWireFrame(this));
         allAnimalsPresenter = defaultAllAnimalsPresenter;
         defaultAllAnimalsModel.setModelUpdatedCallback(defaultAllAnimalsPresenter);
-
     }
 
 
@@ -66,22 +62,12 @@ public class AllAnimalsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.d("FRAGMENT_LIFECYCLE", "onCreateView()");
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(allAnimalsNativeView.getLayout(), container, false);
         allAnimalsNativeView.initView(view);
         allAnimalsNativeView.setOnClickHandler(allAnimalsPresenter);
         allAnimalsPresenter.onViewInitialized();
-        broadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                allAnimalsPresenter.onDBUpdateReceive();
-            }
-        };
-        //Starting Service and registering Broadcast Receiver
-        Intent intent = new Intent(getContext(), StateUpdaterService.class).putExtra(StateUpdaterService.UPDATE_INTERVAL, 5000L);
-        getActivity().startService(intent);
-        IntentFilter intentFilter = new IntentFilter(StateUpdaterService.BROADCAST_ACTION);
-        getActivity().registerReceiver(broadcastReceiver, intentFilter);
         return view;
     }
 
@@ -97,9 +83,6 @@ public class AllAnimalsFragment extends Fragment {
         super.onDestroyView();
         Log.d("FRAGMENT_LIFECYCLE", "onDestroyView()");
 
-        Log.d("FRGMNT_LIFE", "onDesctroyView called");
-        getActivity().unregisterReceiver(broadcastReceiver);
-        getActivity().stopService(new Intent(getContext(), StateUpdaterService.class));
     }
 
 }
