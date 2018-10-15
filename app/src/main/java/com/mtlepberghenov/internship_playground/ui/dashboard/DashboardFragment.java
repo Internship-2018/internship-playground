@@ -9,9 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.mtlepberghenov.internship_playground.networking.state.DefaultNetworkChecker;
 import com.mtlepberghenov.internship_playground.networking.state.NetworkChecker;
+import com.mtlepberghenov.internship_playground.storage.dao.DaoVehicle;
+import com.mtlepberghenov.internship_playground.storage.dao.impl.DefaultDaoVehicle;
+import com.mtlepberghenov.internship_playground.storage.datasource.DbHelper;
+import com.mtlepberghenov.internship_playground.storage.datasource.impl.DefaultDbHelper;
+import com.mtlepberghenov.internship_playground.storage.model.Vehicle;
+import com.mtlepberghenov.internship_playground.ui.dashboard.impl.DefaultDashboardModel;
 import com.mtlepberghenov.internship_playground.ui.dashboard.impl.DefaultDashboardPresenter;
 import com.mtlepberghenov.internship_playground.ui.dashboard.impl.DefaultDashboardView;
-import com.mtlepberghenov.internship_playground.ui.dashboard.impl.DefaultDashboardModel;
 
 public class DashboardFragment extends Fragment {
 
@@ -23,7 +28,11 @@ public class DashboardFragment extends Fragment {
     final DefaultDashboardView view = new DefaultDashboardView();
     nativeView = view;
     final DashboardAdapter adapter = new DefaultDashboardAdapter();
-    final DashboardModel model = new DefaultDashboardModel();
+
+    final DbHelper dbHelper = DefaultDbHelper.getInstance(getContext());
+    final DaoVehicle daoVehicle = new DefaultDaoVehicle(dbHelper);
+
+    final DashboardModel model = new DefaultDashboardModel(daoVehicle);
     final NetworkChecker networkChecker = new DefaultNetworkChecker(getContext());
     presenter = new DefaultDashboardPresenter(view, model, adapter, networkChecker);
   }

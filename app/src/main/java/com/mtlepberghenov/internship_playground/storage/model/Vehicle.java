@@ -1,7 +1,9 @@
 package com.mtlepberghenov.internship_playground.storage.model;
 
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
+@DatabaseTable(tableName = "vehicle")
 public class Vehicle {
 
   @DatabaseField(generatedId = true) private int id;
