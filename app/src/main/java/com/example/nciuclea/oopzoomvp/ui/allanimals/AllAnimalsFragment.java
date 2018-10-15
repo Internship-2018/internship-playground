@@ -8,18 +8,18 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.nciuclea.oopzoomvp.App;
 import com.example.nciuclea.oopzoomvp.StateUpdaterService;
-import com.example.nciuclea.oopzoomvp.database.DatabaseHelper;
 import com.example.nciuclea.oopzoomvp.database.model.DBAnimal;
-import com.example.nciuclea.oopzoomvp.ui.allanimals.impl.*;
+import com.example.nciuclea.oopzoomvp.ui.allanimals.impl.DefaultAllAnimalsModel;
+import com.example.nciuclea.oopzoomvp.ui.allanimals.impl.DefaultAllAnimalsPresenter;
+import com.example.nciuclea.oopzoomvp.ui.allanimals.impl.DefaultAllAnimalsView;
+import com.example.nciuclea.oopzoomvp.ui.allanimals.impl.DefaultAllAnimalsWireFrame;
+import com.example.nciuclea.oopzoomvp.ui.allanimals.impl.DefaultDBLoaderCallback;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.loaders.DBDataLoader;
 
 import java.util.List;
