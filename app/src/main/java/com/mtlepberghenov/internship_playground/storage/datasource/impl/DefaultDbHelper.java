@@ -6,7 +6,7 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
 import com.mtlepberghenov.internship_playground.storage.dao.Dao;
 import com.mtlepberghenov.internship_playground.storage.datasource.DbHelper;
-import com.mtlepberghenov.internship_playground.storage.model.Data;
+import com.mtlepberghenov.internship_playground.storage.model.Vehicle;
 import java.util.List;
 
 public class DefaultDbHelper extends OrmLiteSqliteOpenHelper implements DbHelper, Dao {
@@ -27,11 +27,11 @@ public class DefaultDbHelper extends OrmLiteSqliteOpenHelper implements DbHelper
       int newVersion) {
   }
 
-  @Override public void insert(Data data){
+  @Override public void insert(Vehicle vehicle){
     //todo
   }
 
-  @Override public List<Data> selectAll() {
+  @Override public List<Vehicle> selectAll() {
     //todo
     return null;
   }

@@ -9,7 +9,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.mtlepberghenov.internship_playground.R;
-import com.mtlepberghenov.internship_playground.storage.model.Data;
+import com.mtlepberghenov.internship_playground.storage.model.Vehicle;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class DefaultDashboardAdapter
     extends RecyclerView.Adapter<DefaultDashboardAdapter.ViewHolder>
     implements DashboardAdapter {
 
-  private List<Data> list = new ArrayList<>();
+  private List<Vehicle> list = new ArrayList<>();
 
   // FIXME: Delete when will be api
   private String[] testArray = {
@@ -45,7 +45,7 @@ public class DefaultDashboardAdapter
     return testArray.length;
   }
 
-  @Override public void updateData(List<Data> list) {
+  @Override public void updateData(List<Vehicle> list) {
     this.list.clear();
     this.list.addAll(list);
     notifyDataSetChanged();

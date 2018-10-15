@@ -2,7 +2,7 @@ package com.mtlepberghenov.internship_playground.ui.dashboard.impl;
 
 import com.mtlepberghenov.internship_playground.networking.state.NetworkChecker;
 import com.mtlepberghenov.internship_playground.networking.state.NetworkState;
-import com.mtlepberghenov.internship_playground.storage.model.Data;
+import com.mtlepberghenov.internship_playground.storage.model.Vehicle;
 import com.mtlepberghenov.internship_playground.ui.dashboard.DashboardAdapter;
 import com.mtlepberghenov.internship_playground.ui.dashboard.DashboardModel;
 import com.mtlepberghenov.internship_playground.ui.dashboard.DashboardPresenter;
@@ -32,7 +32,7 @@ public class DefaultDashboardPresenter implements DashboardPresenter, NetworkSta
 
   @Override public void offLineState() {
     Timber.d("offLineState");
-    List<Data>  list = model.getData();
+    List<Vehicle>  list = model.getData();
     view.updateData(list);
   }
 

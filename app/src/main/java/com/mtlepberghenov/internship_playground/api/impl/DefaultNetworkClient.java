@@ -1,7 +1,7 @@
 package com.mtlepberghenov.internship_playground.api.impl;
 
 import com.mtlepberghenov.internship_playground.api.NetworkClient;
-import com.mtlepberghenov.internship_playground.storage.model.Data;
+import com.mtlepberghenov.internship_playground.storage.model.Vehicle;
 import java.util.List;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -23,14 +23,14 @@ public class DefaultNetworkClient implements NetworkClient {
         .build();
 
     Service service = retrofit.create(Service.class);
-    Call<List<Data>> call = service.list("someparam");
+    Call<List<Vehicle>> call = service.list("someparam");
     // FIXME: pass call back to presenter
-    call.enqueue(new Callback<List<Data>>() {
-      @Override public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
+    call.enqueue(new Callback<List<Vehicle>>() {
+      @Override public void onResponse(Call<List<Vehicle>> call, Response<List<Vehicle>> response) {
 
       }
 
-      @Override public void onFailure(Call<List<Data>> call, Throwable t) {
+      @Override public void onFailure(Call<List<Vehicle>> call, Throwable t) {
         t.printStackTrace();
       }
     });
