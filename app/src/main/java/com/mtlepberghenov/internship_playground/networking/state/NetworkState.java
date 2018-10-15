@@ -4,5 +4,5 @@ public interface NetworkState {
 
   void offLineState();
 
-  void onLineState();
+  void onlineState();
 }

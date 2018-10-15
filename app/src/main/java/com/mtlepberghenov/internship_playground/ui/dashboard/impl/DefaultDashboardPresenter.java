@@ -32,12 +32,13 @@ public class DefaultDashboardPresenter implements DashboardPresenter, NetworkSta
 
   @Override public void offLineState() {
     Timber.d("offLineState");
-    //List<Data>  list = model.getData();
-    //view.updateData(list);
+    List<Data>  list = model.getData();
+    view.updateData(list);
   }
 
-  @Override public void onLineState() {
-    Timber.d("onLineState");
+  @Override public void onlineState() {
+    Timber.d("onlineState");
+    model.doRequest();
     //todo do a request
     //todo load data from the db
   }

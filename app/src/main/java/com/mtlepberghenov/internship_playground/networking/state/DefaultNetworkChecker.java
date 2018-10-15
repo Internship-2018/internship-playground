@@ -6,7 +6,7 @@ import android.net.NetworkInfo;
 
 public class DefaultNetworkChecker implements NetworkChecker {
 
-  NetworkInfo netInfo;
+  private NetworkInfo netInfo;
 
   public DefaultNetworkChecker(Context context) {
     ConnectivityManager cm = (ConnectivityManager) context
@@ -17,7 +17,7 @@ public class DefaultNetworkChecker implements NetworkChecker {
 
   @Override public void check(NetworkState netState) {
     if (netInfo != null && netInfo.isConnected()) {
-      netState.onLineState();
+      netState.onlineState();
     } else {
       netState.offLineState();
     }
