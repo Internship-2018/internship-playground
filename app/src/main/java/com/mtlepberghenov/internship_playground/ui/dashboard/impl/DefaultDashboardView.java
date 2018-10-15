@@ -42,4 +42,8 @@ public class DefaultDashboardView implements DashboardNativeView, DashboardView 
   @Override public void updateData(List<Vehicle> list) {
     adapter.updateData(list);
   }
+
+  @Override public void showMessage() {
+    //todo show message
+  }
 }

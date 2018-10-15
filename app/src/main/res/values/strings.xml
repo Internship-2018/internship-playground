@@ -1,23 +1,20 @@
 <resources>
-    <string name="app_name">internship-playground</string>
-    <string name="show_store">Show store</string>
-    <string name="color">Color:</string>
-    <string name="model">Model:</string>
-    <string name="year">Year:</string>
-    <string name="carkit">CarKit:</string>
-    <string name="air_con">Air-Con.:</string>
-    <string name="gps">GPS:</string>
-    <string name="item_text">Type: %s\nMake: %s\nModel: %s\nColor: %s\nYear: %s</string>
+  <string name="app_name">internship-playground</string>
+  <string name="show_store">Show store</string>
+
+
+
+
+
+
+  <string name="item_text">ID: %s\nType: %s\nManufacturer: %s\nModel: %s\nColor: %s\nYear: %s</string>
   <string name="error">Error</string>
-    <string name="Done">Done</string>
-  <string name="type">Type</string>
-  <string name="vehicle_model">Model</string>
-  <string name="vehicle_color">Color</string>
-  <string name="vehicle_year">Year</string>
+  <string name="Done">Done</string>
+
   <string name="add">Add</string>
   <string name="cancel">Cancel</string>
   <string name="dialog_title">Add vehicle</string>
   <string name="empty_field_message">Some field is empty</string>
   <string name="done">Done</string>
-  <string name="maker">Maker</string>
+
 </resources>

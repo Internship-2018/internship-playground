@@ -3,11 +3,9 @@ package com.mtlepberghenov.internship_playground.ui.dashboard;
 import com.mtlepberghenov.internship_playground.storage.model.Vehicle;
 import java.util.List;
 
-public interface DashboardView {
+public interface RequestState {
 
-  void setAdapter(DashboardAdapter adapter);
+  void onResponse(List<Vehicle> list);
 
-  void updateData(List<Vehicle> list);
-
-  void showMessage();
+  void onFailure();
 }

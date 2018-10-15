@@ -5,29 +5,23 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.mtlepberghenov.internship_playground.R;
 import com.mtlepberghenov.internship_playground.storage.model.Vehicle;
+import com.squareup.picasso.Picasso;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import timber.log.Timber;
 
 public class DefaultDashboardAdapter
     extends RecyclerView.Adapter<DefaultDashboardAdapter.ViewHolder>
     implements DashboardAdapter {
 
   private List<Vehicle> list = new ArrayList<>();
-
-  // FIXME: Delete when will be api
-  private String[] testArray = {
-      "Hello",
-      "Hello",
-      "Hello",
-      "Hello",
-      "Hello",
-      "Hello",
-  };
 
   @NonNull @Override public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
     View v = LayoutInflater.from(viewGroup.getContext())
@@ -36,13 +30,12 @@ public class DefaultDashboardAdapter
   }
 
   @Override public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-    // FIXME: change to list.get(i) when will be api
-    holder.bindData(testArray[i]);
+
+    holder.bindData(list.get(i));
   }
 
   @Override public int getItemCount() {
-    // FIXME: Change to list.size() when will be api
-    return testArray.length;
+    return list.size();
   }
 
   @Override public void updateData(List<Vehicle> list) {
@@ -53,16 +46,32 @@ public class DefaultDashboardAdapter
 
   static class ViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.item_recycler_view) TextView textView;
+    @BindView(R.id.item_recycler_text_view) TextView textView;
+    @BindView(R.id.item_recycler_image_view) ImageView imageView;
 
     ViewHolder(@NonNull View v) {
       super(v);
       ButterKnife.bind(this, v);
     }
 
-    void bindData(String s) {
-      // FIXME: change when will be api
-      textView.setText(s);
+    void bindData(Vehicle vehicle) {
+      /* Note: ID: %s\nType: %s\nManufacturer: %s\nModel: %s\nColor: %s\nYear: %s */
+      StringBuilder sb = new StringBuilder();
+      String itemText = textView.getContext().getString(R.string.item_text);
+      sb.append(String.format(itemText,
+          vehicle.getIdString(),
+          vehicle.getType(),
+          vehicle.getManufacturer(),
+          vehicle.getModel(),
+          vehicle.getColor(),
+          vehicle.getYear())
+      );
+
+      textView.setText(sb.toString());
+      sb.delete(0, sb.length());
+
+      Timber.d(vehicle.getImageUrl());
+      Picasso.get().load(vehicle.getImageUrl()).into(imageView);
     }
   }
 }

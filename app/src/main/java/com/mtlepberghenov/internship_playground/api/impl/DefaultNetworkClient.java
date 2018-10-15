@@ -12,12 +12,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DefaultNetworkClient implements NetworkClient {
 
-  private String baseUrl;
   private Retrofit retrofit;
   private VehicleService vehicleService;
 
   public DefaultNetworkClient(String baseUrl) {
-    this.baseUrl = baseUrl;
     retrofit = new Retrofit.Builder()
         .baseUrl(baseUrl)
         .addConverterFactory(GsonConverterFactory.create())
@@ -26,7 +24,7 @@ public class DefaultNetworkClient implements NetworkClient {
   }
 
   @Override public Call<List<Vehicle>> getCallVehicles() {
-    return vehicleService.getVehicles();
+    return retrofit.create(VehicleService.class).getVehicles();
   }
 
   private OkHttpClient getHttpClient() {

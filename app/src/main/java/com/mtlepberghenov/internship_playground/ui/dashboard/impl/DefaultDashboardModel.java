@@ -6,6 +6,7 @@ import com.mtlepberghenov.internship_playground.storage.dao.DaoVehicle;
 import com.mtlepberghenov.internship_playground.storage.model.Vehicle;
 import com.mtlepberghenov.internship_playground.ui.dashboard.DashboardModel;
 import com.mtlepberghenov.internship_playground.ui.dashboard.DashboardPresenter;
+import com.mtlepberghenov.internship_playground.ui.dashboard.RequestState;
 import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
@@ -22,29 +23,21 @@ public class DefaultDashboardModel implements DashboardModel {
     this.dao = dao;
   }
 
-  @Override public void insertDataIntoDb(Vehicle v) {
-    dao.insert(v);
-  }
-
-  @Override public List<Vehicle> getAllDataFromDb() {
-    return dao.selectAll();
-  }
-
-  @Override public void deleteDataFromDb(Vehicle v) {
-    dao.delete(v);
-  }
-
-  @Override public void getListFroApi(VehicleResponse vehicleResponse) {
+  @Override public void doRequest(RequestState requestState) {
     networkClient.getCallVehicles().enqueue(new Callback<List<Vehicle>>() {
+
       @Override public void onResponse(Call<List<Vehicle>> call, Response<List<Vehicle>> response) {
         if (response.body() != null) {
-          vehicleResponse.onResponse(response.body());
+          requestState.onResponse(response.body());
+        } else {
+          requestState.onFailure();
         }
       }
 
       @Override public void onFailure(Call<List<Vehicle>> call, Throwable t) {
-
+        requestState.onFailure();
       }
     });
+
   }
 }

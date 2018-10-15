@@ -19,7 +19,7 @@ public class DefaultNetworkChecker implements NetworkChecker {
     if (netInfo != null && netInfo.isConnected()) {
       netState.onlineState();
     } else {
-      netState.offLineState();
+      netState.offlineState();
     }
   }
 }
