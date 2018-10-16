@@ -35,7 +35,7 @@ public class DefaultDashboardModel implements DashboardModel {
           } catch (InterruptedException e) {
             e.printStackTrace();
           }
-          requestState.onResponse(dao.selectAll());
+          requestState.onResponse();
         } else {
           requestState.onFailure();
         }
@@ -45,5 +45,9 @@ public class DefaultDashboardModel implements DashboardModel {
         requestState.onFailure();
       }
     });
+  }
+
+  @Override public List<Vehicle> loadData() {
+    return dao.selectAll();
   }
 }

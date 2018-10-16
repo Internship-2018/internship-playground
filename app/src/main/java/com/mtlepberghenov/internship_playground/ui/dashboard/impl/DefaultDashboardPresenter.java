@@ -10,7 +10,8 @@ import com.mtlepberghenov.internship_playground.ui.dashboard.DashboardView;
 import com.mtlepberghenov.internship_playground.ui.dashboard.RequestState;
 import java.util.List;
 
-public class DefaultDashboardPresenter implements DashboardPresenter, NetworkState, RequestState {
+public class DefaultDashboardPresenter
+    implements DashboardPresenter, NetworkState, RequestState {
 
   private DashboardView view;
   private DashboardModel model;
@@ -38,13 +39,14 @@ public class DefaultDashboardPresenter implements DashboardPresenter, NetworkSta
     model.doGetRequest(this);
   }
 
-  @Override public void onResponse(List<Vehicle> list) {
-    view.updateData(list);
+  @Override public void onResponse() {
+    view.updateData(model.loadData());
   }
 
   @Override public void onFailure() {
     view.showMessage();
   }
+
   private void checkNetworkState() {
     networkChecker.check(this);
   }

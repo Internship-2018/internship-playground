@@ -9,8 +9,6 @@ import timber.log.Timber;
 
 public class App extends Application {
 
-  private DefaultDbHelper dbHelper;
-
   @Override public void onCreate() {
     super.onCreate();
     Timber.plant(new Timber.DebugTree());

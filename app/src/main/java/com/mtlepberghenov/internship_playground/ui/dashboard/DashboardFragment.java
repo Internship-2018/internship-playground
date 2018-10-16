@@ -23,7 +23,8 @@ public class DashboardFragment extends Fragment {
 
   private DashboardNativeView nativeView;
   private DashboardPresenter presenter;
-  private static final String BASE_URL = "https://private-56cb57-mtlepberghenovtestapi.apiary-mock.com";
+  private static final String BASE_URL =
+      "https://private-56cb57-mtlepberghenovtestapi.apiary-mock.com";
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -32,7 +33,7 @@ public class DashboardFragment extends Fragment {
     final DashboardAdapter adapter = new DefaultDashboardAdapter();
     final DbHelper dbHelper = DefaultDbHelper.getInstance(getContext());
     final NetworkClient networkClient = DefaultNetworkClient.getInstance(BASE_URL);
-    final DaoVehicle daoVehicle = new DefaultDaoVehicle(dbHelper);
+    final DaoVehicle daoVehicle = DefaultDaoVehicle.getInstance(dbHelper);
     final DashboardModel model = new DefaultDashboardModel(networkClient, daoVehicle);
     final NetworkChecker networkChecker = new DefaultNetworkChecker(getContext());
     presenter = new DefaultDashboardPresenter(view, model, adapter, networkChecker);
