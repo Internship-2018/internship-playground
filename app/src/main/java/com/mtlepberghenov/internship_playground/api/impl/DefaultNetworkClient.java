@@ -35,6 +35,10 @@ public class DefaultNetworkClient implements NetworkClient {
     return retrofit.create(VehicleService.class).getVehicles();
   }
 
+  @Override public Call<Vehicle> setCallVehicle(Vehicle v) {
+    return retrofit.create(VehicleService.class).setVehicle(v);
+  }
+
   private OkHttpClient getHttpClient() {
     HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
     interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);

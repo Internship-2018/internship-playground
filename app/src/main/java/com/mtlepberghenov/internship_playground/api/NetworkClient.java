@@ -7,4 +7,6 @@ import retrofit2.Call;
 public interface NetworkClient {
 
   Call<List<Vehicle>> getCallVehicles();
+
+  Call<Vehicle> setCallVehicle(Vehicle v);
 }

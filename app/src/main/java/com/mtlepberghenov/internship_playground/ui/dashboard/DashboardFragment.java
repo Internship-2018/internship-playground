@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.mtlepberghenov.internship_playground.api.ApiUtils;
 import com.mtlepberghenov.internship_playground.api.NetworkClient;
 import com.mtlepberghenov.internship_playground.api.impl.DefaultNetworkClient;
 import com.mtlepberghenov.internship_playground.networking.state.DefaultNetworkChecker;
@@ -23,8 +24,6 @@ public class DashboardFragment extends Fragment {
 
   private DashboardNativeView nativeView;
   private DashboardPresenter presenter;
-  private static final String BASE_URL =
-      "https://private-56cb57-mtlepberghenovtestapi.apiary-mock.com";
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -32,7 +31,7 @@ public class DashboardFragment extends Fragment {
     nativeView = view;
     final DashboardAdapter adapter = new DefaultDashboardAdapter();
     final DbHelper dbHelper = DefaultDbHelper.getInstance(getContext());
-    final NetworkClient networkClient = DefaultNetworkClient.getInstance(BASE_URL);
+    final NetworkClient networkClient = DefaultNetworkClient.getInstance(ApiUtils.BASE_URL);
     final DaoVehicle daoVehicle = DefaultDaoVehicle.getInstance(dbHelper);
     final DashboardModel model = new DefaultDashboardModel(networkClient, daoVehicle);
     final NetworkChecker networkChecker = new DefaultNetworkChecker(getContext());
