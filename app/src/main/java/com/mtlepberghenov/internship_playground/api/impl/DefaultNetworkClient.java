@@ -35,7 +35,7 @@ public class DefaultNetworkClient implements NetworkClient {
     return retrofit.create(VehicleService.class).getVehicles();
   }
 
-  @Override public Call<Vehicle> setCallVehicle(Vehicle v) {
+  @Override public Call<Void> setCallVehicle(Vehicle v) {
     return retrofit.create(VehicleService.class).setVehicle(v);
   }
 

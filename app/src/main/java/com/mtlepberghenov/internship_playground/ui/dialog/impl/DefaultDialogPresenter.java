@@ -51,10 +51,10 @@ public class DefaultDialogPresenter implements DialogPresenter, NetworkState, Ve
   }
 
   @Override public void onResponse(List<Vehicle> vehicles) {
-    model.insert(v);
+    view.showMessage();
   }
 
   @Override public void onFailure() {
-
+    view.showMessage();
   }
 }
