@@ -35,7 +35,7 @@ public class DefaultDashboardPresenter implements DashboardPresenter, NetworkSta
   }
 
   @Override public void onlineState() {
-    model.doRequest(this);
+    model.doGetRequest(this);
   }
 
   @Override public void onResponse(List<Vehicle> list) {

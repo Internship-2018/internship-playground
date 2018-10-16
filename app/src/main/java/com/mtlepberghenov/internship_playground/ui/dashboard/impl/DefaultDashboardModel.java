@@ -23,12 +23,16 @@ public class DefaultDashboardModel implements DashboardModel {
     this.dao = dao;
   }
 
-  @Override public void doRequest(RequestState requestState) {
+  @Override public void doGetRequest(RequestState requestState) {
     networkClient.getCallVehicles().enqueue(new Callback<List<Vehicle>>() {
 
       @Override public void onResponse(Call<List<Vehicle>> call, Response<List<Vehicle>> response) {
         if (response.body() != null) {
-          requestState.onResponse(response.body());
+          new Thread(() -> {
+            dao.deleteAll();
+            dao.insert(response.body());
+          }).start();
+
         } else {
           requestState.onFailure();
         }

@@ -13,7 +13,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class DefaultNetworkClient implements NetworkClient {
 
   private Retrofit retrofit;
-  private VehicleService vehicleService;
 
   public DefaultNetworkClient(String baseUrl) {
     retrofit = new Retrofit.Builder()

@@ -6,7 +6,11 @@ interface BaseDao<O, I> {
 
   void insert(O o);
 
+  void insert(List<O> list);
+
   void delete(O o);
+
+  void deleteAll();
 
   List<O> selectAll();
 

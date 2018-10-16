@@ -1,6 +1,7 @@
 package com.mtlepberghenov.internship_playground.storage.dao.impl;
 
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.table.TableUtils;
 import com.mtlepberghenov.internship_playground.storage.dao.DaoVehicle;
 import com.mtlepberghenov.internship_playground.storage.datasource.DbHelper;
 import com.mtlepberghenov.internship_playground.storage.model.Vehicle;
@@ -28,9 +29,26 @@ public class DefaultDaoVehicle implements DaoVehicle {
     }
   }
 
+  @Override public void insert(List<Vehicle> list) {
+    try {
+      dao.create(list);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
   @Override public void delete(Vehicle v) {
     try {
       dao.delete(v);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Override public void deleteAll() {
+    try {
+      TableUtils.dropTable(dao.getConnectionSource(), Vehicle.class, false);
+      TableUtils.createTable(dao.getConnectionSource(), Vehicle.class);
     } catch (SQLException e) {
       e.printStackTrace();
     }
