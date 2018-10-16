@@ -31,7 +31,7 @@ public class DashboardFragment extends Fragment {
     nativeView = view;
     final DashboardAdapter adapter = new DefaultDashboardAdapter();
     final DbHelper dbHelper = DefaultDbHelper.getInstance(getContext());
-    final NetworkClient networkClient = new DefaultNetworkClient(BASE_URL);
+    final NetworkClient networkClient = DefaultNetworkClient.getInstance(BASE_URL);
     final DaoVehicle daoVehicle = new DefaultDaoVehicle(dbHelper);
     final DashboardModel model = new DefaultDashboardModel(networkClient, daoVehicle);
     final NetworkChecker networkChecker = new DefaultNetworkChecker(getContext());

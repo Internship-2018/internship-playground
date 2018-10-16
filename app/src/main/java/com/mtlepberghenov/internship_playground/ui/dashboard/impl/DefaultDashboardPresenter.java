@@ -45,7 +45,6 @@ public class DefaultDashboardPresenter implements DashboardPresenter, NetworkSta
   @Override public void onFailure() {
     view.showMessage();
   }
-
   private void checkNetworkState() {
     networkChecker.check(this);
   }

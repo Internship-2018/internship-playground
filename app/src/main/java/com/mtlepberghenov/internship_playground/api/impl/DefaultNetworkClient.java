@@ -14,7 +14,16 @@ public class DefaultNetworkClient implements NetworkClient {
 
   private Retrofit retrofit;
 
-  public DefaultNetworkClient(String baseUrl) {
+  private static DefaultNetworkClient defaultNetworkClient;
+
+  public static DefaultNetworkClient getInstance(String baseUrl) {
+    if (defaultNetworkClient == null) {
+      return defaultNetworkClient = new DefaultNetworkClient(baseUrl);
+    }
+    return defaultNetworkClient;
+  }
+
+  private DefaultNetworkClient(String baseUrl) {
     retrofit = new Retrofit.Builder()
         .baseUrl(baseUrl)
         .addConverterFactory(GsonConverterFactory.create())

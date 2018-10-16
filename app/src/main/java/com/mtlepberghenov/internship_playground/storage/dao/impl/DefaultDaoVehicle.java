@@ -12,8 +12,17 @@ import java.util.List;
 public class DefaultDaoVehicle implements DaoVehicle {
 
   private Dao<Vehicle, Integer> dao;
+  private static DefaultDaoVehicle defaultDaoVehicle;
 
-  public DefaultDaoVehicle(DbHelper dbHelper) {
+  public static DefaultDaoVehicle getInstance(DbHelper dbHelper) {
+    if (defaultDaoVehicle == null) {
+      defaultDaoVehicle = new DefaultDaoVehicle(dbHelper);
+      return defaultDaoVehicle;
+    }
+    return defaultDaoVehicle;
+  }
+
+  private DefaultDaoVehicle(DbHelper dbHelper) {
     try {
       this.dao = dbHelper.getVehicleDao();
     } catch (SQLException e) {

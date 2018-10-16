@@ -1,13 +1,10 @@
 package com.mtlepberghenov.internship_playground.ui.dashboard.impl;
 
 import com.mtlepberghenov.internship_playground.api.NetworkClient;
-import com.mtlepberghenov.internship_playground.api.VehicleResponse;
 import com.mtlepberghenov.internship_playground.storage.dao.DaoVehicle;
 import com.mtlepberghenov.internship_playground.storage.model.Vehicle;
 import com.mtlepberghenov.internship_playground.ui.dashboard.DashboardModel;
-import com.mtlepberghenov.internship_playground.ui.dashboard.DashboardPresenter;
 import com.mtlepberghenov.internship_playground.ui.dashboard.RequestState;
-import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,7 +15,7 @@ public class DefaultDashboardModel implements DashboardModel {
   private NetworkClient networkClient;
   private DaoVehicle dao;
 
-  public DefaultDashboardModel(NetworkClient networkClient,DaoVehicle dao) {
+  public DefaultDashboardModel(NetworkClient networkClient, DaoVehicle dao) {
     this.networkClient = networkClient;
     this.dao = dao;
   }
@@ -28,11 +25,17 @@ public class DefaultDashboardModel implements DashboardModel {
 
       @Override public void onResponse(Call<List<Vehicle>> call, Response<List<Vehicle>> response) {
         if (response.body() != null) {
-          new Thread(() -> {
+          Thread t = new Thread(() -> {
             dao.deleteAll();
             dao.insert(response.body());
-          }).start();
-
+          });
+          t.start();
+          try {
+            t.join();
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
+          requestState.onResponse(dao.selectAll());
         } else {
           requestState.onFailure();
         }
@@ -42,6 +45,5 @@ public class DefaultDashboardModel implements DashboardModel {
         requestState.onFailure();
       }
     });
-
   }
 }
