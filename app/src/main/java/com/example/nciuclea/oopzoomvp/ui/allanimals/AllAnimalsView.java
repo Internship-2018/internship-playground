@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface AllAnimalsView {
     void updateData(List<Animal> animalList);
+    void showNetworkError(String message);
 }

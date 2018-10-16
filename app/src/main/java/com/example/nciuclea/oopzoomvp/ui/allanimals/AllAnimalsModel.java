@@ -7,5 +7,7 @@ import java.util.List;
 public interface AllAnimalsModel {
     void pullFromDB();
 
-    void setModelUpdatedCallback(ModelUpdatedCallback<List<Animal>> modelUpdatedCallback);
+    void setDataUpdatedCallback(DataUpdatedCallback<List<Animal>> dataUpdatedCallback);
+
+    void pullFromApi();
 }

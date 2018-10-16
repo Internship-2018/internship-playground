@@ -10,12 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.nciuclea.oopzoomvp.storage.dao.Animal;
+import com.example.nciuclea.oopzoomvp.storage.datasource.DBHelper;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.impl.DefaultAllAnimalsModel;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.impl.DefaultAllAnimalsPresenter;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.impl.DefaultAllAnimalsView;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.impl.DefaultAllAnimalsWireFrame;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.impl.DefaultDBLoaderCallback;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.loaders.DBDataLoader;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import java.util.List;
 
@@ -45,7 +47,7 @@ public class AllAnimalsFragment extends Fragment {
 
         //Creating Loader and initing it in LoaderManager
         DBDataLoader dbDataLoader = new DBDataLoader(getContext()); //TODO After screen rotation model looses loader callback
-        DefaultAllAnimalsModel defaultAllAnimalsModel = new DefaultAllAnimalsModel(dbDataLoader);
+        DefaultAllAnimalsModel defaultAllAnimalsModel = new DefaultAllAnimalsModel(OpenHelperManager.getHelper(getContext(), DBHelper.class), dbDataLoader);
         listLoaderCallbacks = new DefaultDBLoaderCallback(dbDataLoader, defaultAllAnimalsModel);
         LoaderManager.getInstance(this).initLoader(LOADER_ID, null, listLoaderCallbacks);
 
@@ -53,10 +55,9 @@ public class AllAnimalsFragment extends Fragment {
         DefaultAllAnimalsPresenter defaultAllAnimalsPresenter = new DefaultAllAnimalsPresenter(
                 view, defaultAllAnimalsModel, new DefaultAllAnimalsWireFrame(this));
         allAnimalsPresenter = defaultAllAnimalsPresenter;
-        defaultAllAnimalsModel.setModelUpdatedCallback(defaultAllAnimalsPresenter);
+        defaultAllAnimalsModel.setDataUpdatedCallback(defaultAllAnimalsPresenter);
+        defaultAllAnimalsModel.setApiResponseReceivedCallback(defaultAllAnimalsPresenter);
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -1,20 +1,30 @@
 package com.example.nciuclea.oopzoomvp.storage.dao;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "zoopark")
 public class Zoopark {
 
-    @DatabaseField(generatedId = true, columnName = "id")
+    @SerializedName("id")
+    @Expose
+    @DatabaseField(id = true, columnName = "id")
     private int id;
 
+    @SerializedName("city")
+    @Expose
     @DatabaseField(columnName = "city")
     private String city;
 
+    @SerializedName("zooparkName")
+    @Expose
     @DatabaseField(columnName = "name")
     private String zooName;
 
+    @SerializedName("address")
+    @Expose
     @DatabaseField(columnName = "address")
     private String address;
 

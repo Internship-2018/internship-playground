@@ -53,4 +53,9 @@ public class DefaultAllAnimalsView implements AllAnimalsView, AllAnimalsNativeVi
     public void updateData(List<Animal> animalList) {
         adapter.updateData(animalList);
     }
+
+    @Override
+    public void showNetworkError(String message) {
+        //TODO Show network error message
+    }
 }

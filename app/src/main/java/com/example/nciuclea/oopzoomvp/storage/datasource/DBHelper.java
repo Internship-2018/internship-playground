@@ -18,7 +18,7 @@ import java.sql.SQLException;
 public class DBHelper extends OrmLiteSqliteOpenHelper {
 
     private static final String DATABASE_NAME = "animals_db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     private Dao<Animal, Integer> animalDao = null;
     private Dao<Zoopark, Integer> zooparkDao = null;
@@ -34,7 +34,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, Animal.class);
             TableUtils.createTable(connectionSource, Zoopark.class);
             TableUtils.createTable(connectionSource, AnimalZoopark.class);
-            getAnimalDao();
+            /* getAnimalDao();
             getZooparkDao();
             getAnimalZooparkDao();
             Animal animal1 = new Animal("Red Pand",
@@ -58,7 +58,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             animalZooparkDao.create(animal1Zoopark1);
             animalZooparkDao.create(animal1Zoopark2);
             animalZooparkDao.create(animal2Zoopark2);
-            animalZooparkDao.create(animal2Zoopark3);
+            animalZooparkDao.create(animal2Zoopark3); */
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -74,6 +74,19 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             onCreate(database, connectionSource);
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void onNewApiFetch() {
+        try {
+            TableUtils.dropTable(connectionSource, Animal.class, true);
+            TableUtils.dropTable(connectionSource, Zoopark.class, true);
+            TableUtils.dropTable(connectionSource, AnimalZoopark.class, true);
+            TableUtils.createTable(connectionSource, Animal.class);
+            TableUtils.createTable(connectionSource, Zoopark.class);
+            TableUtils.createTable(connectionSource, AnimalZoopark.class);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

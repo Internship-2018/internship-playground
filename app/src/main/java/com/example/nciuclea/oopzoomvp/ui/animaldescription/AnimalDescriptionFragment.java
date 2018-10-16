@@ -7,18 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.nciuclea.oopzoomvp.R;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link AnimalDescriptionFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link AnimalDescriptionFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class AnimalDescriptionFragment extends Fragment {
 
     private static final String ARG_ANIMANLID = "animalId";
@@ -26,19 +19,8 @@ public class AnimalDescriptionFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private int animalId;
 
-    private OnFragmentInteractionListener mListener;
-
     public AnimalDescriptionFragment() {
         // Required empty public constructor
-    }
-
-
-    public static AnimalDescriptionFragment newInstance(int animalId) {
-        AnimalDescriptionFragment fragment = new AnimalDescriptionFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_ANIMANLID, animalId);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -54,38 +36,9 @@ public class AnimalDescriptionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_animal_description, container, false);
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        View view = inflater.inflate(R.layout.fragment_animal_description, container, false);
+        TextView tv = view.findViewById(R.id.animalTextView);
+        tv.setText(String.valueOf(animalId));
+        return view;
     }
 }
