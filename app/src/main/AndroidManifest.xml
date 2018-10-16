@@ -22,7 +22,6 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="142bef5275583113ef493807f27836b2798ba6b1" />
-      <service android:name=".service.DefaultLoadDataIntentService"/>
     </application>
 
 

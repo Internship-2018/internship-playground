@@ -32,7 +32,8 @@ public class DefaultDashboardPresenter
   }
 
   @Override public void offlineState() {
-   //todo
+    List<Vehicle> list = model.loadData();
+    view.updateData(list);
   }
 
   @Override public void onlineState() {
@@ -40,7 +41,8 @@ public class DefaultDashboardPresenter
   }
 
   @Override public void onResponse() {
-    view.updateData(model.loadData());
+    List<Vehicle> list = model.loadData();
+    view.updateData(list);
   }
 
   @Override public void onFailure() {

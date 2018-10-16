@@ -16,5 +16,11 @@
   <string name="dialog_title">Add vehicle</string>
   <string name="empty_field_message">Some field is empty</string>
   <string name="done">Done</string>
+  <string name="type">Type</string>
+  <string name="manufacturer">Mnufacturer</string>
+  <string name="vehicle_model">Model</string>
+  <string name="vehicle_color">Color</string>
+  <string name="vehicle_year">Year</string>
+  <string name="url">Image url</string>
 
 </resources>
