@@ -1,5 +1,6 @@
 package com.example.nciuclea.oopzoomvp.ui.allanimals.impl;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
@@ -31,7 +32,7 @@ public class DefaultAllAnimalsPresenter implements AllAnimalsPresenter, ModelUpd
 
     @Override
     public void onClick(View v, int id) {
-        //TODO Open animal detail screen
+        allAnimalsWireframe.showAnimalDescription(id);
     }
 
     @Override

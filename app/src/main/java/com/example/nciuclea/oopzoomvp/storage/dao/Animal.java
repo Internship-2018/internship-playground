@@ -1,11 +1,11 @@
 package com.example.nciuclea.oopzoomvp.storage.dao;
 
-import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
-@DatabaseTable(tableName = "animals")
+import java.util.List;
+
+@DatabaseTable(tableName = "animal")
 public class Animal {
     @DatabaseField(columnName = "id", generatedId = true)
     private int id;
@@ -16,8 +16,7 @@ public class Animal {
     @DatabaseField(columnName = "image_url")
     private String imageUrl;
 
-    @ForeignCollectionField(columnName = "zoo_list", eager = true)
-    private ForeignCollection<Zoopark> zoos;
+    private List<Zoopark> zoos;
 
     @DatabaseField(columnName = "habitat")
     private String habitat;
@@ -32,10 +31,9 @@ public class Animal {
 
     }
 
-    public Animal(String name, String imageUrl, ForeignCollection<Zoopark> zoos, String habitat, String geo_location, String description) {
+    public Animal(String name, String imageUrl, String habitat, String geo_location, String description) {
         this.name = name;
         this.imageUrl = imageUrl;
-        this.zoos = zoos;
         this.habitat = habitat;
         this.geo_location = geo_location;
         this.description = description;
@@ -63,14 +61,6 @@ public class Animal {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    public ForeignCollection<Zoopark> getZoos() {
-        return zoos;
-    }
-
-    public void setZoos(ForeignCollection<Zoopark> zoos) {
-        this.zoos = zoos;
     }
 
     public String getHabitat() {

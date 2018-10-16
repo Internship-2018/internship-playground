@@ -18,10 +18,19 @@
         android:id="@+id/allAnimalsFragment"
         android:name="com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsFragment"
         android:label="fragment_all_animals"
-        tools:layout="@layout/fragment_all_animals" />
+        tools:layout="@layout/fragment_all_animals" >
+        <action
+            android:id="@+id/action_allAnimalsFragment_to_animalDescriptionFragment"
+            app:destination="@id/animalDescriptionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/animalDescriptionFragment"
         android:name="com.example.nciuclea.oopzoomvp.ui.animaldescription.AnimalDescriptionFragment"
         android:label="fragment_animal_description"
-        tools:layout="@layout/fragment_animal_description" />
+        tools:layout="@layout/fragment_animal_description" >
+        <argument
+            android:name="animalId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+    </fragment>
 </navigation>

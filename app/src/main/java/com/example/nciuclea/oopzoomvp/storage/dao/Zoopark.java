@@ -3,7 +3,7 @@ package com.example.nciuclea.oopzoomvp.storage.dao;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-@DatabaseTable(tableName = "zooparks")
+@DatabaseTable(tableName = "zoopark")
 public class Zoopark {
 
     @DatabaseField(generatedId = true, columnName = "id")
@@ -18,19 +18,14 @@ public class Zoopark {
     @DatabaseField(columnName = "address")
     private String address;
 
-    //for ORM mapping only
-    @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "animal_id")
-    private Animal animal;
-
     public Zoopark () {
 
     }
 
-    public Zoopark(String city, String zooName, String address, Animal animal) {
+    public Zoopark(String city, String zooName, String address) {
         this.city = city;
         this.zooName = zooName;
         this.address = address;
-        this.animal = animal;
     }
 
     public int getId() {
