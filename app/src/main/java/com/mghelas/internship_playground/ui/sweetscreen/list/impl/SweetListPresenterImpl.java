@@ -23,6 +23,7 @@ public class SweetListPresenterImpl implements SweetListPresenter {
     @Override
     public void onViewInitialised() {
         sweetListView.setOnItemClickHandler(this);
+        sweetListView.setOnDeleteClickHandler(this);
         sweetModel.getAll();
     }
 
@@ -40,5 +41,10 @@ public class SweetListPresenterImpl implements SweetListPresenter {
     @Override
     public void onApiFailure(Throwable throwable) {
         sweetListView.showError(throwable);
+    }
+
+    @Override
+    public void onDeleteClicked(String name) {
+        sweetModel.deleteByConfectionerName(name);
     }
 }

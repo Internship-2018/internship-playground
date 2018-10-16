@@ -1,5 +1,6 @@
 package com.mghelas.internship_playground.ui.sweetscreen.detailed.impl;
 
+import com.mghelas.internship_playground.network.sweet.SweetServiceCall;
 import com.mghelas.internship_playground.storage.entity.Sweet;
 import com.mghelas.internship_playground.ui.sweetscreen.add.asynctask.SweetAddCallback;
 import com.mghelas.internship_playground.ui.sweetscreen.detailed.DetailedFetcher;
@@ -14,6 +15,7 @@ public class SweetDetailedModelImpl implements SweetDetailedModel, DetailedLoadC
     private DetailedFetcher detailedFetcher;
     private SweetRemover sweetRemover;
     private SweetDetailedCallback sweetDetailedCallback;
+    private SweetServiceCall sweetServiceCall;
 
     public SweetDetailedModelImpl(DetailedFetcher detailedFetcher, SweetRemover sweetRemover) {
         this.detailedFetcher = detailedFetcher;
@@ -28,12 +30,22 @@ public class SweetDetailedModelImpl implements SweetDetailedModel, DetailedLoadC
 
     @Override
     public void remove(int id) {
+        sweetServiceCall.deleteById(id);
+    }
+
+    @Override
+    public void onRemoveCalled(int id) {
         sweetRemover.removeSweet(id);
     }
 
     @Override
     public void setSweetDetailedCallback(SweetDetailedCallback sweetDetailedCallback) {
         this.sweetDetailedCallback = sweetDetailedCallback;
+    }
+
+    @Override
+    public void setSweetServiceCall(SweetServiceCall sweetServiceCall) {
+        this.sweetServiceCall = sweetServiceCall;
     }
 
     @Override

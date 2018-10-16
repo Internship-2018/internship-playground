@@ -4,7 +4,9 @@ import android.app.Application;
 
 import com.mghelas.internship_playground.network.sweet.SweetServiceCall;
 import com.mghelas.internship_playground.network.sweet.SweetServiceCallImpl;
+import com.mghelas.internship_playground.storage.dao.impl.IngredientDaoImpl;
 import com.mghelas.internship_playground.storage.dao.impl.SweetDaoImpl;
+import com.mghelas.internship_playground.storage.dao.intf.IngredientDao;
 import com.mghelas.internship_playground.storage.dao.intf.SweetDao;
 import com.mghelas.internship_playground.storage.datasource.DbHelper;
 
@@ -14,6 +16,7 @@ public class App extends Application {
     StartupModel startupModel;
     SweetServiceCall sweetServiceCall;
     SweetDao sweetDao;
+    IngredientDao ingredientDao;
     DbHelper dbHelper;
 
     @Override
@@ -22,7 +25,8 @@ public class App extends Application {
         instance = this;
         dbHelper = DbHelper.getInstance(getApplicationContext());
         sweetDao = new SweetDaoImpl(dbHelper);
-        startupModel = new StartupModelImpl(sweetDao);
+        ingredientDao = new IngredientDaoImpl(dbHelper);
+        startupModel = new StartupModelImpl(sweetDao, ingredientDao);
         sweetServiceCall = new SweetServiceCallImpl(startupModel);
         startupModel.setSweetServiceCall(sweetServiceCall);
         startupPresenter = new StartupPresenterImpl(startupModel);

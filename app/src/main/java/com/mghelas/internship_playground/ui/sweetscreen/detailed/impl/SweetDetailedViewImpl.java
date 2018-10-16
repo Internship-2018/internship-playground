@@ -20,9 +20,10 @@ public class SweetDetailedViewImpl implements SweetDetailedView, SweetDetailedNa
     private RemoveClickHandler removeClickHandler;
     private SweetDetailedFragment sweetDetailedFragment;
 
-    private TextView title;
-    private TextView price;
-    private TextView weight;
+    private TextView name;
+    private TextView type;
+    private TextView expiryDate;
+    private TextView confectionerName;
     private Button mixButton;
     private Button removeButton;
 
@@ -35,9 +36,10 @@ public class SweetDetailedViewImpl implements SweetDetailedView, SweetDetailedNa
     public void initView(SweetDetailedFragment sweetDetailedFragment, SweetDetailedPresenter sweetDetailedPresenter) {
         this.sweetDetailedFragment = sweetDetailedFragment;
 
-        title = sweetDetailedFragment.getView().findViewById(R.id.nameDetailed);
-        price = sweetDetailedFragment.getView().findViewById(R.id.typeDetailed);
-        weight = sweetDetailedFragment.getView().findViewById(R.id.expiryDateDetailed);
+        name = sweetDetailedFragment.getView().findViewById(R.id.nameDetailed);
+        type = sweetDetailedFragment.getView().findViewById(R.id.typeDetailed);
+        expiryDate = sweetDetailedFragment.getView().findViewById(R.id.expiryDateDetailed);
+        confectionerName = sweetDetailedFragment.getView().findViewById(R.id.confectionerNameDetailed);
         mixButton = sweetDetailedFragment.getView().findViewById(R.id.mixButton);
         removeButton = sweetDetailedFragment.getView().findViewById(R.id.removeButton);
 
@@ -93,9 +95,10 @@ public class SweetDetailedViewImpl implements SweetDetailedView, SweetDetailedNa
 
     @Override
     public void bindData(Sweet sweet) {
-        title.setText(sweet.getTitle());
-        price.setText(sweet.getPrice() + "");
-        weight.setText(sweet.getWeight() + "");
+        name.setText(sweet.getName());
+        type.setText(sweet.getType());
+        expiryDate.setText(sweet.getExpiryDate() + "");
+        confectionerName.setText(sweet.getConfectionerName());
     }
 
 }

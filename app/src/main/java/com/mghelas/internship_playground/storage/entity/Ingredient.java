@@ -11,18 +11,26 @@ public class Ingredient {
     @DatabaseField(generatedId = true, columnName = ID_FIELD_NAME)
     private Integer id;
     @DatabaseField
-    private String title;
+    private String name;
+
+    private Double quantity;
 
     public Ingredient() {
     }
 
-    public Ingredient(String title) {
-        this.title = title;
+    public Ingredient(String name) {
+        this.name = name;
     }
 
-    public Ingredient(Integer id, String title) {
+    public Ingredient(Integer id, String name) {
         this.id = id;
-        this.title = title;
+        this.name = name;
+    }
+
+    public Ingredient(Integer id, String name, Double quantity) {
+        this.id = id;
+        this.name = name;
+        this.quantity = quantity;
     }
 
     public Integer getId() {
@@ -33,17 +41,25 @@ public class Ingredient {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Double getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Double quantity) {
+        this.quantity = quantity;
     }
 
     @Override
     public String toString() {
-        return title;
+        return name;
     }
 }
 

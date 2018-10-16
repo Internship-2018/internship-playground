@@ -8,5 +8,11 @@ import java.util.List;
 public interface SweetListModel {
     void getAll();
 
+    void deleteByConfectionerName(String name);
+
+    void onDeleteCalled(String name);
+
+    void setSweetServiceCall(SweetServiceCall sweetServiceCall);
+
     void setSweetListCallback(SweetListCallback sweetListCallback);
 }

@@ -2,6 +2,7 @@ package com.mghelas.internship_playground.ui.sweetscreen.add.impl;
 
 import android.os.AsyncTask;
 
+import com.mghelas.internship_playground.network.sweet.SweetServiceCall;
 import com.mghelas.internship_playground.storage.dao.intf.SweetDao;
 import com.mghelas.internship_playground.storage.entity.Ingredient;
 import com.mghelas.internship_playground.storage.entity.Sweet;
@@ -22,6 +23,7 @@ public class SweetAddModelImpl implements SweetAddModel, SweetAddCallback, Ingre
     private IngredientsListCallback ingredientsListCallback;
     private IngredientsFetcher ingredientsFetcher;
     private SweetDao sweetDao;
+    private SweetServiceCall sweetServiceCall;
 
     public SweetAddModelImpl(IngredientsFetcher ingredientsFetcher, SweetDao sweetDao) {
         this.ingredientsFetcher = ingredientsFetcher;
@@ -30,19 +32,24 @@ public class SweetAddModelImpl implements SweetAddModel, SweetAddCallback, Ingre
 
     @Override
     public void add(Sweet sweet) {
-        SweetAdd sweetAdd = new SweetAddImpl(this, sweetDao);
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        });
-        sweetAdd.add(sweet);
+        sweetServiceCall.create(sweet);
     }
 
     @Override
     public void getAllIngredients() {
         ingredientsFetcher.fetchIngredients();
+    }
+
+    @Override
+    public void onCreateCalled(Sweet sweet) {
+        SweetAdd sweetAdd = new SweetAddImpl(this, sweetDao);
+
+        sweetAdd.add(sweet);
+    }
+
+    @Override
+    public void setSweetServiceCall(SweetServiceCall sweetServiceCall) {
+        this.sweetServiceCall = sweetServiceCall;
     }
 
 

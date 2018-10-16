@@ -17,11 +17,11 @@ public interface SweetService {
     Call<List<Sweet>> getSweets();
 
     @POST("/sweet")
-    Call<Sweet> create(@Body Sweet sweet);
+    Call<Void> create(@Body Sweet sweet);
 
     @DELETE("/sweet/{id}")
-    Call<Integer> deleteById(@Path("id") int id);
+    Call<Void> deleteById(@Path("id") int id);
 
     @DELETE("/sweet/{confectioner_name}")
-    Call<Integer> deleteByConfectionerName(@Path("confectioner_name") String confectionerName);
+    Call<Void> deleteByConfectionerName(@Path("confectioner_name") String confectionerName);
 }

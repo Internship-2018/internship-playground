@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mghelas.internship_playground.network.sweet.SweetServiceCall;
+import com.mghelas.internship_playground.network.sweet.SweetServiceCallImpl;
 import com.mghelas.internship_playground.storage.dao.impl.IngredientDaoImpl;
 import com.mghelas.internship_playground.storage.dao.impl.SweetDaoImpl;
 import com.mghelas.internship_playground.storage.dao.intf.IngredientDao;
@@ -39,6 +41,7 @@ public class SweetAddFragment extends Fragment {
     DbHelper dbHelper;
     SweetDao sweetDao;
     IngredientDao ingredientDao;
+    SweetServiceCall sweetServiceCall;
 
     protected LoaderManager.LoaderCallbacks<List<Ingredient>> ingredientsLoaderCallbacks;
 
@@ -53,7 +56,8 @@ public class SweetAddFragment extends Fragment {
         sweetAddWireframe = new SweetAddWireframeImpl(this);
         dbIngredientsLoader = new DbIngredientsLoader(getContext(), ingredientDao);
         sweetAddModel = new SweetAddModelImpl(dbIngredientsLoader, sweetDao);
-
+        sweetServiceCall = new SweetServiceCallImpl(sweetAddModel);
+        sweetAddModel.setSweetServiceCall(sweetServiceCall);
         sweetAddPresenter = new SweetAddPresenterImpl(sweetAddView, sweetAddModel, sweetAddWireframe);
         sweetAddReturnCallback = sweetAddPresenter;
         ingredientsListCallback = sweetAddPresenter;

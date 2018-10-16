@@ -3,6 +3,7 @@ package com.mghelas.internship_playground.ui.sweetscreen.add.impl;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Switch;
@@ -17,6 +18,7 @@ import com.mghelas.internship_playground.ui.sweetscreen.add.SweetAddPresenter;
 import com.mghelas.internship_playground.ui.sweetscreen.add.SweetAddView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView {
@@ -34,10 +36,10 @@ public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView {
     public void initView(final SweetAddFragment sweetAddFragment, SweetAddPresenter sweetAddPresenter) {
         this.sweetAddFragment = sweetAddFragment;
         final Button addBtn = sweetAddFragment.getView().findViewById(R.id.create_sweet_btn);
-        final EditText title = sweetAddFragment.getView().findViewById(R.id.title_add);
-        final EditText price = sweetAddFragment.getView().findViewById(R.id.price_add);
-        final EditText weight = sweetAddFragment.getView().findViewById(R.id.weight_add);
-        final Switch pricePerKg = sweetAddFragment.getView().findViewById(R.id.price_per_kg_add);
+        final EditText title = sweetAddFragment.getView().findViewById(R.id.name_add);
+        final EditText type = sweetAddFragment.getView().findViewById(R.id.type_add);
+        final EditText confectionerName = sweetAddFragment.getView().findViewById(R.id.confectioner_name_add);
+        final CalendarView expiryDate = sweetAddFragment.getView().findViewById(R.id.expiry_date_add);
         switchContainer = sweetAddFragment.getView().findViewById(R.id.switch_container);
         sweetAddPresenter.getAllIngredients();
 
@@ -46,12 +48,11 @@ public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView {
             @Override
             public void onClick(View v) {
                 Sweet sweet = new Sweet(title.getText().toString(),
-                        Double.parseDouble(price.getText().toString()),
-                        Double.parseDouble(weight.getText().toString()),
-                        pricePerKg.isChecked());
+                        type.getText().toString(),
+                        expiryDate.getDate() + "",
+                        confectionerName.getText().toString());
                 List<Ingredient> ingredients = getIngredients(switchContainer);
                 sweet.setIngredients(ingredients);
-
 
                 onAddClicked(sweet);
             }
@@ -63,10 +64,11 @@ public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView {
 
         List<Ingredient> ingredients = new ArrayList<>();
 
-        for (int i = 0; i < switchContainer.getChildCount(); i++) {
+        for (int i = 0; i < switchContainer.getChildCount(); i = i + 2) {
             Switch s = (Switch) switchContainer.getChildAt(i);
             if (s.isChecked()) {
-                Ingredient ingredient = new Ingredient(s.getId(), s.getText().toString());
+                EditText quantity = (EditText) switchContainer.getChildAt(i + 1);
+                Ingredient ingredient = new Ingredient(s.getId(), s.getText().toString(), Double.parseDouble(quantity.getText().toString()));
                 ingredients.add(ingredient);
             }
         }
@@ -89,8 +91,12 @@ public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView {
         for (Ingredient ingredient : ingredients) {
             Switch aSwitch = new Switch(sweetAddFragment.getContext());
             aSwitch.setId(ingredient.getId());
-            aSwitch.setText(ingredient.getTitle());
+            aSwitch.setText(ingredient.getName());
             switchContainer.addView(aSwitch);
+
+            EditText quantity = new EditText(sweetAddFragment.getContext());
+            quantity.setHint("Quantity");
+            switchContainer.addView(quantity);
         }
     }
 }

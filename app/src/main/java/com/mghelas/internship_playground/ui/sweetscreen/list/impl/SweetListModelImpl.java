@@ -13,14 +13,33 @@ import java.util.List;
 public class SweetListModelImpl implements SweetListModel, ListLoadCallback<List<Sweet>> {
     private final ListFetcher dataFetcher;
     private SweetListCallback sweetListCallback;
+    private SweetServiceCall sweetServiceCall;
+    private SweetDao sweetDao;
 
-    public SweetListModelImpl(ListFetcher dataFetcher) {
+    public SweetListModelImpl(ListFetcher dataFetcher, SweetDao sweetDao) {
         this.dataFetcher = dataFetcher;
+        this.sweetDao = sweetDao;
     }
 
     @Override
     public void getAll() {
         dataFetcher.fetchData();
+    }
+
+    @Override
+    public void deleteByConfectionerName(String name) {
+        sweetServiceCall.deleteByConfectionerName(name);
+    }
+
+    @Override
+    public void onDeleteCalled(String name) {
+        sweetDao.deleteByConfectionerName(name);
+        getAll();
+    }
+
+    @Override
+    public void setSweetServiceCall(SweetServiceCall sweetServiceCall) {
+        this.sweetServiceCall = sweetServiceCall;
     }
 
     @Override

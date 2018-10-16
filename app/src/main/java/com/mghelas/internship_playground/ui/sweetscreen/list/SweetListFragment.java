@@ -45,12 +45,14 @@ public class SweetListFragment extends Fragment {
         sweetDao = new SweetDaoImpl(dbHelper);
         final SweetListViewImpl view = new SweetListViewImpl();
         final DbListLoader dbDataLoader = new DbListLoader(getContext(), sweetDao);
-        sweetListModel = new SweetListModelImpl(dbDataLoader);
+        sweetListModel = new SweetListModelImpl(dbDataLoader, sweetDao);
+        sweetServiceCall = new SweetServiceCallImpl(sweetListModel);
         sweetListWireframe = new SweetListWireframeImpl(this);
         sweetListPresenter = new SweetListPresenterImpl(view, sweetListWireframe, sweetListModel);
         sweetListCallback = sweetListPresenter;
         sweetListNativeView = view;
         sweetListModel.setSweetListCallback(sweetListCallback);
+        sweetListModel.setSweetServiceCall(sweetServiceCall);
         listLoaderCallbacks = new DbListLoaderCallbackImpl(dbDataLoader, sweetListModel);
         LoaderManager.getInstance(this).initLoader(LOADER_ID, null, listLoaderCallbacks);
     }

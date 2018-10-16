@@ -28,13 +28,32 @@ public class SweetDaoImpl extends GenericDaoImpl<Sweet> implements SweetDao {
 
     @Override
     public int save(Sweet entity) {
-        int id = dbHelper.getSweetDao().create(entity);
+
+        dbHelper.getSweetDao().create(entity);
+        if (entity.getId() == null) {
+            try {
+                entity.setId(dbHelper.getSweetDao().queryBuilder().orderBy("id", false).limit(1L).query().get(0).getId());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
         System.out.println(entity.getIngredients().toString());
         System.out.println(entity.getId());
         for (Ingredient ingredient : entity.getIngredients()) {
-            dbHelper.getSweetIngredientDao().create(new SweetIngredient(entity, ingredient));
+            try {
+                Ingredient checkIngredient = dbHelper.getIngredientDao().queryBuilder().where().eq("name", ingredient.getName()).queryForFirst();
+                if (checkIngredient == null) {
+                    dbHelper.getIngredientDao().create(ingredient);
+                } else {
+                    ingredient.setId(checkIngredient.getId());
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            dbHelper.getSweetIngredientDao().create(new SweetIngredient(entity, ingredient, ingredient.getQuantity()));
+
         }
-        return id;
+        return entity.getId();
     }
 
     @Override
@@ -91,6 +110,19 @@ public class SweetDaoImpl extends GenericDaoImpl<Sweet> implements SweetDao {
         try {
             db.delete();
             sweetIngredientIntegerDeleteBuilder.delete();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deleteByConfectionerName(String name) {
+        try {
+            List<Sweet> sweets = dbHelper.getSweetDao().queryBuilder().where().eq("confectioner_name", name).query();
+            for (Sweet sweet : sweets) {
+                dbHelper.getSweetIngredientDao().deleteBuilder().where().eq("id", sweet.getId());
+            }
+            dbHelper.getSweetDao().delete(sweets);
         } catch (SQLException e) {
             e.printStackTrace();
         }

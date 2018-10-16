@@ -1,5 +1,6 @@
 package com.mghelas.internship_playground.storage.entity;
 
+import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -9,23 +10,25 @@ import java.util.List;
 
 @DatabaseTable(tableName = "sweets")
 public class Sweet {
-    @DatabaseField
+    @DatabaseField(id = true)
     private Integer id;
     @DatabaseField
     private String type;
     @DatabaseField
     private String name;
-    @DatabaseField
-    private Date expiryDate;
-    @DatabaseField
+    @SerializedName("expiry_date")
+    @DatabaseField(columnName = "expiry_date")
+    private String expiryDate;
+    @SerializedName("confectioner_name")
+    @DatabaseField(columnName = "confectioner_name")
     private String confectionerName;
-
+    @SerializedName("ingredient")
     private List<Ingredient> ingredients;
 
     public Sweet() {
     }
 
-    public Sweet(String type, String name, Date expiryDate, String confectionerName) {
+    public Sweet(String name, String type, String expiryDate, String confectionerName) {
         this.type = type;
         this.name = name;
         this.expiryDate = expiryDate;
@@ -56,11 +59,11 @@ public class Sweet {
         this.name = name;
     }
 
-    public Date getExpiryDate() {
+    public String getExpiryDate() {
         return expiryDate;
     }
 
-    public void setExpiryDate(Date expiryDate) {
+    public void setExpiryDate(String expiryDate) {
         this.expiryDate = expiryDate;
     }
 

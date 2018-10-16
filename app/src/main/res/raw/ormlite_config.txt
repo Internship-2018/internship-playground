@@ -1,5 +1,5 @@
 #
-# generated on 2018/10/15 12:37:08
+# generated on 2018/10/16 12:47:37
 #
 # --table-start--
 dataClass=com.mghelas.internship_playground.storage.entity.Ingredient
@@ -11,7 +11,7 @@ columnName=id
 generatedId=true
 # --field-end--
 # --field-start--
-fieldName=title
+fieldName=name
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -25,16 +25,18 @@ fieldName=id
 id=true
 # --field-end--
 # --field-start--
-fieldName=title
+fieldName=type
 # --field-end--
 # --field-start--
-fieldName=price
+fieldName=name
 # --field-end--
 # --field-start--
-fieldName=weight
+fieldName=expiryDate
+columnName=expiry_date
 # --field-end--
 # --field-start--
-fieldName=pricePerKg
+fieldName=confectionerName
+columnName=confectioner_name
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -56,6 +58,9 @@ foreign=true
 fieldName=ingredient
 columnName=ingredient_id
 foreign=true
+# --field-end--
+# --field-start--
+fieldName=quantity
 # --field-end--
 # --table-fields-end--
 # --table-end--

@@ -5,4 +5,6 @@ import com.mghelas.internship_playground.storage.entity.Sweet;
 
 public interface SweetDao extends GenericDao<Sweet> {
 
+    void deleteByConfectionerName(String name);
+
 }
