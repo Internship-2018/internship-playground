@@ -1,6 +1,7 @@
 package com.mghelas.internship_playground.ui.sweetscreen.list.impl;
 
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.mghelas.internship_playground.ui.sweetscreen.list.SweetListFragment;
 import com.mghelas.internship_playground.ui.sweetscreen.list.SweetListNativeView;
 import com.mghelas.internship_playground.ui.sweetscreen.list.SweetListPresenter;
 import com.mghelas.internship_playground.ui.sweetscreen.list.SweetListView;
+import com.mghelas.internship_playground.ui.sweetscreen.list.SwipeHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,7 @@ public class SweetListViewImpl implements SweetListView, SweetListNativeView {
 
     private ItemClickHandler itemClickHandler;
     private DeleteClickHandler deleteClickHandler;
+    private SwipeHandler swipeHandler;
 
     private TextView emptyText;
     private RecyclerView recyclerView;
@@ -34,6 +37,7 @@ public class SweetListViewImpl implements SweetListView, SweetListNativeView {
     private SweetListFragment sweetListFragment;
     private Button deleteButton;
     private EditText confectionerName;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public int getLayout() {
@@ -48,6 +52,14 @@ public class SweetListViewImpl implements SweetListView, SweetListNativeView {
         emptyText = sweetListFragment.getView().findViewById(R.id.empty_view);
         deleteButton = sweetListFragment.getView().findViewById(R.id.delete_by_confectioner_name_btn);
         confectionerName = sweetListFragment.getView().findViewById(R.id.confectioner_name_delete);
+        swipeRefreshLayout = sweetListFragment.getView().findViewById(R.id.swipe_refresh);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                onSwipe();
+            }
+        });
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,6 +68,12 @@ public class SweetListViewImpl implements SweetListView, SweetListNativeView {
         });
         bindData(new ArrayList<Sweet>());
         populateView(sweetListFragment);
+    }
+
+    private void onSwipe() {
+        if (swipeHandler != null) {
+            swipeHandler.onSwiped();
+        }
     }
 
     private void onDeleteClicked(String name) {
@@ -75,6 +93,7 @@ public class SweetListViewImpl implements SweetListView, SweetListNativeView {
 
 
     public void bindData(List<Sweet> sweets) {
+        swipeRefreshLayout.setRefreshing(false);
         confectionerName.setText("");
         if (sweets.isEmpty()) {
             showEmpty();
@@ -89,9 +108,10 @@ public class SweetListViewImpl implements SweetListView, SweetListNativeView {
     }
 
     @Override
-    public void showError(Throwable throwable) {
+    public void showError(String error) {
+        swipeRefreshLayout.setRefreshing(false);
         Toast toast = Toast.makeText(sweetListFragment.getContext(),
-                throwable.toString(),
+                error,
                 Toast.LENGTH_SHORT);
         toast.show();
     }
@@ -115,5 +135,10 @@ public class SweetListViewImpl implements SweetListView, SweetListNativeView {
     @Override
     public void setOnDeleteClickHandler(DeleteClickHandler deleteClickHandler) {
         this.deleteClickHandler = deleteClickHandler;
+    }
+
+    @Override
+    public void setOnSwipeHandler(SwipeHandler swipeHandler) {
+        this.swipeHandler = swipeHandler;
     }
 }

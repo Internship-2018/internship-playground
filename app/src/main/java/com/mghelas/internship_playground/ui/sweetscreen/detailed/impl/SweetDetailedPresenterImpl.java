@@ -1,6 +1,7 @@
 package com.mghelas.internship_playground.ui.sweetscreen.detailed.impl;
 
 
+import com.mghelas.internship_playground.network.NetworkConectivity;
 import com.mghelas.internship_playground.storage.entity.Sweet;
 import com.mghelas.internship_playground.ui.sweetscreen.detailed.SweetDetailedCallback;
 import com.mghelas.internship_playground.ui.sweetscreen.detailed.SweetDetailedPresenter;
@@ -13,12 +14,13 @@ public class SweetDetailedPresenterImpl implements SweetDetailedPresenter, Sweet
     private SweetDetailedModel sweetDetailedModel;
     private SweetDetailedWireframe sweetDetailedWireframe;
     private Sweet sweet;
+    private NetworkConectivity networkConectivity;
 
-    public SweetDetailedPresenterImpl(SweetDetailedView sweetDetailedView, SweetDetailedWireframe sweetDetailedWireframe, SweetDetailedModel sweetDetailedModel) {
+    public SweetDetailedPresenterImpl(SweetDetailedView sweetDetailedView, SweetDetailedWireframe sweetDetailedWireframe, SweetDetailedModel sweetDetailedModel, NetworkConectivity networkConectivity) {
         this.sweetDetailedView = sweetDetailedView;
         this.sweetDetailedWireframe = sweetDetailedWireframe;
         this.sweetDetailedModel = sweetDetailedModel;
-
+        this.networkConectivity = networkConectivity;
     }
 
     @Override
@@ -39,7 +41,11 @@ public class SweetDetailedPresenterImpl implements SweetDetailedPresenter, Sweet
 
     @Override
     public void onRemoveClicked(int id) {
-        sweetDetailedModel.remove(id);
+        if (networkConectivity.isNetworkConnected()) {
+            sweetDetailedModel.remove(id);
+        } else {
+            sweetDetailedView.showError("No internet connection");
+        }
     }
 
 

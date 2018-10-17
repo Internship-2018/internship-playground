@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mghelas.internship_playground.network.NetworkConectivity;
+import com.mghelas.internship_playground.network.NetworkConnectivityImpl;
 import com.mghelas.internship_playground.network.sweet.SweetServiceCall;
 import com.mghelas.internship_playground.network.sweet.SweetServiceCallImpl;
 import com.mghelas.internship_playground.storage.dao.impl.SweetDaoImpl;
@@ -39,6 +41,7 @@ public class SweetDetailedFragment extends Fragment {
     SweetServiceCall sweetServiceCall;
     LoaderManager.LoaderCallbacks<Sweet> detailedLoaderCallback;
     LoaderManager.LoaderCallbacks<Integer> sweetRemoverCallback;
+    NetworkConectivity networkConectivity;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,7 +51,7 @@ public class SweetDetailedFragment extends Fragment {
         sweetDao = new SweetDaoImpl(dbHelper);
         final DbDetailedLoader dbDetailedLoader = new DbDetailedLoader(getContext(), sweetDao);
         final RemoveSweetLoader removeSweetLoader = new RemoveSweetLoader(getContext(), sweetDao);
-
+        networkConectivity = new NetworkConnectivityImpl();
         sweetDetailedModel = new SweetDetailedModelImpl(dbDetailedLoader, removeSweetLoader);
 
         sweetServiceCall = new SweetServiceCallImpl(sweetDetailedModel);
@@ -57,7 +60,7 @@ public class SweetDetailedFragment extends Fragment {
 
         sweetDetailedWireframe = new SweetDetailedWireframeImpl(this);
 
-        sweetDetailedPresenter = new SweetDetailedPresenterImpl(sweetDetailedView, sweetDetailedWireframe, sweetDetailedModel);
+        sweetDetailedPresenter = new SweetDetailedPresenterImpl(sweetDetailedView, sweetDetailedWireframe, sweetDetailedModel, networkConectivity);
 
         sweetDetailedNativeView = sweetDetailedView;
 

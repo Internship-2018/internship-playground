@@ -101,4 +101,12 @@ public class SweetDetailedViewImpl implements SweetDetailedView, SweetDetailedNa
         confectionerName.setText(sweet.getConfectionerName());
     }
 
+    @Override
+    public void showError(String error) {
+        Toast toast = Toast.makeText(sweetDetailedFragment.getContext(),
+                error,
+                Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
 }

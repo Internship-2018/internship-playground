@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mghelas.internship_playground.network.NetworkConectivity;
+import com.mghelas.internship_playground.network.NetworkConnectivityImpl;
 import com.mghelas.internship_playground.network.sweet.SweetServiceCall;
 import com.mghelas.internship_playground.network.sweet.SweetServiceCallImpl;
 import com.mghelas.internship_playground.storage.dao.impl.IngredientDaoImpl;
@@ -42,6 +44,7 @@ public class SweetAddFragment extends Fragment {
     SweetDao sweetDao;
     IngredientDao ingredientDao;
     SweetServiceCall sweetServiceCall;
+    NetworkConectivity networkConectivity;
 
     protected LoaderManager.LoaderCallbacks<List<Ingredient>> ingredientsLoaderCallbacks;
 
@@ -58,7 +61,8 @@ public class SweetAddFragment extends Fragment {
         sweetAddModel = new SweetAddModelImpl(dbIngredientsLoader, sweetDao);
         sweetServiceCall = new SweetServiceCallImpl(sweetAddModel);
         sweetAddModel.setSweetServiceCall(sweetServiceCall);
-        sweetAddPresenter = new SweetAddPresenterImpl(sweetAddView, sweetAddModel, sweetAddWireframe);
+        networkConectivity = new NetworkConnectivityImpl();
+        sweetAddPresenter = new SweetAddPresenterImpl(sweetAddView, sweetAddModel, sweetAddWireframe, networkConectivity);
         sweetAddReturnCallback = sweetAddPresenter;
         ingredientsListCallback = sweetAddPresenter;
         sweetAddModel.setOnSweetAddReturnCallback(sweetAddReturnCallback);

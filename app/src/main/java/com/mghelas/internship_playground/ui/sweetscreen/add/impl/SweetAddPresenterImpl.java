@@ -1,5 +1,6 @@
 package com.mghelas.internship_playground.ui.sweetscreen.add.impl;
 
+import com.mghelas.internship_playground.network.NetworkConectivity;
 import com.mghelas.internship_playground.storage.entity.Ingredient;
 import com.mghelas.internship_playground.storage.entity.Sweet;
 import com.mghelas.internship_playground.ui.sweetscreen.add.SweetAddModel;
@@ -14,8 +15,9 @@ public class SweetAddPresenterImpl implements SweetAddPresenter {
     SweetAddView sweetAddView;
     SweetAddModel sweetAddModel;
     SweetAddWireframe sweetAddWireframe;
+    NetworkConectivity networkConectivity;
 
-    public SweetAddPresenterImpl(SweetAddView sweetAddView, SweetAddModel sweetAddModel, SweetAddWireframe sweetAddWireframe) {
+    public SweetAddPresenterImpl(SweetAddView sweetAddView, SweetAddModel sweetAddModel, SweetAddWireframe sweetAddWireframe, NetworkConectivity networkConectivity) {
         this.sweetAddView = sweetAddView;
         this.sweetAddModel = sweetAddModel;
         this.sweetAddWireframe = sweetAddWireframe;
@@ -38,7 +40,11 @@ public class SweetAddPresenterImpl implements SweetAddPresenter {
 
     @Override
     public void onAddClicked(Sweet sweet) {
-        sweetAddModel.add(sweet);
+        if (networkConectivity.isNetworkConnected()) {
+            sweetAddModel.add(sweet);
+        } else {
+            sweetAddView.showError("No internet connection");
+        }
     }
 
     @Override

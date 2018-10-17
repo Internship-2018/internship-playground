@@ -10,4 +10,6 @@ public interface SweetDetailedView {
     void mixShow(String message);
 
     void bindData(Sweet sweet);
+
+    void showError(String error);
 }

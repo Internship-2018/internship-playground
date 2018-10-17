@@ -2,6 +2,8 @@ package com.mghelas.internship_playground;
 
 import android.app.Application;
 
+import com.mghelas.internship_playground.network.NetworkConectivity;
+import com.mghelas.internship_playground.network.NetworkConnectivityImpl;
 import com.mghelas.internship_playground.network.sweet.SweetServiceCall;
 import com.mghelas.internship_playground.network.sweet.SweetServiceCallImpl;
 import com.mghelas.internship_playground.storage.dao.impl.IngredientDaoImpl;
@@ -18,6 +20,7 @@ public class App extends Application {
     SweetDao sweetDao;
     IngredientDao ingredientDao;
     DbHelper dbHelper;
+    NetworkConectivity networkConectivity;
 
     @Override
     public void onCreate() {
@@ -29,8 +32,9 @@ public class App extends Application {
         startupModel = new StartupModelImpl(sweetDao, ingredientDao);
         sweetServiceCall = new SweetServiceCallImpl(startupModel);
         startupModel.setSweetServiceCall(sweetServiceCall);
-        startupPresenter = new StartupPresenterImpl(startupModel);
-        startupPresenter.updateData();
+        networkConectivity = new NetworkConnectivityImpl();
+        startupPresenter = new StartupPresenterImpl(startupModel, networkConectivity);
+        startupPresenter.onInitialized();
     }
 
     public static App getInstance() {

@@ -7,4 +7,5 @@ import java.util.List;
 public interface SweetAddView {
     void setOnAddClickHandler(AddClickHandler addClickHandler);
     void bindData(List<Ingredient> ingredients);
+    void showError(String error);
 }

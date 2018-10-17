@@ -1,5 +1,7 @@
 package com.mghelas.internship_playground;
 
-public interface StartupPresenter {
-    void updateData();
+import com.mghelas.internship_playground.network.NetworkState;
+
+public interface StartupPresenter extends NetworkState {
+    void onInitialized();
 }

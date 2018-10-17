@@ -1,5 +1,6 @@
 package com.mghelas.internship_playground.ui.sweetscreen.list.impl;
 
+import com.mghelas.internship_playground.network.NetworkConectivity;
 import com.mghelas.internship_playground.storage.entity.Sweet;
 import com.mghelas.internship_playground.ui.sweetscreen.list.SweetListModel;
 import com.mghelas.internship_playground.ui.sweetscreen.list.SweetListPresenter;
@@ -12,11 +13,14 @@ public class SweetListPresenterImpl implements SweetListPresenter {
     private SweetListView sweetListView;
     private SweetListWireframe sweetListWireframe;
     private SweetListModel sweetModel;
+    private NetworkConectivity networkConectivity;
 
-    public SweetListPresenterImpl(SweetListView sweetListView, SweetListWireframe sweetListWireframe, SweetListModel sweetListModel) {
+
+    public SweetListPresenterImpl(SweetListView sweetListView, SweetListWireframe sweetListWireframe, SweetListModel sweetListModel, NetworkConectivity networkConectivity) {
         this.sweetListView = sweetListView;
         this.sweetListWireframe = sweetListWireframe;
         this.sweetModel = sweetListModel;
+        this.networkConectivity = networkConectivity;
     }
 
 
@@ -24,6 +28,7 @@ public class SweetListPresenterImpl implements SweetListPresenter {
     public void onViewInitialised() {
         sweetListView.setOnItemClickHandler(this);
         sweetListView.setOnDeleteClickHandler(this);
+        sweetListView.setOnSwipeHandler(this);
         sweetModel.getAll();
     }
 
@@ -40,11 +45,24 @@ public class SweetListPresenterImpl implements SweetListPresenter {
 
     @Override
     public void onApiFailure(Throwable throwable) {
-        sweetListView.showError(throwable);
+        sweetListView.showError("Error");
     }
 
     @Override
     public void onDeleteClicked(String name) {
-        sweetModel.deleteByConfectionerName(name);
+        if (networkConectivity.isNetworkConnected()) {
+            sweetModel.deleteByConfectionerName(name);
+        } else {
+            sweetListView.showError("No internet connection");
+        }
+    }
+
+    @Override
+    public void onSwiped() {
+        if (networkConectivity.isNetworkConnected()) {
+            sweetModel.updateData();
+        } else {
+            sweetListView.showError("No internet connection");
+        }
     }
 }

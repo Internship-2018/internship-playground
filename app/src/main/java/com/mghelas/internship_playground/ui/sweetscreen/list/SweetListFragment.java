@@ -9,9 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mghelas.internship_playground.network.NetworkConectivity;
+import com.mghelas.internship_playground.network.NetworkConnectivityImpl;
 import com.mghelas.internship_playground.network.sweet.SweetServiceCall;
 import com.mghelas.internship_playground.network.sweet.SweetServiceCallImpl;
+import com.mghelas.internship_playground.storage.dao.impl.IngredientDaoImpl;
 import com.mghelas.internship_playground.storage.dao.impl.SweetDaoImpl;
+import com.mghelas.internship_playground.storage.dao.intf.IngredientDao;
 import com.mghelas.internship_playground.storage.dao.intf.SweetDao;
 import com.mghelas.internship_playground.storage.datasource.DbHelper;
 import com.mghelas.internship_playground.storage.entity.Sweet;
@@ -35,7 +39,9 @@ public class SweetListFragment extends Fragment {
     SweetListCallback sweetListCallback;
     DbHelper dbHelper;
     SweetDao sweetDao;
+    IngredientDao ingredientDao;
     SweetServiceCall sweetServiceCall;
+    NetworkConectivity networkConectivity;
     protected LoaderManager.LoaderCallbacks<List<Sweet>> listLoaderCallbacks;
 
     @Override
@@ -43,12 +49,14 @@ public class SweetListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         dbHelper = DbHelper.getInstance(getContext());
         sweetDao = new SweetDaoImpl(dbHelper);
+        ingredientDao = new IngredientDaoImpl(dbHelper);
         final SweetListViewImpl view = new SweetListViewImpl();
         final DbListLoader dbDataLoader = new DbListLoader(getContext(), sweetDao);
-        sweetListModel = new SweetListModelImpl(dbDataLoader, sweetDao);
+        sweetListModel = new SweetListModelImpl(dbDataLoader, sweetDao, ingredientDao);
         sweetServiceCall = new SweetServiceCallImpl(sweetListModel);
         sweetListWireframe = new SweetListWireframeImpl(this);
-        sweetListPresenter = new SweetListPresenterImpl(view, sweetListWireframe, sweetListModel);
+        networkConectivity = new NetworkConnectivityImpl();
+        sweetListPresenter = new SweetListPresenterImpl(view, sweetListWireframe, sweetListModel, networkConectivity);
         sweetListCallback = sweetListPresenter;
         sweetListNativeView = view;
         sweetListModel.setSweetListCallback(sweetListCallback);

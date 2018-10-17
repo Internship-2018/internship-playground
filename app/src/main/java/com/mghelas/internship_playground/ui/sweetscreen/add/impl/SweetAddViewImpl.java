@@ -2,11 +2,15 @@ package com.mghelas.internship_playground.ui.sweetscreen.add.impl;
 
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import com.mghelas.internship_playground.R;
 import com.mghelas.internship_playground.storage.entity.Ingredient;
@@ -18,14 +22,14 @@ import com.mghelas.internship_playground.ui.sweetscreen.add.SweetAddPresenter;
 import com.mghelas.internship_playground.ui.sweetscreen.add.SweetAddView;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView {
+public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView, AdapterView.OnItemSelectedListener {
 
     private AddClickHandler addClickHandler;
     private LinearLayout switchContainer;
     private SweetAddFragment sweetAddFragment;
+    private Spinner spinner;
 
     @Override
     public int getLayout() {
@@ -40,6 +44,7 @@ public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView {
         final EditText type = sweetAddFragment.getView().findViewById(R.id.type_add);
         final EditText confectionerName = sweetAddFragment.getView().findViewById(R.id.confectioner_name_add);
         final CalendarView expiryDate = sweetAddFragment.getView().findViewById(R.id.expiry_date_add);
+        spinner = sweetAddFragment.getView().findViewById(R.id.spinner);
         switchContainer = sweetAddFragment.getView().findViewById(R.id.switch_container);
         sweetAddPresenter.getAllIngredients();
 
@@ -88,15 +93,38 @@ public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView {
 
     @Override
     public void bindData(List<Ingredient> ingredients) {
-        for (Ingredient ingredient : ingredients) {
-            Switch aSwitch = new Switch(sweetAddFragment.getContext());
-            aSwitch.setId(ingredient.getId());
-            aSwitch.setText(ingredient.getName());
-            switchContainer.addView(aSwitch);
 
-            EditText quantity = new EditText(sweetAddFragment.getContext());
-            quantity.setHint("Quantity");
-            switchContainer.addView(quantity);
-        }
+        ArrayAdapter<Ingredient> dataAdapter = new ArrayAdapter<>(sweetAddFragment.getContext(),
+                R.layout.support_simple_spinner_dropdown_item,
+                ingredients);
+        spinner.setAdapter(dataAdapter);
+
+    }
+
+    @Override
+    public void showError(String error) {
+        Toast toast = Toast.makeText(sweetAddFragment.getContext(),
+                error,
+                Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Ingredient ingredient = (Ingredient) parent.getItemAtPosition(position);
+        Switch aSwitch = new Switch(sweetAddFragment.getContext());
+        aSwitch.setId(ingredient.getId());
+        aSwitch.setText(ingredient.getName());
+        switchContainer.addView(aSwitch);
+
+        EditText quantity = new EditText(sweetAddFragment.getContext());
+        quantity.setHint("Quantity");
+        switchContainer.addView(quantity);
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

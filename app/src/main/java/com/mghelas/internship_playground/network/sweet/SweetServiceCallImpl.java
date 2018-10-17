@@ -49,7 +49,11 @@ public class SweetServiceCallImpl implements SweetServiceCall {
 
                 sweets.addAll(response.body());
 
-                startupModel.syncDb(sweets);
+                if (startupModel != null) {
+                    startupModel.syncDb(sweets);
+                } else {
+                    sweetListModel.getAllAfterRefresh(sweets);
+                }
             }
 
             @Override

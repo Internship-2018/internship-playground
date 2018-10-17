@@ -9,7 +9,9 @@ public interface SweetListView {
 
     void setOnDeleteClickHandler(DeleteClickHandler deleteClickHandler);
 
+    void setOnSwipeHandler(SwipeHandler swipeHandler);
+
     void bindData(List<Sweet> sweets);
 
-    void showError(Throwable throwable);
+    void showError(String error);
 }

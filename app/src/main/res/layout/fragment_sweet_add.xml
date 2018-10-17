@@ -56,28 +56,38 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/name_add" />
 
-                <CalendarView
-                    android:id="@+id/expiry_date_add"
-                    android:layout_width="wrap_content"
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="327dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/switch_container" />
+                    app:layout_constraintTop_toBottomOf="@+id/type_add" />
 
                 <LinearLayout
                     android:id="@+id/switch_container"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
                     android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/type_add">
+                    app:layout_constraintTop_toBottomOf="@+id/spinner">
 
                 </LinearLayout>
+
+                <CalendarView
+                    android:id="@+id/expiry_date_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/switch_container" />
 
                 <Button
                     android:id="@+id/create_sweet_btn"
@@ -90,6 +100,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/expiry_date_add" />
+
             </android.support.constraint.ConstraintLayout>
         </LinearLayout>
     </ScrollView>

@@ -6,7 +6,11 @@ import com.mghelas.internship_playground.storage.entity.Sweet;
 import java.util.List;
 
 public interface SweetListModel {
+    void updateData();
+
     void getAll();
+
+    void getAllAfterRefresh(List<Sweet> sweets);
 
     void deleteByConfectionerName(String name);
 
