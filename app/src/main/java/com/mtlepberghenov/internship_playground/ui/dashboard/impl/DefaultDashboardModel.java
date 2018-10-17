@@ -5,19 +5,22 @@ import com.mtlepberghenov.internship_playground.storage.dao.DaoVehicle;
 import com.mtlepberghenov.internship_playground.storage.model.Vehicle;
 import com.mtlepberghenov.internship_playground.ui.dashboard.DashboardModel;
 import com.mtlepberghenov.internship_playground.ui.dashboard.RequestState;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DefaultDashboardModel implements DashboardModel {
 
-  private static final int N_THREADS = 3;
   private NetworkClient networkClient;
   private DaoVehicle dao;
-  private ExecutorService executorService;
 
   public DefaultDashboardModel(NetworkClient networkClient, DaoVehicle dao) {
     this.networkClient = networkClient;
@@ -29,8 +32,18 @@ public class DefaultDashboardModel implements DashboardModel {
 
       @Override public void onResponse(Call<List<Vehicle>> call, Response<List<Vehicle>> response) {
         if (response.body() != null) {
-          dao.deleteAll();
-          dao.insert(response.body());
+          ExecutorService es = Executors.newSingleThreadExecutor();
+          Runnable r = () -> {
+            dao.deleteAll();
+            dao.insert(response.body());
+          };
+
+          try {
+            es.submit(r).get();
+          } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+          }
+          es.shutdown();
           requestState.onResponse();
         } else {
           requestState.onFailure();
@@ -44,6 +57,20 @@ public class DefaultDashboardModel implements DashboardModel {
   }
 
   @Override public List<Vehicle> loadData() {
-    return dao.selectAll();
+    ExecutorService es = Executors.newSingleThreadExecutor();
+    Callable<List<Vehicle>> c = () -> dao.selectAll();
+    Future<List<Vehicle>> f = es.submit(c);
+    try {
+      List<Vehicle> list = f.get();
+      es.shutdown();
+
+      return list;
+
+    } catch (ExecutionException | InterruptedException e) {
+      es.shutdown();
+      e.printStackTrace();
+
+      return new ArrayList<>();
+    }
   }
 }
