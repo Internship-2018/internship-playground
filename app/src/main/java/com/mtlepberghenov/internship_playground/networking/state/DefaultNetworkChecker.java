@@ -9,8 +9,7 @@ public class DefaultNetworkChecker implements NetworkChecker {
   private NetworkInfo netInfo;
 
   public DefaultNetworkChecker(Context context) {
-    ConnectivityManager cm = (ConnectivityManager) context
-        .getSystemService(Context.CONNECTIVITY_SERVICE);
+    ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
     netInfo = cm.getActiveNetworkInfo();
   }

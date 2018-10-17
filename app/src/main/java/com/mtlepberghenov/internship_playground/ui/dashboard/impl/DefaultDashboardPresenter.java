@@ -9,6 +9,8 @@ import com.mtlepberghenov.internship_playground.ui.dashboard.DashboardPresenter;
 import com.mtlepberghenov.internship_playground.ui.dashboard.DashboardView;
 import com.mtlepberghenov.internship_playground.ui.dashboard.RequestState;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class DefaultDashboardPresenter
     implements DashboardPresenter, NetworkState, RequestState {

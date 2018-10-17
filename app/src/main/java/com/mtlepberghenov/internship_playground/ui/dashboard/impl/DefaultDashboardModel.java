@@ -6,14 +6,18 @@ import com.mtlepberghenov.internship_playground.storage.model.Vehicle;
 import com.mtlepberghenov.internship_playground.ui.dashboard.DashboardModel;
 import com.mtlepberghenov.internship_playground.ui.dashboard.RequestState;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DefaultDashboardModel implements DashboardModel {
 
+  private static final int N_THREADS = 3;
   private NetworkClient networkClient;
   private DaoVehicle dao;
+  private ExecutorService executorService;
 
   public DefaultDashboardModel(NetworkClient networkClient, DaoVehicle dao) {
     this.networkClient = networkClient;
@@ -25,16 +29,8 @@ public class DefaultDashboardModel implements DashboardModel {
 
       @Override public void onResponse(Call<List<Vehicle>> call, Response<List<Vehicle>> response) {
         if (response.body() != null) {
-          Thread t = new Thread(() -> {
-            dao.deleteAll();
-            dao.insert(response.body());
-          });
-          t.start();
-          try {
-            t.join();
-          } catch (InterruptedException e) {
-            e.printStackTrace();
-          }
+          dao.deleteAll();
+          dao.insert(response.body());
           requestState.onResponse();
         } else {
           requestState.onFailure();

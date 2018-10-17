@@ -39,6 +39,16 @@ public class Vehicle {
     // needed by ormlite
   }
 
+  public Vehicle(Vehicle another) {
+    this.id = another.id;
+    this.type = another.type;
+    this.manufacturer = another.manufacturer;
+    this.model = another.model;
+    this.color = another.color;
+    this.year = another.year;
+    this.imageUrl = another.imageUrl;
+  }
+
   public int getId() {
     return id;
   }

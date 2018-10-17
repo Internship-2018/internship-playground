@@ -18,7 +18,7 @@ public class DefaultDialogPresenter implements DialogPresenter, NetworkState, Ve
   private DialogWireframe wireframe;
   private NetworkChecker networkChecker;
 
-  private Vehicle v;
+  private Vehicle v = new Vehicle();
 
   public DefaultDialogPresenter(DialogView view, DialogModel model,
       DialogWireframe wireframe, NetworkChecker networkChecker) {
@@ -33,9 +33,9 @@ public class DefaultDialogPresenter implements DialogPresenter, NetworkState, Ve
   }
 
   @Override public void onClickedSave(Vehicle v) {
-    view.clear();
+    this.v = new Vehicle(v);
     networkChecker.check(this);
-    this.v = v;
+    view.clear();
   }
 
   @Override public void onClickedCancel() {
