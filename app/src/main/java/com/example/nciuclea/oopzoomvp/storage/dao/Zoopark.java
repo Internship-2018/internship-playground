@@ -8,9 +8,10 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "zoopark")
 public class Zoopark {
 
+    public static final String ID_FIELD_NAME = "id";
     @SerializedName("id")
     @Expose
-    @DatabaseField(id = true, columnName = "id")
+    @DatabaseField(id = true, columnName = ID_FIELD_NAME)
     private int id;
 
     @SerializedName("city")

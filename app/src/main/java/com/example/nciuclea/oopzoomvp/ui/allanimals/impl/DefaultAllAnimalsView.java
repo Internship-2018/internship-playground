@@ -4,10 +4,10 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.nciuclea.oopzoomvp.R;
 import com.example.nciuclea.oopzoomvp.storage.dao.Animal;
-import com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsAdapter;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsClickHandler;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsNativeView;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsView;
@@ -18,7 +18,7 @@ import java.util.List;
 public class DefaultAllAnimalsView implements AllAnimalsView, AllAnimalsNativeView {
 
     private Context context;
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
     private AllAnimalsAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private AllAnimalsClickHandler clickHandler;
@@ -28,9 +28,7 @@ public class DefaultAllAnimalsView implements AllAnimalsView, AllAnimalsNativeVi
     }
 
     @Override
-    public int getLayout() {
-        return R.layout.fragment_all_animals;
-    }
+    public int getLayout() { return R.layout.fragment_all_animals; }
 
     @Override
     public void initView(View view) {
@@ -56,6 +54,7 @@ public class DefaultAllAnimalsView implements AllAnimalsView, AllAnimalsNativeVi
 
     @Override
     public void showNetworkError(String message) {
-        //TODO Show network error message
+        Toast networkErrorToast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
+        networkErrorToast.show();
     }
 }

@@ -6,13 +6,16 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "animal_zoopark")
 public class AnimalZoopark {
 
+    public final static String ANIMAL_ID_FIELD_NAME = "animal_id";
+    public final static String ZOOPARK_ID_FIELD_NAME = "zoopark_id";
+
     @DatabaseField(generatedId = true)
     private int id;
 
-    @DatabaseField(foreign = true, columnName = "animal_id")
+    @DatabaseField(foreign = true, columnName = ANIMAL_ID_FIELD_NAME)
     private Animal animal;
 
-    @DatabaseField(foreign = true, columnName = "zoopark_id")
+    @DatabaseField(foreign = true, columnName = ZOOPARK_ID_FIELD_NAME)
     private Zoopark zoopark;
 
     AnimalZoopark () {

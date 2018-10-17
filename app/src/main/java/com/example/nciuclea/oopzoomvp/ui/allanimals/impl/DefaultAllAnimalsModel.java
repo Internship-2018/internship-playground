@@ -4,13 +4,14 @@ import android.util.Log;
 
 import com.example.nciuclea.oopzoomvp.network.ApiServiceBuilder;
 import com.example.nciuclea.oopzoomvp.storage.dao.Animal;
+import com.example.nciuclea.oopzoomvp.storage.dao.AnimalWithZoosDao;
 import com.example.nciuclea.oopzoomvp.storage.dao.AnimalZoopark;
 import com.example.nciuclea.oopzoomvp.storage.dao.Zoopark;
 import com.example.nciuclea.oopzoomvp.storage.datasource.DBHelper;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsModel;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.ApiResponseReceivedCallback;
-import com.example.nciuclea.oopzoomvp.ui.allanimals.DataFetcher;
-import com.example.nciuclea.oopzoomvp.ui.allanimals.DataLoadCallback;
+import com.example.nciuclea.oopzoomvp.util.loaders.DataFetcher;
+import com.example.nciuclea.oopzoomvp.util.loaders.DataLoadCallback;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.DataUpdatedCallback;
 import com.j256.ormlite.dao.Dao;
 
@@ -29,27 +30,9 @@ public class DefaultAllAnimalsModel implements AllAnimalsModel, DataLoadCallback
     private DataUpdatedCallback<List<Animal>> dataUpdatedCallback;
     private ApiResponseReceivedCallback apiResponseReceivedCallback;
     private DBHelper dbHelper;
-    private Dao<Animal, Integer> animalDao;
+    private AnimalWithZoosDao animalDao;
     private Dao<Zoopark, Integer> zooparkDao;
     private Dao<AnimalZoopark, Integer> animalZooparkDao;
-
-    public DefaultAllAnimalsModel(DBHelper dbHelper, DataFetcher dataFetcher) {
-        this.dbHelper = dbHelper;
-        this.dataFetcher = dataFetcher;
-        try {
-            animalDao = dbHelper.getAnimalDao();
-            zooparkDao = dbHelper.getZooparkDao();
-            animalZooparkDao = dbHelper.getAnimalZooparkDao();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void pullFromDB() {
-        Log.d("PROF_LOG", "before Model calls dataFetcher.fetchData()");
-        dataFetcher.fetchData();
-    }
 
     @Override
     public void setDataUpdatedCallback(DataUpdatedCallback<List<Animal>> dataUpdatedCallback) {
@@ -60,12 +43,24 @@ public class DefaultAllAnimalsModel implements AllAnimalsModel, DataLoadCallback
         this.apiResponseReceivedCallback = apiResponseReceivedCallback;
     }
 
+    public DefaultAllAnimalsModel(DBHelper dbHelper, DataFetcher dataFetcher) {
+        this.dbHelper = dbHelper;
+        this.dataFetcher = dataFetcher;
+        try {
+            animalDao = dbHelper.getAnimalWithZoosDao();
+            zooparkDao = dbHelper.getZooparkDao();
+            animalZooparkDao = dbHelper.getAnimalZooparkDao();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void pullFromApi() {
-        dbHelper.onNewApiFetch();
         ApiServiceBuilder.getZooApiService().getAnimals().enqueue(new Callback<List<Animal>>() {
             @Override
             public void onResponse(Call<List<Animal>> call, Response<List<Animal>> response) {
+                dbHelper.onNewApiFetch();
                 final ArrayList<Animal> apiAnimalList = new ArrayList<>(response.body());
                 try {
                     animalDao.create(apiAnimalList);
@@ -102,7 +97,6 @@ public class DefaultAllAnimalsModel implements AllAnimalsModel, DataLoadCallback
                             }
                         }
 
-                        dbHelper.close();
                         apiResponseReceivedCallback.onSuccess(apiAnimalList);
                     }
 
@@ -121,9 +115,14 @@ public class DefaultAllAnimalsModel implements AllAnimalsModel, DataLoadCallback
     }
 
     @Override
+    public void pullFromDB() {
+        Log.d("PROF_LOG", "before Model calls dataFetcher.fetchData()");
+        dataFetcher.fetchData();
+    }
+
+    @Override
     public void onDataLoaded(List<Animal> data) {
-        animalsList = new ArrayList<>(data);
-        dataUpdatedCallback.onDataUpdated(new ArrayList<>(animalsList));
+        dataUpdatedCallback.onDataUpdated(new ArrayList<>(data));
     }
 
 

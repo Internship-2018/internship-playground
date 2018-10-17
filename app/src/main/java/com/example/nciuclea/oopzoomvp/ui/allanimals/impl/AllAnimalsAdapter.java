@@ -1,4 +1,4 @@
-package com.example.nciuclea.oopzoomvp.ui.allanimals;
+package com.example.nciuclea.oopzoomvp.ui.allanimals.impl;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -6,12 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.nciuclea.oopzoomvp.R;
 import com.example.nciuclea.oopzoomvp.storage.dao.Animal;
+import com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsClickHandler;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -68,7 +68,7 @@ public class AllAnimalsAdapter extends RecyclerView.Adapter<AllAnimalsAdapter.An
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    clickHandler.onClick(itemView, animalsList.get(getLayoutPosition()).getId());
+                    clickHandler.onClick(itemView, getLayoutPosition());
                 }
             });
 

@@ -15,8 +15,8 @@ import com.example.nciuclea.oopzoomvp.ui.allanimals.impl.DefaultAllAnimalsModel;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.impl.DefaultAllAnimalsPresenter;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.impl.DefaultAllAnimalsView;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.impl.DefaultAllAnimalsWireFrame;
-import com.example.nciuclea.oopzoomvp.ui.allanimals.impl.DefaultDBLoaderCallback;
-import com.example.nciuclea.oopzoomvp.ui.allanimals.loaders.DBDataLoader;
+import com.example.nciuclea.oopzoomvp.util.loaders.DefaultDBLoaderCallback;
+import com.example.nciuclea.oopzoomvp.util.loaders.DBDataLoader;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import java.util.List;
@@ -51,7 +51,7 @@ public class AllAnimalsFragment extends Fragment {
         listLoaderCallbacks = new DefaultDBLoaderCallback(dbDataLoader, defaultAllAnimalsModel);
         LoaderManager.getInstance(this).initLoader(LOADER_ID, null, listLoaderCallbacks);
 
-        //creating Presenter (with Model and WireFrame inside)
+        //creating Presenter (WireFrame inside)
         DefaultAllAnimalsPresenter defaultAllAnimalsPresenter = new DefaultAllAnimalsPresenter(
                 view, defaultAllAnimalsModel, new DefaultAllAnimalsWireFrame(this));
         allAnimalsPresenter = defaultAllAnimalsPresenter;

@@ -1,4 +1,4 @@
-package com.example.nciuclea.oopzoomvp.ui.allanimals;
+package com.example.nciuclea.oopzoomvp.util.loaders;
 
 public interface DataFetcher {
     void fetchData();

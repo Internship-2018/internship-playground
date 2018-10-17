@@ -4,13 +4,12 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.nciuclea.oopzoomvp.storage.dao.Animal;
+import com.example.nciuclea.oopzoomvp.storage.dao.AnimalWithZoosDao;
 import com.example.nciuclea.oopzoomvp.storage.dao.AnimalZoopark;
 import com.example.nciuclea.oopzoomvp.storage.dao.Zoopark;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
-import com.j256.ormlite.support.DatabaseConnection;
 import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
@@ -18,11 +17,11 @@ import java.sql.SQLException;
 public class DBHelper extends OrmLiteSqliteOpenHelper {
 
     private static final String DATABASE_NAME = "animals_db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 4;
 
-    private Dao<Animal, Integer> animalDao = null;
     private Dao<Zoopark, Integer> zooparkDao = null;
     private Dao<AnimalZoopark, Integer> animalZooparkDao = null;
+    private AnimalWithZoosDao animalWithZoosDao = null;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -34,6 +33,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, Animal.class);
             TableUtils.createTable(connectionSource, Zoopark.class);
             TableUtils.createTable(connectionSource, AnimalZoopark.class);
+
             /* getAnimalDao();
             getZooparkDao();
             getAnimalZooparkDao();
@@ -75,6 +75,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        onCreate(database, connectionSource);
     }
 
     public void onNewApiFetch() {
@@ -90,11 +91,12 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
-    public Dao<Animal, Integer> getAnimalDao() throws SQLException {
-        if (animalDao == null) {
-            animalDao = getDao(Animal.class);
+    public AnimalWithZoosDao getAnimalWithZoosDao() throws SQLException {
+        if (animalWithZoosDao == null) {
+            animalWithZoosDao = getDao(Animal.class);
+            animalWithZoosDao.setRequiredDaos(getZooparkDao(), getAnimalZooparkDao());
         }
-        return animalDao;
+        return animalWithZoosDao;
     }
 
     public Dao<Zoopark, Integer> getZooparkDao() throws SQLException {
@@ -114,7 +116,6 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void close() {
         super.close();
-        animalDao = null;
         zooparkDao = null;
         animalZooparkDao = null;
     }

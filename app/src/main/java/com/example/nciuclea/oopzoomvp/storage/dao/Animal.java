@@ -8,7 +8,7 @@ import com.j256.ormlite.table.DatabaseTable;
 import java.util.ArrayList;
 import java.util.List;
 
-@DatabaseTable(tableName = "animal")
+@DatabaseTable(tableName = "animal", daoClass = AnimalWithZoosDaoImpl.class)
 public class Animal {
     @SerializedName("id")
     @Expose
@@ -90,7 +90,7 @@ public class Animal {
         this.habitat = habitat;
     }
 
-    public String getGeo_location() {
+    public String getLocation() {
         return geo_location;
     }
 
@@ -117,6 +117,10 @@ public class Animal {
     public void addZooPark(Zoopark zoo) {
         if (zooparkList == null) { zooparkList = new ArrayList<>(); }
         zooparkList.add(zoo);
+    }
+
+    public void addZooPark(List<Zoopark> zooList) {
+        zooparkList = new ArrayList<>(zooList);
     }
 
     public List<Zoopark> getZooList() {

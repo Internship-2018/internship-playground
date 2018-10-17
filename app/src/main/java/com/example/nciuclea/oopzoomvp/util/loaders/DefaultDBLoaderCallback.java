@@ -1,4 +1,4 @@
-package com.example.nciuclea.oopzoomvp.ui.allanimals.impl;
+package com.example.nciuclea.oopzoomvp.util.loaders;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,8 +8,6 @@ import android.support.v4.content.Loader;
 import android.util.Log;
 
 import com.example.nciuclea.oopzoomvp.storage.dao.Animal;
-import com.example.nciuclea.oopzoomvp.ui.allanimals.DataLoadCallback;
-import com.example.nciuclea.oopzoomvp.ui.allanimals.loaders.DBDataLoader;
 
 import java.util.List;
 

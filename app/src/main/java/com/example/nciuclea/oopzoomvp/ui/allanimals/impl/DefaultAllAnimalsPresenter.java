@@ -17,6 +17,7 @@ public class DefaultAllAnimalsPresenter implements AllAnimalsPresenter, DataUpda
     private final AllAnimalsView allAnimalsView;
     private final AllAnimalsModel allAnimalsModel;
     private final AllAnimalsWireframe allAnimalsWireframe;
+    private boolean apiFetched = false;
 
     public DefaultAllAnimalsPresenter(DefaultAllAnimalsView view, AllAnimalsModel model, AllAnimalsWireframe wireframe) {
         this.allAnimalsView = view;
@@ -27,33 +28,33 @@ public class DefaultAllAnimalsPresenter implements AllAnimalsPresenter, DataUpda
     @Override
     public void onViewInitialized() {
         Log.d("PROF_LOG", "requested data from model in presenter / onViewInitialized");
-        allAnimalsModel.pullFromApi();
+        if(apiFetched){
+            allAnimalsModel.pullFromDB();
+        } else{
+            allAnimalsModel.pullFromApi();
+            apiFetched = true;
+        }
     }
 
     @Override
-    public void onClick(View v, int id) {
-        allAnimalsWireframe.showAnimalDescription(id);
+    public void onSuccess(List<Animal> data) {
+        allAnimalsModel.pullFromDB();
     }
 
     @Override
-    public void onDBUpdateReceive() {
+    public void onFailure() {
+        allAnimalsView.showNetworkError("API request failed, trying to get last saved data...");
         allAnimalsModel.pullFromDB();
     }
 
     @Override
     public void onDataUpdated(List<Animal> data) {
         Log.d("PROF_LOG", "got data from model");
-
         allAnimalsView.updateData(data);
     }
 
     @Override
-    public void onSuccess(List<Animal> data) {
-        onDataUpdated(data);
-    }
-
-    @Override
-    public void onFailure() {
-        Log.d("API", "API request failed");
+    public void onClick(View v, int id) {
+        allAnimalsWireframe.showAnimalDescription(id);
     }
 }
