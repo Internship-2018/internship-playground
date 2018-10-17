@@ -47,7 +47,8 @@ public class AllAnimalsFragment extends Fragment {
 
         //Creating Loader and initing it in LoaderManager
         DBDataLoader dbDataLoader = new DBDataLoader(getContext()); //TODO After screen rotation model looses loader callback
-        DefaultAllAnimalsModel defaultAllAnimalsModel = new DefaultAllAnimalsModel(OpenHelperManager.getHelper(getContext(), DBHelper.class), dbDataLoader);
+        DBHelper dbHelper = OpenHelperManager.getHelper(getContext(), DBHelper.class);
+        DefaultAllAnimalsModel defaultAllAnimalsModel = new DefaultAllAnimalsModel(dbHelper, dbDataLoader);
         listLoaderCallbacks = new DefaultDBLoaderCallback(dbDataLoader, defaultAllAnimalsModel);
         LoaderManager.getInstance(this).initLoader(LOADER_ID, null, listLoaderCallbacks);
 

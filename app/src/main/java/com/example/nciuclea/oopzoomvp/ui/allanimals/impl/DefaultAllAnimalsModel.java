@@ -28,7 +28,7 @@ public class DefaultAllAnimalsModel implements AllAnimalsModel, DataLoadCallback
     private ArrayList<Animal> animalsList = new ArrayList<>();
     private final DataFetcher dataFetcher;
     private DataUpdatedCallback<List<Animal>> dataUpdatedCallback;
-    private ApiResponseReceivedCallback apiResponseReceivedCallback;
+    private ApiResponseReceivedCallback<List<Animal>> apiResponseReceivedCallback;
     private DBHelper dbHelper;
     private AnimalWithZoosDao animalDao;
     private Dao<Zoopark, Integer> zooparkDao;
@@ -39,7 +39,7 @@ public class DefaultAllAnimalsModel implements AllAnimalsModel, DataLoadCallback
         this.dataUpdatedCallback = dataUpdatedCallback;
     }
 
-    public void setApiResponseReceivedCallback(ApiResponseReceivedCallback apiResponseReceivedCallback) {
+    public void setApiResponseReceivedCallback(ApiResponseReceivedCallback<List<Animal>> apiResponseReceivedCallback) {
         this.apiResponseReceivedCallback = apiResponseReceivedCallback;
     }
 
@@ -60,24 +60,12 @@ public class DefaultAllAnimalsModel implements AllAnimalsModel, DataLoadCallback
         ApiServiceBuilder.getZooApiService().getAnimals().enqueue(new Callback<List<Animal>>() {
             @Override
             public void onResponse(Call<List<Animal>> call, Response<List<Animal>> response) {
-                dbHelper.onNewApiFetch();
                 final ArrayList<Animal> apiAnimalList = new ArrayList<>(response.body());
-                try {
-                    animalDao.create(apiAnimalList);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-
                 ApiServiceBuilder.getZooApiService().getZooparks().enqueue(new Callback<List<Zoopark>>() {
                     @Override
                     public void onResponse(Call<List<Zoopark>> call, Response<List<Zoopark>> response) {
                         ArrayList<Zoopark> zooparkList = new ArrayList<>(response.body());
-                        try {
-                            zooparkDao.create(zooparkList);
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-
+                        ArrayList<AnimalZoopark> animalZooparkList = new ArrayList<>();
                         //generating hashmap
                         HashMap<Integer, Zoopark> zooparkHashMap = new HashMap<>();
                         for(Zoopark zoo: zooparkList){
@@ -86,15 +74,21 @@ public class DefaultAllAnimalsModel implements AllAnimalsModel, DataLoadCallback
                         //Filling animals (with references to zoos) and AnimalZoo table
                         for(int i = 0; i < apiAnimalList.size(); i++) {
                             for(int j = 0; j < apiAnimalList.get(i).getZooIds().size(); j++) {
-
+                                Animal animalToAdd = apiAnimalList.get(i);
                                 Zoopark zooToAdd = zooparkHashMap.get(apiAnimalList.get(i).getZooIds().get(j));
-                                apiAnimalList.get(i).addZooPark(zooToAdd);
-                                try {
-                                    animalZooparkDao.create(new AnimalZoopark(apiAnimalList.get(i), zooToAdd));
-                                } catch (SQLException e) {
-                                    e.printStackTrace();
-                                }
+                                animalZooparkList.add(new AnimalZoopark(animalToAdd, zooToAdd));
+                                // apiAnimalList.get(i).addZooPark(zooToAdd); now using data from DB on UI
                             }
+                        }
+
+                        //Writing lists to db
+                        dbHelper.onNewApiFetch();
+                        try {
+                            animalDao.create(apiAnimalList);
+                            zooparkDao.create(zooparkList);
+                            animalZooparkDao.create(animalZooparkList);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
                         }
 
                         apiResponseReceivedCallback.onSuccess(apiAnimalList);
