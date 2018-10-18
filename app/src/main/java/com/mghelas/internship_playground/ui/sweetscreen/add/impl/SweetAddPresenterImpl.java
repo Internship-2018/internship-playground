@@ -21,6 +21,7 @@ public class SweetAddPresenterImpl implements SweetAddPresenter {
         this.sweetAddView = sweetAddView;
         this.sweetAddModel = sweetAddModel;
         this.sweetAddWireframe = sweetAddWireframe;
+        this.networkConectivity = networkConectivity;
     }
 
     @Override

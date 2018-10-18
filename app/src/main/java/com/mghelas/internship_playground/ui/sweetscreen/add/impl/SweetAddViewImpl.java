@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mghelas.internship_playground.R;
@@ -21,7 +22,10 @@ import com.mghelas.internship_playground.ui.sweetscreen.add.SweetAddNativeView;
 import com.mghelas.internship_playground.ui.sweetscreen.add.SweetAddPresenter;
 import com.mghelas.internship_playground.ui.sweetscreen.add.SweetAddView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView, AdapterView.OnItemSelectedListener {
@@ -30,6 +34,7 @@ public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView, Adapt
     private LinearLayout switchContainer;
     private SweetAddFragment sweetAddFragment;
     private Spinner spinner;
+    private Calendar c;
 
     @Override
     public int getLayout() {
@@ -44,17 +49,25 @@ public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView, Adapt
         final EditText type = sweetAddFragment.getView().findViewById(R.id.type_add);
         final EditText confectionerName = sweetAddFragment.getView().findViewById(R.id.confectioner_name_add);
         final CalendarView expiryDate = sweetAddFragment.getView().findViewById(R.id.expiry_date_add);
+        expiryDate.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                 c = Calendar.getInstance();
+                c.set(year, month, dayOfMonth);
+            }
+        });
         spinner = sweetAddFragment.getView().findViewById(R.id.spinner);
+        spinner.setOnItemSelectedListener(this);
         switchContainer = sweetAddFragment.getView().findViewById(R.id.switch_container);
         sweetAddPresenter.getAllIngredients();
-
-
+        c = Calendar.getInstance();
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                 Sweet sweet = new Sweet(title.getText().toString(),
                         type.getText().toString(),
-                        expiryDate.getDate() + "",
+                        sdf.format(c.getTime()) + "",
                         confectionerName.getText().toString());
                 List<Ingredient> ingredients = getIngredients(switchContainer);
                 sweet.setIngredients(ingredients);
@@ -70,12 +83,10 @@ public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView, Adapt
         List<Ingredient> ingredients = new ArrayList<>();
 
         for (int i = 0; i < switchContainer.getChildCount(); i = i + 2) {
-            Switch s = (Switch) switchContainer.getChildAt(i);
-            if (s.isChecked()) {
-                EditText quantity = (EditText) switchContainer.getChildAt(i + 1);
-                Ingredient ingredient = new Ingredient(s.getId(), s.getText().toString(), Double.parseDouble(quantity.getText().toString()));
-                ingredients.add(ingredient);
-            }
+            TextView s = (TextView) switchContainer.getChildAt(i);
+            EditText quantity = (EditText) switchContainer.getChildAt(i + 1);
+            Ingredient ingredient = new Ingredient(s.getId(), s.getText().toString(), Double.parseDouble(quantity.getText().toString()));
+            ingredients.add(ingredient);
         }
         return ingredients;
     }
@@ -93,7 +104,7 @@ public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView, Adapt
 
     @Override
     public void bindData(List<Ingredient> ingredients) {
-
+        ingredients.add(0, new Ingredient("Select an ingredient"));
         ArrayAdapter<Ingredient> dataAdapter = new ArrayAdapter<>(sweetAddFragment.getContext(),
                 R.layout.support_simple_spinner_dropdown_item,
                 ingredients);
@@ -111,16 +122,17 @@ public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView, Adapt
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Ingredient ingredient = (Ingredient) parent.getItemAtPosition(position);
-        Switch aSwitch = new Switch(sweetAddFragment.getContext());
-        aSwitch.setId(ingredient.getId());
-        aSwitch.setText(ingredient.getName());
-        switchContainer.addView(aSwitch);
+        if (position != 0) {
+            Ingredient ingredient = (Ingredient) parent.getItemAtPosition(position);
+            TextView textView = new TextView(sweetAddFragment.getContext());
+            textView.setId(ingredient.getId());
+            textView.setText(ingredient.getName());
+            switchContainer.addView(textView);
 
-        EditText quantity = new EditText(sweetAddFragment.getContext());
-        quantity.setHint("Quantity");
-        switchContainer.addView(quantity);
-
+            EditText quantity = new EditText(sweetAddFragment.getContext());
+            quantity.setHint("Quantity");
+            switchContainer.addView(quantity);
+        }
     }
 
     @Override
