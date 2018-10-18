@@ -10,9 +10,10 @@ import java.util.List;
 
 @DatabaseTable(tableName = "animal", daoClass = AnimalWithZoosDaoImpl.class)
 public class Animal {
+
     @SerializedName("id")
     @Expose
-    @DatabaseField(id = true, columnName = "id")
+    @DatabaseField(generatedId = true, columnName = "id", allowGeneratedIdInsert = true)
     private int id;
 
     @SerializedName("name")
@@ -39,7 +40,7 @@ public class Animal {
     @SerializedName("geo_location")
     @Expose
     @DatabaseField(columnName = "geo_location")
-    private String geo_location;
+    private String location;
 
     @SerializedName("description")
     @Expose
@@ -50,11 +51,11 @@ public class Animal {
 
     }
 
-    public Animal(String name, String imageUrl, String habitat, String geo_location, String description) {
+    public Animal(String name, String imageUrl, String habitat, String location, String description) {
         this.name = name;
         this.imageUrl = imageUrl;
         this.habitat = habitat;
-        this.geo_location = geo_location;
+        this.location = location;
         this.description = description;
     }
 
@@ -91,11 +92,11 @@ public class Animal {
     }
 
     public String getLocation() {
-        return geo_location;
+        return location;
     }
 
-    public void setGeo_location(String geo_location) {
-        this.geo_location = geo_location;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getDescription() {

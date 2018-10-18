@@ -58,6 +58,57 @@ public class DefaultAllAnimalsModel implements AllAnimalsModel, DataLoadCallback
     }
 
     @Override
+    public void addAnimal(final Animal animal) {
+        ApiServiceBuilder.getZooApiService().addAnimal(animal).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.code() != 201) {
+                    dataUpdatedCallback.onDataFetchError(new NetworkError(response.code()));
+                    return;
+                }
+                try {
+                    animalDao.create(animal);
+                } catch (SQLException e) {
+                    dataUpdatedCallback.onDataFetchError(new NetworkError(
+                            new Throwable("Animal adding in DB failed!")));
+                    e.printStackTrace();
+                    return;
+                }
+                pullFromDB();
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                dataUpdatedCallback.onDataFetchError(new NetworkError(t));
+            }
+        });
+    }
+
+    @Override
+    public void deleteAnimal(final int id) {
+        ApiServiceBuilder.getZooApiService().deleteAnimal(id).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.code() != 204) {
+                    dataUpdatedCallback.onDataFetchError(new NetworkError(response.code()));
+                    return;
+                }
+                try {
+                    animalDao.deleteById(id);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                pullFromDB();
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                dataUpdatedCallback.onDataFetchError(new NetworkError(t));
+            }
+        });
+    }
+
+    @Override
     public void onDataLoaded(List<Animal> data) {
         dataUpdatedCallback.onDataUpdated(new ArrayList<>(data));
     }

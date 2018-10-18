@@ -6,4 +6,8 @@ import java.util.List;
 
 public interface AllAnimalsModel {
     void requestData(DataUpdatedCallback<List<Animal>> dataUpdatedCallback, boolean forceFetchApi);
+
+    void addAnimal(Animal animal);
+
+    void deleteAnimal(int id);
 }

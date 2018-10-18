@@ -68,7 +68,7 @@ public class AllAnimalsAdapter extends RecyclerView.Adapter<AllAnimalsAdapter.An
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    clickHandler.onClick(itemView, getLayoutPosition());
+                    clickHandler.onClick(itemView, animalsList.get(getLayoutPosition()).getId());
                 }
             });
 

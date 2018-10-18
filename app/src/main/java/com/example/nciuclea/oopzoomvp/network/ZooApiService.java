@@ -21,8 +21,8 @@ public interface ZooApiService {
     Call<List<Zoopark>> getZooparks();
 
     @POST("animal")
-    Call<Integer> addAnimal(@Body Animal animal);
+    Call<Void> addAnimal(@Body Animal animal);
 
     @DELETE("animal/{id}")
-    Call<Integer> deleteAnimal(@Path("id") int id);
+    Call<Void> deleteAnimal(@Path("id") long id);
 }

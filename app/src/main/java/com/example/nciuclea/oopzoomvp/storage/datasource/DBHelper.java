@@ -17,7 +17,7 @@ import java.sql.SQLException;
 public class DBHelper extends OrmLiteSqliteOpenHelper {
 
     private static final String DATABASE_NAME = "animals_db";
-    private static final int DATABASE_VERSION = 50;
+    private static final int DATABASE_VERSION = 52;
 
     private Dao<Zoopark, Integer> zooparkDao = null;
     private Dao<AnimalZoopark, Integer> animalZooparkDao = null;
