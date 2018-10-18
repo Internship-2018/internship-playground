@@ -6,9 +6,7 @@ import android.support.v4.app.LoaderManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.example.nciuclea.oopzoomvp.R;
 import com.example.nciuclea.oopzoomvp.storage.dao.Animal;
 import com.example.nciuclea.oopzoomvp.ui.animaldescription.impl.DefaultAnimalDescriptionModel;
 import com.example.nciuclea.oopzoomvp.ui.animaldescription.impl.DefaultAnimalDescriptionPresenter;
@@ -27,7 +25,7 @@ public class AnimalDescriptionFragment extends Fragment {
     private AnimalDescriptionPresenter animalDescriptionPresenter;
     protected LoaderManager.LoaderCallbacks<List<Animal>> listLoaderCallbacks;
 
-    private static final String ARG_ANIMANLID = "animalId";
+    private static final String ARG_ANIMALID = "animalId";
 
     private int animalId;
 
@@ -39,7 +37,7 @@ public class AnimalDescriptionFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            animalId = getArguments().getInt(ARG_ANIMANLID);
+            animalId = getArguments().getInt(ARG_ANIMALID);
         }
         //creating View
         DefaultAnimalDescriptionView view = new DefaultAnimalDescriptionView(getContext());

@@ -96,6 +96,8 @@ public class DefaultAllAnimalsModel implements AllAnimalsModel, DataLoadCallback
                 try {
                     animalDao.deleteById(id);
                 } catch (SQLException e) {
+                    dataUpdatedCallback.onDataFetchError(new NetworkError(
+                            new Throwable("Animal removal from DB failed!")));
                     e.printStackTrace();
                 }
                 pullFromDB();

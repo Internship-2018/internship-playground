@@ -1,6 +1,7 @@
 package com.example.nciuclea.oopzoomvp.ui.allanimals.impl;
 
 import android.content.Context;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,9 +11,12 @@ import android.widget.Toast;
 import com.example.nciuclea.oopzoomvp.R;
 import com.example.nciuclea.oopzoomvp.storage.dao.Animal;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsClickHandler;
+import com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsFabClickHandler;
+import com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsLongClickHandler;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsNativeView;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsRefreshHandler;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsView;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +30,8 @@ public class DefaultAllAnimalsView implements AllAnimalsView, AllAnimalsNativeVi
     private SwipeRefreshLayout swipeRefreshLayout;
     private AllAnimalsClickHandler clickHandler;
     private AllAnimalsRefreshHandler refreshHandler;
+    private AllAnimalsFabClickHandler allAnimalsFabClickHandler;
+    private FloatingActionButton fab;
 
     public DefaultAllAnimalsView(Context context) {
         this.context = context;
@@ -43,6 +49,8 @@ public class DefaultAllAnimalsView implements AllAnimalsView, AllAnimalsNativeVi
         adapter = new AllAnimalsAdapter(context, new ArrayList<Animal>());
         recyclerView.setAdapter(adapter);
         swipeRefreshLayout = view.findViewById(R.id.swiperefresh_allanimals);
+        fab = view.findViewById(R.id.floating);
+        fab.bringToFront();
     }
 
     @Override
@@ -53,12 +61,28 @@ public class DefaultAllAnimalsView implements AllAnimalsView, AllAnimalsNativeVi
     }
 
     @Override
+    public void setOnLongClickHandler(AllAnimalsLongClickHandler longClickHandler){
+        adapter.setLongClickHandler(longClickHandler);
+    }
+
+    @Override
     public void setOnRefreshHandler(AllAnimalsRefreshHandler allAnimalsRefreshHandler) {
         this.refreshHandler = allAnimalsRefreshHandler;
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 refreshHandler.onRefresh();
+            }
+        });
+    }
+
+    @Override
+    public void setOnFabClickHandler(AllAnimalsFabClickHandler allAnimalsFabClickHandle) {
+        this.allAnimalsFabClickHandler = allAnimalsFabClickHandle;
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                allAnimalsFabClickHandler.onFabClick(v);
             }
         });
     }

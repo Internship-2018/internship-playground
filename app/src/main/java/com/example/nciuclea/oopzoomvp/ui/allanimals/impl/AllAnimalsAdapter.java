@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.nciuclea.oopzoomvp.R;
 import com.example.nciuclea.oopzoomvp.storage.dao.Animal;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsClickHandler;
+import com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsLongClickHandler;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class AllAnimalsAdapter extends RecyclerView.Adapter<AllAnimalsAdapter.An
     private Context context;
     private List<Animal> animalsList;
     private AllAnimalsClickHandler clickHandler;
+    private AllAnimalsLongClickHandler longClickHandler;
 
     public AllAnimalsAdapter(Context context, List<Animal> animalsList) {
         this.context = context;
@@ -55,6 +57,10 @@ public class AllAnimalsAdapter extends RecyclerView.Adapter<AllAnimalsAdapter.An
         this.clickHandler = clickHandler;
     }
 
+    public void setLongClickHandler(AllAnimalsLongClickHandler longClickHandler){
+        this.longClickHandler = longClickHandler;
+    }
+
 
     class AnimalViewHolder extends RecyclerView.ViewHolder {
 
@@ -68,7 +74,14 @@ public class AllAnimalsAdapter extends RecyclerView.Adapter<AllAnimalsAdapter.An
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    clickHandler.onClick(itemView, animalsList.get(getLayoutPosition()).getId());
+                    clickHandler.onClick(itemView, getLayoutPosition());
+                }
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    longClickHandler.onLongClick(itemView, animalsList.get(getLayoutPosition()).getId());
+                    return true;
                 }
             });
 

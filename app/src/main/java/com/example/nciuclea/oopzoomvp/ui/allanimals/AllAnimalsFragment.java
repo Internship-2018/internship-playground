@@ -64,6 +64,8 @@ public class AllAnimalsFragment extends Fragment {
         allAnimalsNativeView.initView(view);
         allAnimalsNativeView.setOnClickHandler(allAnimalsPresenter);
         allAnimalsNativeView.setOnRefreshHandler(allAnimalsPresenter);
+        allAnimalsNativeView.setOnLongClickHandler(allAnimalsPresenter);
+        allAnimalsNativeView.setOnFabClickHandler(allAnimalsPresenter);
         allAnimalsPresenter.onViewInitialized();
         return view;
     }

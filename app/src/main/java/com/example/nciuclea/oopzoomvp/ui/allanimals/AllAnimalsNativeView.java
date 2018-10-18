@@ -8,5 +8,10 @@ public interface AllAnimalsNativeView {
     void initView(View view);
 
     void setOnClickHandler(AllAnimalsClickHandler allAnimalsClickHandler);
+
+    void setOnLongClickHandler(AllAnimalsLongClickHandler longClickHandler);
+
     void setOnRefreshHandler(AllAnimalsRefreshHandler allAnimalsRefreshHandler);
+
+    void setOnFabClickHandler(AllAnimalsFabClickHandler allAnimalsFabClickHandler);
 }
