@@ -53,11 +53,9 @@ public class AllAnimalsFragment extends Fragment {
         LoaderManager.getInstance(this).initLoader(LOADER_ID, null, listLoaderCallbacks);
 
         //creating Presenter (WireFrame inside)
-        DefaultAllAnimalsPresenter defaultAllAnimalsPresenter = new DefaultAllAnimalsPresenter(
+        allAnimalsPresenter = new DefaultAllAnimalsPresenter(
                 view, defaultAllAnimalsModel, new DefaultAllAnimalsWireFrame(this));
-        allAnimalsPresenter = defaultAllAnimalsPresenter;
-        defaultAllAnimalsModel.setDataUpdatedCallback(defaultAllAnimalsPresenter);
-        defaultAllAnimalsModel.setApiResponseReceivedCallback(defaultAllAnimalsPresenter);
+
     }
 
     @Override

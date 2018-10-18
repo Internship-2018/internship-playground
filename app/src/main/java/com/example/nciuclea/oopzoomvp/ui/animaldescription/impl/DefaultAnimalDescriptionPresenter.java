@@ -3,7 +3,7 @@ package com.example.nciuclea.oopzoomvp.ui.animaldescription.impl;
 import android.view.View;
 
 import com.example.nciuclea.oopzoomvp.storage.dao.Animal;
-import com.example.nciuclea.oopzoomvp.ui.allanimals.DataUpdatedCallback;
+import com.example.nciuclea.oopzoomvp.ui.animaldescription.DataUpdatedCallback;
 import com.example.nciuclea.oopzoomvp.ui.animaldescription.AnimalDescriptionModel;
 import com.example.nciuclea.oopzoomvp.ui.animaldescription.AnimalDescriptionPresenter;
 import com.example.nciuclea.oopzoomvp.ui.animaldescription.AnimalDescriptionView;

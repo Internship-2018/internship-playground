@@ -3,13 +3,13 @@ package com.example.nciuclea.oopzoomvp.ui.allanimals.impl;
 import android.util.Log;
 
 import com.example.nciuclea.oopzoomvp.network.ApiServiceBuilder;
+import com.example.nciuclea.oopzoomvp.network.NetworkError;
 import com.example.nciuclea.oopzoomvp.storage.dao.Animal;
 import com.example.nciuclea.oopzoomvp.storage.dao.AnimalWithZoosDao;
 import com.example.nciuclea.oopzoomvp.storage.dao.AnimalZoopark;
 import com.example.nciuclea.oopzoomvp.storage.dao.Zoopark;
 import com.example.nciuclea.oopzoomvp.storage.datasource.DBHelper;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsModel;
-import com.example.nciuclea.oopzoomvp.ui.allanimals.ApiResponseReceivedCallback;
 import com.example.nciuclea.oopzoomvp.util.loaders.DataFetcher;
 import com.example.nciuclea.oopzoomvp.util.loaders.DataLoadCallback;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.DataUpdatedCallback;
@@ -25,23 +25,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DefaultAllAnimalsModel implements AllAnimalsModel, DataLoadCallback<List<Animal>> {
-    private ArrayList<Animal> animalsList = new ArrayList<>();
+    private boolean apiFetched = false;
     private final DataFetcher dataFetcher;
     private DataUpdatedCallback<List<Animal>> dataUpdatedCallback;
-    private ApiResponseReceivedCallback<List<Animal>> apiResponseReceivedCallback;
     private DBHelper dbHelper;
     private AnimalWithZoosDao animalDao;
     private Dao<Zoopark, Integer> zooparkDao;
     private Dao<AnimalZoopark, Integer> animalZooparkDao;
-
-    @Override
-    public void setDataUpdatedCallback(DataUpdatedCallback<List<Animal>> dataUpdatedCallback) {
-        this.dataUpdatedCallback = dataUpdatedCallback;
-    }
-
-    public void setApiResponseReceivedCallback(ApiResponseReceivedCallback<List<Animal>> apiResponseReceivedCallback) {
-        this.apiResponseReceivedCallback = apiResponseReceivedCallback;
-    }
 
     public DefaultAllAnimalsModel(DBHelper dbHelper, DataFetcher dataFetcher) {
         this.dbHelper = dbHelper;
@@ -56,15 +46,54 @@ public class DefaultAllAnimalsModel implements AllAnimalsModel, DataLoadCallback
     }
 
     @Override
-    public void pullFromApi() {
+    public void onDataLoaded(List<Animal> data) {
+        dataUpdatedCallback.onDataUpdated(new ArrayList<>(data));
+    }
+
+    @Override
+    public void requestData(DataUpdatedCallback<List<Animal>> dataUpdatedCallback) {
+        this.dataUpdatedCallback = dataUpdatedCallback;
+        if(apiFetched){
+            pullFromDB();
+        } else{
+            pullFromApi();
+            apiFetched = true;
+        }
+    }
+
+    private void pullFromDB() {
+        Log.d("PROF_LOG", "before Model calls dataFetcher.fetchData()");
+        dataFetcher.fetchData();
+    }
+
+    private void pullFromApi() {
+        final ArrayList<Animal> apiAnimalList = new ArrayList<>();
+        final ArrayList<Zoopark> zooparkList = new ArrayList<>();
+
+        //Pulling Animals from API
         ApiServiceBuilder.getZooApiService().getAnimals().enqueue(new Callback<List<Animal>>() {
+
             @Override
             public void onResponse(Call<List<Animal>> call, Response<List<Animal>> response) {
-                final ArrayList<Animal> apiAnimalList = new ArrayList<>(response.body());
+                if (response.code() != 200) {
+                    dataUpdatedCallback.onDataFetchError(new NetworkError(response.code()));
+                    pullFromDB();
+                    return;
+                }
+                apiAnimalList.addAll(response.body());
+
+                //Pulling Zooparks from API
                 ApiServiceBuilder.getZooApiService().getZooparks().enqueue(new Callback<List<Zoopark>>() {
+
                     @Override
                     public void onResponse(Call<List<Zoopark>> call, Response<List<Zoopark>> response) {
-                        ArrayList<Zoopark> zooparkList = new ArrayList<>(response.body());
+                        if (response.code() != 200) {
+                            dataUpdatedCallback.onDataFetchError(new NetworkError(response.code()));
+                            pullFromDB();
+                            return;
+                        }
+                        zooparkList.addAll(response.body());
+
                         ArrayList<AnimalZoopark> animalZooparkList = new ArrayList<>();
                         //generating hashmap
                         HashMap<Integer, Zoopark> zooparkHashMap = new HashMap<>();
@@ -82,8 +111,8 @@ public class DefaultAllAnimalsModel implements AllAnimalsModel, DataLoadCallback
                         }
 
                         //Writing lists to db
-                        dbHelper.onNewApiFetch();
                         try {
+                            dbHelper.onNewApiFetch();
                             animalDao.create(apiAnimalList);
                             zooparkDao.create(zooparkList);
                             animalZooparkDao.create(animalZooparkList);
@@ -91,33 +120,32 @@ public class DefaultAllAnimalsModel implements AllAnimalsModel, DataLoadCallback
                             e.printStackTrace();
                         }
 
-                        apiResponseReceivedCallback.onSuccess(apiAnimalList);
+                        //pulling written data from DB
+                        pullFromDB();
+
                     }
 
                     @Override
                     public void onFailure(Call<List<Zoopark>> call, Throwable t) {
-                        apiResponseReceivedCallback.onFailure();
+                        dataUpdatedCallback.onDataFetchError(new NetworkError(t));
+                        pullFromDB();
                     }
+
                 });
+
             }
 
             @Override
             public void onFailure(Call<List<Animal>> call, Throwable t) {
-                apiResponseReceivedCallback.onFailure();
+                dataUpdatedCallback.onDataFetchError(new NetworkError(t));
+                pullFromDB();
             }
+
         });
-    }
 
-    @Override
-    public void pullFromDB() {
-        Log.d("PROF_LOG", "before Model calls dataFetcher.fetchData()");
-        dataFetcher.fetchData();
-    }
 
-    @Override
-    public void onDataLoaded(List<Animal> data) {
-        dataUpdatedCallback.onDataUpdated(new ArrayList<>(data));
-    }
 
+
+    }
 
 }

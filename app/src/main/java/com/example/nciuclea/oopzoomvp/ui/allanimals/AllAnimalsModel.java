@@ -5,9 +5,5 @@ import com.example.nciuclea.oopzoomvp.storage.dao.Animal;
 import java.util.List;
 
 public interface AllAnimalsModel {
-    void pullFromDB();
-
-    void setDataUpdatedCallback(DataUpdatedCallback<List<Animal>> dataUpdatedCallback);
-
-    void pullFromApi();
+    void requestData(DataUpdatedCallback<List<Animal>> dataUpdatedCallback);
 }

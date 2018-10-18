@@ -54,7 +54,7 @@ public class DefaultAllAnimalsView implements AllAnimalsView, AllAnimalsNativeVi
 
     @Override
     public void showNetworkError(String message) {
-        Toast networkErrorToast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
+        Toast networkErrorToast = Toast.makeText(context, message, Toast.LENGTH_LONG);
         networkErrorToast.show();
     }
 }

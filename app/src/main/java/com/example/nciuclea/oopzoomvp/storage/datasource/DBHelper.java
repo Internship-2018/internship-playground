@@ -43,18 +43,18 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             Animal animal2 = new Animal("Kinkajou",
                     "https://www.stlzoo.org/files/3713/0798/4175/kinkajou.jpg",
                     null, null, null);
-            animalDao.create(animal1);
-            animalDao.create(animal2);
             Zoopark zoo1 = new Zoopark("Chisinau", "National zoo", "Bulevardul Dacia 50/7");
             Zoopark zoo2 = new Zoopark("Balti", "Balti zoo", "str. Stefan cel Mare 5/6");
             Zoopark zoo3 = new Zoopark("Orhei", "Orhei zoo", "str. Sf. Gheorghe 1/2");
-            zooparkDao.create(zoo1);
-            zooparkDao.create(zoo2);
-            zooparkDao.create(zoo3);
             AnimalZoopark animal1Zoopark1 = new AnimalZoopark(animal1, zoo1);
             AnimalZoopark animal1Zoopark2 = new AnimalZoopark(animal1, zoo2);
             AnimalZoopark animal2Zoopark2 = new AnimalZoopark(animal2, zoo2);
             AnimalZoopark animal2Zoopark3 = new AnimalZoopark(animal2, zoo3);
+            zooparkDao.create(zoo1);
+            zooparkDao.create(zoo2);
+            zooparkDao.create(zoo3);
+            animalDao.create(animal1);
+            animalDao.create(animal2);
             animalZooparkDao.create(animal1Zoopark1);
             animalZooparkDao.create(animal1Zoopark2);
             animalZooparkDao.create(animal2Zoopark2);
@@ -75,20 +75,15 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        onCreate(database, connectionSource);
     }
 
-    public void onNewApiFetch() {
-        try {
-            TableUtils.dropTable(connectionSource, Animal.class, true);
-            TableUtils.dropTable(connectionSource, Zoopark.class, true);
-            TableUtils.dropTable(connectionSource, AnimalZoopark.class, true);
-            TableUtils.createTable(connectionSource, Animal.class);
-            TableUtils.createTable(connectionSource, Zoopark.class);
-            TableUtils.createTable(connectionSource, AnimalZoopark.class);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void onNewApiFetch() throws SQLException {
+        TableUtils.dropTable(connectionSource, Animal.class, true);
+        TableUtils.dropTable(connectionSource, Zoopark.class, true);
+        TableUtils.dropTable(connectionSource, AnimalZoopark.class, true);
+        TableUtils.createTable(connectionSource, Animal.class);
+        TableUtils.createTable(connectionSource, Zoopark.class);
+        TableUtils.createTable(connectionSource, AnimalZoopark.class);
     }
 
     public AnimalWithZoosDao getAnimalWithZoosDao() throws SQLException {
