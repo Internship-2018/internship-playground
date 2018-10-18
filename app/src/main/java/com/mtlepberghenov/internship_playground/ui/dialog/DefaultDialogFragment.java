@@ -34,7 +34,7 @@ public class DefaultDialogFragment extends DialogFragment {
     final DbHelper dbHelper = DefaultDbHelper.getInstance(getContext());
     final DaoVehicle dao = DefaultDaoVehicle.getInstance(dbHelper);
     final DialogModel model = new DefaultDialogModel(nc,dao);
-    final DialogWireframe wireframe = new DefaultDialogWireframe();
+    final DialogWireframe wireframe = new DefaultDialogWireframe(getActivity());
     final NetworkChecker networkChecker = new DefaultNetworkChecker(getContext());
     presenter = new DefaultDialogPresenter(view, model, wireframe, networkChecker);
   }

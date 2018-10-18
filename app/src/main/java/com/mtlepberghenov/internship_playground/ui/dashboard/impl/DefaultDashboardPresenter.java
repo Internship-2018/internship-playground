@@ -28,21 +28,28 @@ public class DefaultDashboardPresenter
 
   @Override public void onViewInitialised() {
     view.setAdapter(adapter);
+    view.setRefreshHandler(this);
     checkNetworkState();
   }
 
-  @Override public void offlineState() {
-    List<Vehicle> list = model.loadData();
-    view.updateData(list);
+  @Override public void onRefresh() {
+    checkNetworkState();
   }
 
   @Override public void onlineState() {
     model.doGetRequest(this);
   }
 
+  @Override public void offlineState() {
+    List<Vehicle> list = model.loadData();
+    view.updateData(list);
+    view.setRefreshingFalse();
+  }
+
   @Override public void onResponse() {
     List<Vehicle> list = model.loadData();
     view.updateData(list);
+    view.setRefreshingFalse();
   }
 
   @Override public void onFailure() {

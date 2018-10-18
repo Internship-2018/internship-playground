@@ -40,11 +40,12 @@ public class DefaultDashboardModel implements DashboardModel {
 
           try {
             es.submit(r).get();
+            es.shutdown();
+            requestState.onResponse();
           } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
           }
-          es.shutdown();
-          requestState.onResponse();
+
         } else {
           requestState.onFailure();
         }

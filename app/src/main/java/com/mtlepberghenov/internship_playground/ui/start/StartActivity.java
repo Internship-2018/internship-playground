@@ -14,7 +14,7 @@ import timber.log.Timber;
 
 public class StartActivity extends AppCompatActivity {
 
-  private static final String TAG = "DefaultDialogFragment";
+  public static final String TAG = "DefaultDialogFragment";
 
   @Override protected void onCreate(@Nullable Bundle bundle) {
     super.onCreate(bundle);

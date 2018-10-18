@@ -39,7 +39,7 @@ public class DefaultDialogPresenter implements DialogPresenter, NetworkState, Ve
   }
 
   @Override public void onClickedCancel() {
-    //todo wireframe close
+    wireframe.close();
   }
 
   @Override public void onlineState() {

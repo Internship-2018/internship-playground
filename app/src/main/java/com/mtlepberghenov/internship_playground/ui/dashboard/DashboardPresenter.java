@@ -1,6 +1,6 @@
 package com.mtlepberghenov.internship_playground.ui.dashboard;
 
-public interface DashboardPresenter {
+public interface DashboardPresenter extends DashboardRefreshHandler {
 
   void onViewInitialised();
 }
