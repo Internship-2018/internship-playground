@@ -10,9 +10,9 @@ import com.example.nciuclea.oopzoomvp.storage.dao.AnimalZoopark;
 import com.example.nciuclea.oopzoomvp.storage.dao.Zoopark;
 import com.example.nciuclea.oopzoomvp.storage.datasource.DBHelper;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsModel;
+import com.example.nciuclea.oopzoomvp.ui.allanimals.DataUpdatedCallback;
 import com.example.nciuclea.oopzoomvp.util.loaders.DataFetcher;
 import com.example.nciuclea.oopzoomvp.util.loaders.DataLoadCallback;
-import com.example.nciuclea.oopzoomvp.ui.allanimals.DataUpdatedCallback;
 import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
@@ -25,7 +25,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DefaultAllAnimalsModel implements AllAnimalsModel, DataLoadCallback<List<Animal>> {
-    private boolean apiFetched = false;
+    private boolean fetchApi = true;
     private final DataFetcher dataFetcher;
     private DataUpdatedCallback<List<Animal>> dataUpdatedCallback;
     private DBHelper dbHelper;
@@ -46,19 +46,20 @@ public class DefaultAllAnimalsModel implements AllAnimalsModel, DataLoadCallback
     }
 
     @Override
-    public void onDataLoaded(List<Animal> data) {
-        dataUpdatedCallback.onDataUpdated(new ArrayList<>(data));
+    public void requestData(DataUpdatedCallback<List<Animal>> dataUpdatedCallback, boolean forceFetchApi) {
+        this.dataUpdatedCallback = dataUpdatedCallback;
+        if(fetchApi || forceFetchApi) {
+            pullFromApi();
+            fetchApi = false;
+        }
+        else {
+            pullFromDB();
+        }
     }
 
     @Override
-    public void requestData(DataUpdatedCallback<List<Animal>> dataUpdatedCallback) {
-        this.dataUpdatedCallback = dataUpdatedCallback;
-        if(apiFetched){
-            pullFromDB();
-        } else{
-            pullFromApi();
-            apiFetched = true;
-        }
+    public void onDataLoaded(List<Animal> data) {
+        dataUpdatedCallback.onDataUpdated(new ArrayList<>(data));
     }
 
     private void pullFromDB() {
@@ -140,11 +141,7 @@ public class DefaultAllAnimalsModel implements AllAnimalsModel, DataLoadCallback
                 dataUpdatedCallback.onDataFetchError(new NetworkError(t));
                 pullFromDB();
             }
-
         });
-
-
-
 
     }
 

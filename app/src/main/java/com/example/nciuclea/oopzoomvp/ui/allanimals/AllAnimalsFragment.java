@@ -15,16 +15,12 @@ import com.example.nciuclea.oopzoomvp.ui.allanimals.impl.DefaultAllAnimalsModel;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.impl.DefaultAllAnimalsPresenter;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.impl.DefaultAllAnimalsView;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.impl.DefaultAllAnimalsWireFrame;
-import com.example.nciuclea.oopzoomvp.util.loaders.DefaultDBLoaderCallback;
 import com.example.nciuclea.oopzoomvp.util.loaders.DBDataLoader;
+import com.example.nciuclea.oopzoomvp.util.loaders.DefaultDBLoaderCallback;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import java.util.List;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class AllAnimalsFragment extends Fragment {
 
     private static final int LOADER_ID = 13337;
@@ -67,6 +63,7 @@ public class AllAnimalsFragment extends Fragment {
         View view = inflater.inflate(allAnimalsNativeView.getLayout(), container, false);
         allAnimalsNativeView.initView(view);
         allAnimalsNativeView.setOnClickHandler(allAnimalsPresenter);
+        allAnimalsNativeView.setOnRefreshHandler(allAnimalsPresenter);
         allAnimalsPresenter.onViewInitialized();
         return view;
     }

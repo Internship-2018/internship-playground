@@ -10,9 +10,7 @@ import com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsPresenter;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsView;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsWireframe;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.DataUpdatedCallback;
-import com.example.nciuclea.oopzoomvp.ui.allanimals.ApiResponseReceivedCallback;
 
-import java.io.IOException;
 import java.util.List;
 
 public class DefaultAllAnimalsPresenter implements AllAnimalsPresenter, DataUpdatedCallback<List<Animal>> {
@@ -30,7 +28,7 @@ public class DefaultAllAnimalsPresenter implements AllAnimalsPresenter, DataUpda
     @Override
     public void onViewInitialized() {
         Log.d("PROF_LOG", "requested data from model in presenter / onViewInitialized");
-        allAnimalsModel.requestData(this);
+        allAnimalsModel.requestData(this, false);
     }
 
     @Override
@@ -47,5 +45,10 @@ public class DefaultAllAnimalsPresenter implements AllAnimalsPresenter, DataUpda
     @Override
     public void onClick(View v, int id) {
         allAnimalsWireframe.showAnimalDescription(id);
+    }
+
+    @Override
+    public void onRefresh() {
+        allAnimalsModel.requestData(this, true);
     }
 }
