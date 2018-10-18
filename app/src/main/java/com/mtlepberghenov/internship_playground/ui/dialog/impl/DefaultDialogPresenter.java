@@ -1,5 +1,6 @@
 package com.mtlepberghenov.internship_playground.ui.dialog.impl;
 
+import com.mtlepberghenov.internship_playground.R;
 import com.mtlepberghenov.internship_playground.api.VehicleResponse;
 import com.mtlepberghenov.internship_playground.networking.state.NetworkChecker;
 import com.mtlepberghenov.internship_playground.networking.state.NetworkState;
@@ -50,7 +51,7 @@ public class DefaultDialogPresenter implements DialogPresenter, NetworkState, Ve
   }
 
   @Override public void offlineState() {
-    view.showMessage();
+    view.showMessage(R.string.offline);
   }
 
   @Override public void onResponse(List<Vehicle> vehicles) {
@@ -60,6 +61,6 @@ public class DefaultDialogPresenter implements DialogPresenter, NetworkState, Ve
   }
 
   @Override public void onFailure() {
-    view.showMessage();
+    view.showMessage(R.string.server_error);
   }
 }

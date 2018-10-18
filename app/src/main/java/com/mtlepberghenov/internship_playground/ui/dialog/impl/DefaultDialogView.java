@@ -1,5 +1,6 @@
 package com.mtlepberghenov.internship_playground.ui.dialog.impl;
 
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.view.View;
 import butterknife.BindView;
@@ -58,8 +59,8 @@ public class DefaultDialogView implements DialogNativeView, DialogView {
     editTextUrl.setText("");
   }
 
-  @Override public void showMessage() {
-
+  @Override public void showMessage(int stringRes) {
+    Snackbar.make(editTextColor.getRootView(), stringRes, Snackbar.LENGTH_SHORT).show();
   }
 
   private void onClickedSave(Vehicle v) {

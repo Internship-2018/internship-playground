@@ -16,5 +16,8 @@
   <string name="url">Image url</string>
   <string name="save">Save</string>
   <string name="cancel">Cancel</string>
+  <string name="server_error">Server doesnt response</string>
+  <string name="offline">No internet. You can\'t post data</string>
+  <string name="offline_1">No internet</string>
 
 </resources>

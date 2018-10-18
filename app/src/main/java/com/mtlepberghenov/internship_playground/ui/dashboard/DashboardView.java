@@ -1,5 +1,6 @@
 package com.mtlepberghenov.internship_playground.ui.dashboard;
 
+import android.support.annotation.StringRes;
 import com.mtlepberghenov.internship_playground.storage.model.Vehicle;
 import java.util.List;
 
@@ -11,7 +12,7 @@ public interface DashboardView {
 
   void updateData(List<Vehicle> list);
 
-  void showMessage();
+  void showMessage(@StringRes int stringRes);
 
   void setRefreshingFalse();
 }

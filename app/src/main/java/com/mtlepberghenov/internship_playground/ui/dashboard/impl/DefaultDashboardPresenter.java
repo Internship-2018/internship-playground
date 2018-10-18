@@ -1,5 +1,6 @@
 package com.mtlepberghenov.internship_playground.ui.dashboard.impl;
 
+import com.mtlepberghenov.internship_playground.R;
 import com.mtlepberghenov.internship_playground.networking.state.NetworkChecker;
 import com.mtlepberghenov.internship_playground.networking.state.NetworkState;
 import com.mtlepberghenov.internship_playground.storage.model.Vehicle;
@@ -51,6 +52,7 @@ public class DefaultDashboardPresenter
     List<Vehicle> list = model.loadData();
     view.updateData(list);
     view.setRefreshingFalse();
+    view.showMessage(R.string.offline_1);
   }
 
   @Override public void onResponse() {
@@ -60,15 +62,16 @@ public class DefaultDashboardPresenter
   }
 
   @Override public void onFailure() {
-    view.showMessage();
-  }
-
-  private void checkNetworkState() {
-    networkChecker.check(this);
+    view.setRefreshingFalse();
+    view.showMessage(R.string.server_error);
   }
 
   @Override public void onDataChanged() {
     Timber.d("onDataChanged");
     view.updateData(model.loadData());
+  }
+
+  private void checkNetworkState() {
+    networkChecker.check(this);
   }
 }

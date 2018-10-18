@@ -71,7 +71,10 @@ public class DefaultDashboardAdapter
       sb.delete(0, sb.length());
 
       Timber.d(vehicle.getImageUrl());
-      Picasso.get().load(vehicle.getImageUrl()).into(imageView);
+      Picasso.get()
+          .load(vehicle.getImageUrl())
+          .error(R.drawable.no_image)
+          .into(imageView);
     }
   }
 }

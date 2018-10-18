@@ -1,5 +1,6 @@
 package com.mtlepberghenov.internship_playground.ui.dashboard.impl;
 
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
@@ -53,8 +54,8 @@ public class DefaultDashboardView implements DashboardNativeView, DashboardView 
     adapter.updateData(list);
   }
 
-  @Override public void showMessage() {
-    //todo show message
+  @Override public void showMessage(int stringRes) {
+    Snackbar.make(recyclerView, stringRes, Snackbar.LENGTH_LONG).show();
   }
 
   @Override public void setRefreshingFalse() {
