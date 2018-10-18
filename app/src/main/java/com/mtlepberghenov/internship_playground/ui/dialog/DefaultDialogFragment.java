@@ -16,6 +16,7 @@ import com.mtlepberghenov.internship_playground.storage.dao.DaoVehicle;
 import com.mtlepberghenov.internship_playground.storage.dao.impl.DefaultDaoVehicle;
 import com.mtlepberghenov.internship_playground.storage.datasource.DbHelper;
 import com.mtlepberghenov.internship_playground.storage.datasource.impl.DefaultDbHelper;
+import com.mtlepberghenov.internship_playground.ui.dialog.impl.DefaultDialogBroadcast;
 import com.mtlepberghenov.internship_playground.ui.dialog.impl.DefaultDialogModel;
 import com.mtlepberghenov.internship_playground.ui.dialog.impl.DefaultDialogPresenter;
 import com.mtlepberghenov.internship_playground.ui.dialog.impl.DefaultDialogView;
@@ -36,7 +37,8 @@ public class DefaultDialogFragment extends DialogFragment {
     final DialogModel model = new DefaultDialogModel(nc,dao);
     final DialogWireframe wireframe = new DefaultDialogWireframe(getActivity());
     final NetworkChecker networkChecker = new DefaultNetworkChecker(getContext());
-    presenter = new DefaultDialogPresenter(view, model, wireframe, networkChecker);
+    final DialogBroadcast broadcast= new DefaultDialogBroadcast(this);
+    presenter = new DefaultDialogPresenter(view, model, wireframe, networkChecker, broadcast);
   }
 
   @Nullable @Override
