@@ -2,14 +2,13 @@ package com.mghelas.internship_playground.ui.startscreen;
 
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mghelas.internship_playground.App;
 import com.mghelas.internship_playground.ui.startscreen.impl.StartPresenterImpl;
 import com.mghelas.internship_playground.ui.startscreen.impl.StartViewImpl;
 import com.mghelas.internship_playground.ui.startscreen.impl.StartWireframeImpl;

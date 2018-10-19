@@ -1,6 +1,8 @@
 package com.mghelas.internship_playground.ui.sweetscreen.add.impl;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
+
+import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -9,7 +11,6 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +26,6 @@ import com.mghelas.internship_playground.ui.sweetscreen.add.SweetAddView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView, AdapterView.OnItemSelectedListener {
@@ -52,7 +52,7 @@ public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView, Adapt
         expiryDate.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                 c = Calendar.getInstance();
+                c = Calendar.getInstance();
                 c.set(year, month, dayOfMonth);
             }
         });
@@ -130,6 +130,7 @@ public class SweetAddViewImpl implements SweetAddView, SweetAddNativeView, Adapt
             switchContainer.addView(textView);
 
             EditText quantity = new EditText(sweetAddFragment.getContext());
+            quantity.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
             quantity.setHint("Quantity");
             switchContainer.addView(quantity);
         }

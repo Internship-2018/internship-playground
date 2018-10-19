@@ -1,6 +1,6 @@
 package com.mghelas.internship_playground;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.crashlytics.android.Crashlytics;
