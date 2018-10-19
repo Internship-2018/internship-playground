@@ -38,6 +38,7 @@ public class SweetListViewImpl implements SweetListView, SweetListNativeView {
     private Button deleteButton;
     private EditText confectionerName;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private SweetAdapter sweetAdapter;
 
     @Override
     public int getLayout() {
@@ -53,6 +54,7 @@ public class SweetListViewImpl implements SweetListView, SweetListNativeView {
         deleteButton = sweetListFragment.getView().findViewById(R.id.delete_by_confectioner_name_btn);
         confectionerName = sweetListFragment.getView().findViewById(R.id.confectioner_name_delete);
         swipeRefreshLayout = sweetListFragment.getView().findViewById(R.id.swipe_refresh);
+        sweetAdapter = new SweetAdapter(new ArrayList<Sweet>(), sweetListPresenter);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -66,8 +68,11 @@ public class SweetListViewImpl implements SweetListView, SweetListNativeView {
                 onDeleteClicked(confectionerName.getText().toString());
             }
         });
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(sweetListFragment.getView().getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(sweetAdapter);
         bindData(new ArrayList<Sweet>());
-        populateView(sweetListFragment);
     }
 
     private void onSwipe() {
@@ -82,28 +87,15 @@ public class SweetListViewImpl implements SweetListView, SweetListNativeView {
         }
     }
 
-    private void populateView(SweetListFragment sweetListFragment) {
-        listLayout.setVisibility(View.VISIBLE);
-        emptyText.setVisibility(View.GONE);
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(sweetListFragment.getView().getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(new SweetAdapter(new ArrayList<Sweet>(), null));
-    }
-
-
     public void bindData(List<Sweet> sweets) {
         swipeRefreshLayout.setRefreshing(false);
         confectionerName.setText("");
         if (sweets.isEmpty()) {
             showEmpty();
         } else {
-            recyclerView.setAdapter(new SweetAdapter(sweets, new ItemClickHandler() {
-                @Override
-                public void onItemClicked(int id) {
-                    onItemClick(id);
-                }
-            }));
+            sweetAdapter.updateData(sweets);
+            listLayout.setVisibility(View.VISIBLE);
+            emptyText.setVisibility(View.GONE);
         }
     }
 
@@ -121,11 +113,6 @@ public class SweetListViewImpl implements SweetListView, SweetListNativeView {
         emptyText.setVisibility(View.VISIBLE);
     }
 
-    private void onItemClick(int id) {
-        if (itemClickHandler != null) {
-            itemClickHandler.onItemClicked(id);
-        }
-    }
 
     @Override
     public void setOnItemClickHandler(ItemClickHandler itemClickHandler) {

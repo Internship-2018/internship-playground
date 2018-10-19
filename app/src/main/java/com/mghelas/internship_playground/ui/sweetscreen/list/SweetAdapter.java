@@ -29,6 +29,11 @@ public class SweetAdapter extends RecyclerView.Adapter<SweetAdapter.MyViewHolder
         this.itemClickHandler = itemClickHandler;
     }
 
+    public void updateData(List<Sweet> sweets){
+        this.items = sweets;
+        notifyDataSetChanged();
+    }
+
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
