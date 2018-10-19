@@ -31,12 +31,12 @@ public class DefaultDashboardView implements DashboardNativeView, DashboardView 
 
   @Override public void initView(FragmentActivity activity) {
     ButterKnife.bind(this, activity);
+    recyclerView.setHasFixedSize(true);
     LinearLayoutManager manager = new LinearLayoutManager(activity);
     DividerItemDecoration decoration =
         new DividerItemDecoration(recyclerView.getContext(), manager.getOrientation());
     recyclerView.addItemDecoration(decoration);
     recyclerView.setLayoutManager(manager);
-    recyclerView.setHasFixedSize(true);
 
     setOnRefreshListener();
   }

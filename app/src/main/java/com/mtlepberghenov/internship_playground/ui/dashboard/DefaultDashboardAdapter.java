@@ -20,7 +20,7 @@ import timber.log.Timber;
 public class DefaultDashboardAdapter
     extends RecyclerView.Adapter<DefaultDashboardAdapter.ViewHolder>
     implements DashboardAdapter {
-
+  private Picasso picasso = Picasso.get();
   private List<Vehicle> list = new ArrayList<>();
 
   @NonNull @Override public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -71,8 +71,11 @@ public class DefaultDashboardAdapter
       sb.delete(0, sb.length());
 
       Timber.d(vehicle.getImageUrl());
-      Picasso.get()
+      Picasso
+          .get()
           .load(vehicle.getImageUrl())
+          .resize(800, 600)
+          .onlyScaleDown()
           .error(R.drawable.no_image)
           .into(imageView);
     }
