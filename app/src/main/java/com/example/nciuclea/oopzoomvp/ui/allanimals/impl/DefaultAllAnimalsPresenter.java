@@ -46,7 +46,7 @@ public class DefaultAllAnimalsPresenter implements AllAnimalsPresenter, DataUpda
 
     @Override
     public void onClick(View v, int id) {
-        allAnimalsWireframe.showAnimalDescription(id);
+        allAnimalsWireframe.showAnimalDescription(v, id);
     }
 
     @Override

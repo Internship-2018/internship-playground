@@ -1,6 +1,7 @@
 package com.example.nciuclea.oopzoomvp.ui.animaldescription.impl;
 
 import android.content.Context;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -23,6 +24,7 @@ public class DefaultAnimalDescriptionView implements AnimalDescriptionView, Anim
 
     private TextView nameTextView;
     private ImageView animalImageView;
+    boolean isImageFitToScreen;
     private TextView habitatTextView;
     private TextView locationTextView;
     private TextView descriptionTextView;

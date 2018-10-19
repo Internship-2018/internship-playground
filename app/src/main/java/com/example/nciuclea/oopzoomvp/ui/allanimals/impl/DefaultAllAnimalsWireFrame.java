@@ -1,6 +1,7 @@
 package com.example.nciuclea.oopzoomvp.ui.allanimals.impl;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.nciuclea.oopzoomvp.R;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsFragment;
@@ -17,9 +18,9 @@ public class DefaultAllAnimalsWireFrame implements AllAnimalsWireframe {
     }
 
     @Override
-    public void showAnimalDescription(int animalId) {
+    public void showAnimalDescription(View v, int animalId) {
         Bundle bundle = new Bundle();
         bundle.putInt("animalId", animalId);
-        Navigation.findNavController(allAnimalsFragment.getView()).navigate(R.id.action_allAnimalsFragment_to_animalDescriptionFragment, bundle);
+        Navigation.findNavController(v).navigate(R.id.action_allAnimalsFragment_to_animalDescriptionFragment, bundle);
     }
 }

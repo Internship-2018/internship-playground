@@ -1,6 +1,7 @@
 package com.example.nciuclea.oopzoomvp.ui.allanimals.impl;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,6 +18,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import jp.wasabeef.picasso.transformations.BlurTransformation;
+import jp.wasabeef.picasso.transformations.ColorFilterTransformation;
 
 public class AllAnimalsAdapter extends RecyclerView.Adapter<AllAnimalsAdapter.AnimalViewHolder>{
 
@@ -64,13 +68,13 @@ public class AllAnimalsAdapter extends RecyclerView.Adapter<AllAnimalsAdapter.An
 
     class AnimalViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView animalImageView;
         TextView animalTextView;
+        ImageView animalBackgroundImageView;
 
         AnimalViewHolder(@NonNull final View itemView) {
             super(itemView);
-            animalImageView = itemView.findViewById(R.id.allanimals_animalImageView);
             animalTextView = itemView.findViewById(R.id.allanimals_animalNameTextView);
+            animalBackgroundImageView = itemView.findViewById(R.id.allanimals_animalImageViewBackground);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -88,8 +92,13 @@ public class AllAnimalsAdapter extends RecyclerView.Adapter<AllAnimalsAdapter.An
         }
 
         void updateItemUI(Animal animal) {
-            Picasso.get().load(animal.getImageUrl()).into(animalImageView);
             animalTextView.setText(animal.getName());
+            Picasso.get()
+                    .load(animal.getImageUrl())
+                    .transform(new BlurTransformation(context, 5))
+                    .transform(new ColorFilterTransformation(Color.argb(150, 255,255,255)))
+                    .into(animalBackgroundImageView);
+
         }
     }
 }

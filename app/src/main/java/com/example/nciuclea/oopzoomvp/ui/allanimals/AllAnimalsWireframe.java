@@ -1,5 +1,7 @@
 package com.example.nciuclea.oopzoomvp.ui.allanimals;
 
+import android.view.View;
+
 public interface AllAnimalsWireframe {
-    void showAnimalDescription(int animalId);
+    void showAnimalDescription(View v, int animalId);
 }
