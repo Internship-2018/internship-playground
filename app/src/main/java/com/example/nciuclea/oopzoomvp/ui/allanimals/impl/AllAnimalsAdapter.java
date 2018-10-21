@@ -96,7 +96,7 @@ public class AllAnimalsAdapter extends RecyclerView.Adapter<AllAnimalsAdapter.An
             Picasso.get()
                     .load(animal.getImageUrl())
                     .transform(new BlurTransformation(context, 5))
-                    .transform(new ColorFilterTransformation(Color.argb(150, 255,255,255)))
+                    .transform(new ColorFilterTransformation(Color.argb(120, 200,200,200)))
                     .into(animalBackgroundImageView);
 
         }
