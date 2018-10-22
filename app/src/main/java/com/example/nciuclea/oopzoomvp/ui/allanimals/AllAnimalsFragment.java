@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.nciuclea.oopzoomvp.R;
 import com.example.nciuclea.oopzoomvp.storage.dao.Animal;
 import com.example.nciuclea.oopzoomvp.storage.datasource.DBHelper;
 import com.example.nciuclea.oopzoomvp.ui.allanimals.impl.DefaultAllAnimalsModel;
@@ -34,6 +35,7 @@ public class AllAnimalsFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         Log.d("FRAGMENT_LIFECYCLE", "onCreate()");
 

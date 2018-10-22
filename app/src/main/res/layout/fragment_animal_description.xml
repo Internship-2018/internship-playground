@@ -12,14 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:background="@color/image_background">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:contentScrim="@color/green"
             app:expandedTitleMarginStart="48dp"
             app:expandedTitleMarginEnd="64dp"
             android:fitsSystemWindows="true">
@@ -27,7 +28,7 @@
             <ImageView
                 android:id="@+id/animalImageView"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height='350dp'
                 android:scaleType="fitCenter"
                 android:contentDescription="@string/animal_image"
                 app:layout_collapseMode="parallax"

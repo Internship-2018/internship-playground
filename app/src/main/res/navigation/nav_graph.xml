@@ -3,17 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/welcomeFragment">
+    app:startDestination="@id/allAnimalsFragment">
 
-    <fragment
-        android:id="@+id/welcomeFragment"
-        android:name="com.example.nciuclea.oopzoomvp.ui.welcome.WelcomeFragment"
-        android:label="fragment_welcome"
-        tools:layout="@layout/fragment_welcome" >
-        <action
-            android:id="@+id/action_welcomeFragment_to_allAnimalsFragment"
-            app:destination="@id/allAnimalsFragment" />
-    </fragment>
     <fragment
         android:id="@+id/allAnimalsFragment"
         android:name="com.example.nciuclea.oopzoomvp.ui.allanimals.AllAnimalsFragment"
